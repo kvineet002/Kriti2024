@@ -16,7 +16,7 @@ connect(
   "mongodb+srv://auth-admin:AdHDOvAtNy8He2l3@cluster0.s875rof.mongodb.net/Kriti2024"
 );
 app.use(cors({
-  origin: '', // Replace with your frontend's actual domain
+  origin: 'https://kriti2024.vercel.app', // Replace with your frontend's actual domain
   credentials: true,
 }));
 app.use(bodyParser.json());
