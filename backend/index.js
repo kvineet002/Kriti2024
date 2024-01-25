@@ -15,8 +15,9 @@ const port = 3002;
 connect(
   "mongodb+srv://auth-admin:AdHDOvAtNy8He2l3@cluster0.s875rof.mongodb.net/Kriti2024"
 );
+const allowedOrigins = ['https://kriti2024.vercel.app', 'http://localhost:3000'];
 app.use(cors({
-  origin: 'https://kriti2024.vercel.app', // Replace with your frontend's actual domain
+  origin: allowedOrigins, // Replace with your frontend's actual domain
   credentials: true,
 }));
 app.use(bodyParser.json());
