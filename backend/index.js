@@ -15,7 +15,10 @@ const port = 3002;
 connect(
   "mongodb+srv://auth-admin:AdHDOvAtNy8He2l3@cluster0.s875rof.mongodb.net/Kriti2024"
 );
-app.use(cors());
+app.use(cors({
+  origin: '', // Replace with your frontend's actual domain
+  credentials: true,
+}));
 app.use(bodyParser.json());
 
 // console.log('Static files directory:', join(__dirname, 'uploads'));

@@ -15,14 +15,14 @@ function Login() {
   
       try {
         setLoading("Uploading...")
-        const response= await axios.post('http://localhost:3002/api/users/upload', formData, {
+        const response= await axios.post('https://kriti2024-backend.vercel.app/api/users/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
   
         const serverURL = response.data.url; // Assuming the server responds with the file URL
-        const responce2=await axios.post('http://localhost:3002/api/users', {
+        const responce2=await axios.post('https://kriti2024-backend.vercel.app/api/users', {
           profileUrl: serverURL
         });
         setProfileURL(serverURL)
