@@ -11,8 +11,8 @@ connect(
   "mongodb+srv://auth-admin:AdHDOvAtNy8He2l3@cluster0.s875rof.mongodb.net/Kriti2024(Dihing)"
 );
 
-const allowedOrigins = ['https://kriti2024.vercel.app', 'http://localhost:3000'];
-app.use(cors({origin:allowedOrigins}));
+const allowedOrigins = [, 'http://localhost:3000'];
+app.use(cors({origin:'https://kriti2024.vercel.app'}));
 app.use(bodyParser.json());
 
 app.use("/api/users", userRoutes);
