@@ -31,7 +31,7 @@ const Login = () => {
       <div className=" flex justify-center flex-col w-full items-center my-10">
         <h2>Outlook Authentication</h2>
         <div
-          className=" border bg-blue-500 text-white font-bold rounded-lg p-2 px-6"
+          className=" border bg-blue-500 text-white font-bold rounded-lg p-2 px-6 "
           onClick={handleLogin}
         >
           Login with Outlook
