@@ -1,6 +1,4 @@
 import React from 'react'
-import Navbar from '../../components/Navbar';
-import { Link } from 'react-router-dom';
 // import Navbar from '../../components/Navbar'
 // import './Home.css';
 function Home() {
@@ -51,13 +49,6 @@ function Home() {
 
   return (
     <div className='bg-[black]  text-white'>
-       <div className=' flex flex-col gap-1 justify-center my-10 items-center '>
-        <Navbar/>
-       <div> Your Home Page</div>
-       <Link to="/login"><div className=' text-center  w-[40vh] flex justify-center bg-black text-white px-4 cursor-pointer rounded-full py-2'>
-     Login
-      </div></Link>  
-    </div>
       <div className='flex flex-col gap-4'>
         <div className='text-[30px] text-[#EAEAEA] text-2xl md:text-[#EAEAEA] md:text-6xl ml-[13vw]'>Browse talent by category</div>
         <div className=' text-sm mt-[-2px] mb-4  md:text-[18px]  ml-[13vw]'>Looking for collab?<span className='text-[#16ACE7] cursor-pointer'> Browse Projects</span></div>
