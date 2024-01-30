@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(34, 34, 34);
+}
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+.hero__page{
+    background:
+    linear-gradient(
+          rgba(0, 0, 0, 0.8), 
+          rgba(0, 0, 0, 0.8)
+        ),
+    url(../public/grid.png), url(../public/smoke.png) no-repeat;
+    background-color: #181818;
+    
+}
+.about-us{
+    background: linear-gradient(180deg, #242424 0%, #121212 100%);
+}
+
+.font_urbanist{
+    font-family: "Urbanist", sans-serif;
+}
+
+
+.my_shadow{
+    filter: drop-shadow(4px 4px 47.7px rgba(249, 249, 249, 0.15));
+}
+
+@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .rotate-infinite {
+    animation: rotate infinite 4s linear;
+  }
+  
