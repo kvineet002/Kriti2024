@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getAuth, OAuthProvider} from "firebase/auth"
 const firebaseConfig = {
@@ -15,4 +14,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const provider=new OAuthProvider('microsoft.com');
-export {auth,provider};
+export {auth,provider,firebaseConfig};
