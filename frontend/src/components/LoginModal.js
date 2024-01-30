@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../authConfig";
+import { auth, provider } from "../pages/Login/authConfig";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
