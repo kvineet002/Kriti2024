@@ -7,15 +7,20 @@ const Login = () => {
   const [val,setVal]=useState('')
   const navigate= useNavigate();
   const handleLogin = async () => {
+
     try {
       const result = await signInWithPopup(auth, provider);
-      const { email, displayName, uid,accessToken} = result.user;
+      const { email, displayName,accessToken} = result.user;
       const response = await axios.post('http://localhost:3002/api/users', {
         Email: email,
         Name: displayName,
-        Id: uid,
         token:accessToken
       });
+      localStorage.setItem('id',response.data.user._id);
+      localStorage.setItem('Name',response.data.user.Name);
+      localStorage.setItem('email',response.data.user.Email);
+      localStorage.setItem('token',response.data.user.token);
+      
       console.log("Response from server:", response.data.user);
       navigate('/explore');
     } catch (error) {
