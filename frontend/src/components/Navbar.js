@@ -12,6 +12,9 @@ function Navbar() {
           <div className="uppercase font-semibold text-2xl flex items-center flex-shrink-0 text-white">
             <span className="tracking-tight cursor-pointer">Collampus</span>
           </div>
+         {!loggedIn&& <button className="block mt-4 lg:inline-block lg:mt-0 text-white hover:underline mr-4">
+            Home
+          </button>}
           <button className="block mt-4 lg:inline-block lg:mt-0 text-white hover:underline mr-4">
             Explore
           </button>
