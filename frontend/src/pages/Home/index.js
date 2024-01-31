@@ -70,7 +70,7 @@ function Home() {
             </h3>
            
             <button
-              className="border-2 border-black rounded-[25px]  w-44 h-12 text-xl my-5 bg-black text-white text-normal mb-[80px]"
+              className="border-2 border-black rounded-[25px] hover:text-black hover:bg-white  w-44 h-12 text-xl my-5 bg-black text-white text-normal mb-[80px]"
               onClick={() => {
                 setShowLoginModal(true);
               }}
