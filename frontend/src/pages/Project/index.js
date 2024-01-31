@@ -3,15 +3,21 @@ import Navbar from '../../components/Navbar'
 
 function Project() {
   return (
-    <div className='flex flex-col  text-white'>
-      
-      <div><Navbar></Navbar></div>
-      <div className='h-48 relative top-12 border-b-[1px] border-white  flex  items-center'>
-        <span className='text-2xl border-[1px] w-[230px] sm:h-[50px] sm:rounded-[30px]  pt-2px uppercase border-[#EAEAEA] mx-[40px]  flex items-center justify-center cursor-pointer'>CATEGORIES</span>
-        <div className='text-xl font-nornal uppercase mx-6 cursor-pointer'>design</div>
-        <div  className='text-xl font-nornal uppercase mx-6 cursor-pointer'>Development</div>
-        <div  className='text-xl font-nornal uppercase mx-6 cursor-pointer'>Biology</div>
-
+    <div className=' flex flex-col items-center justify-center my-10'>
+      <Navbar />
+      <div className=' border-black p-5 w-[20%] border-4 rounded-full text-center'>Hey EXPLORE below</div>
+      <div className='flex flex-col gap-2'>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
       </div>
     </div>
   )

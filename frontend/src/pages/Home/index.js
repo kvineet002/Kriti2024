@@ -7,7 +7,7 @@ function Home() {
     users: [
       {
         name: "John Doe",
-        rating: 4.5,
+        profile: 4.5,
         projectNo: 10,
       },
       {
@@ -75,7 +75,7 @@ function Home() {
             >
               Get Started
             </button>
-            <div className="flex justify-center items-center mb-[3rem]">
+            <div className="flex justify-center items-center mb-[3rem]"  onClick={()=>window.scrollTo( {top:800, behavior: 'smooth'})}>
               <img
                 src="/ScrollDown.svg"
                 className="absolute rotate-infinite w-16 sm:w-20 "
@@ -156,7 +156,7 @@ function Home() {
       <img src="/Arrow2.svg" className=" w-6 sm:w-[70px] mx-auto" alt="" />
 
       {/*Showcase Suite */}
-      <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] ">
+      <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] z-30 ">
         <div className="flex gap-3 pt-3 items-center pl-3">
           <div className="h-[45px] w-[45px] bg-[#262626] rounded-[50%] flex items-center justify-center">
             <img src="/flag.svg" height="30px" width="30px" />

@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <div>
       <div className="mobile lg:hidden">
-        <nav className="flex fixed w-full items-center justify-between flex-wrap bg-[#0c0c0c97]  p-6 ">
+        <nav className="flex fixed z-10  w-full items-center justify-between flex-wrap bg-[#0c0c0c97]  p-6 ">
           <div className="uppercase font-semibold text-2xl flex items-center flex-shrink-0 text-white mr-6">
             <Link to="/" className="tracking-tight cursor-pointer">Collampus</Link>
           </div>
