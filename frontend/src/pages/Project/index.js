@@ -3,10 +3,23 @@ import Navbar from '../../components/Navbar'
 
 function Project() {
   return (
-    <div>
-      your specific project page
-      <h1>this is profile page </h1>
-    </div>
+
+    <div className=' flex flex-col items-center justify-center my-10'>
+      <Navbar />
+      <div className=' border-black p-5 w-[20%] border-4 rounded-full text-center'>Hey EXPLORE below</div>
+      <div className='flex flex-col gap-2'>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+        <div className=' font-bold'>Project</div>
+      </div>
   )
 }
 
