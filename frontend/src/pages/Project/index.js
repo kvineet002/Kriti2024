@@ -20,6 +20,7 @@ function Project() {
         <div className=' font-bold'>Project</div>
         <div className=' font-bold'>Project</div>
       </div>
+    </div>
   )
 }
 
