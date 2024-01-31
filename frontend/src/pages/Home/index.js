@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
+import Footer from "../../components/Footer";
 function Home() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const userData = {
@@ -54,7 +55,7 @@ function Home() {
         <Navbar />
         <div className="pt-[200px] sm:pt-64 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
-            <div className="bg-[#FFF] h-10 rounded-2xl w-[50vw] text-[#474646] text-[10px] md:w-[35vw] md:text-[25px] flex justify-center items-center font-bold">
+            <div className="bg-[#FFF] h-10 rounded-2xl w-[60vw]  text-[#474646] text-xs sm:w-[35vw] md:text-[15px] flex justify-center items-center font-bold">
               <h1>Endless collaboration possibilities!</h1>
             </div>
           </div>
@@ -168,7 +169,7 @@ function Home() {
             Showcase Suite
           </h1>
         </div>
-        <div className="flex-col sm:flex sm:flex-row-reverse sm:flex-gap-[10px] sm:justify-between sm:items-center ">
+        <div className="flex-col sm:flex md:flex-row-reverse sm:flex-gap-[10px] sm:justify-between sm:items-center">
           <img
             src="/showcase.jpg"
             alt="architects"
@@ -216,6 +217,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

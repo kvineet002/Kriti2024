@@ -54,7 +54,7 @@ const LoginModal = ({onClose}) => {
           
 
 
-          <div className="w-[75%] md:w-[50%] flex justify-between text-[4px] md:text-xs mb-20">
+          <div className="w-[75%] md:w-[50%] flex justify-between text-[10px] md:text-xs mb-20">
             <div className="text-white">Having problem signing up?</div>
             <div className=" text-red-600 cursor-pointer hover:underline">Report Problem</div>
           </div>
