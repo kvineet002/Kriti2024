@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar2 from "../../components/navbar2";
 import LoginModal from "../../components/LoginModal";
 function Home() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -52,8 +52,8 @@ function Home() {
   return (
     <div className="w-full">
       <div className="hero__page w-full">
-        <Navbar />
-        <div className="pt-[200px] sm:pt-64 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
+        <Navbar2 />
+        <div className="pt-[200px] sm:pt-44 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
             <div className="bg-[#FFF] py-3 rounded-full  text-[#474646] text-[15px]  md:text-base flex justify-center items-center font-bold">
               <h1 className=" px-12 md:px-16">Endless collaboration possibilities!</h1>
