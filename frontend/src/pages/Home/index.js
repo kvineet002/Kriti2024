@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
-import LoginModal from "../../components/LoginModal";
 function Home() {
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const userData = {
     users: [
       {
@@ -54,8 +52,8 @@ function Home() {
         <Navbar />
         <div className="pt-[200px] flex flex-col items-center justify-center gap-7">
           <div>
-            <div className="bg-[#FFF] h-10 rounded-2xl w-[50vw] text-[#474646] text-[10px] md:w-[35vw] md:text-[25px] flex justify-center items-center font-bold">
-              <h1>Endless collaboration possibilities!</h1>
+            <div className="bg-[#FFF] py-3 rounded-full  text-[#474646] text-[15px]  md:text-base flex justify-center items-center font-bold">
+              <h1 className=" px-12 md:px-16">Endless collaboration possibilities!</h1>
             </div>
           </div>
           <div className=" flex flex-col items-center text-white">
@@ -67,14 +65,7 @@ function Home() {
               Fostering innovation through collaborative design, development,
               and diverse expertise.
             </h3>
-            <button
-              className="border-2 border-black rounded-[25px]  w-44 h-12 text-xl my-5 bg-black text-white text-normal mb-[80px]"
-              onClick={() => {
-                setShowLoginModal(true);
-              }}
-            >
-              Get Started
-            </button>
+           
             <div className="flex justify-center items-center ">
               <img
                 src="/ScrollDown.svg"
@@ -85,10 +76,7 @@ function Home() {
           </div>
         </div>
       </div>
-      {/*Login Modal */}
-      {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
-      )}
+    
 
       {/*About-Us */}
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
