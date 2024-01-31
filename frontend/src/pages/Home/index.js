@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
+import LoginModal from "../../components/LoginModal";
 function Home() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   const userData = {
     users: [
       {
@@ -66,7 +69,15 @@ function Home() {
               and diverse expertise.
             </h3>
            
-            <div className="flex justify-center items-center ">
+            <button
+              className="border-2 border-black rounded-[25px]  w-44 h-12 text-xl my-5 bg-black text-white text-normal mb-[80px]"
+              onClick={() => {
+                setShowLoginModal(true);
+              }}
+            >
+              Get Started
+            </button>
+            <div className="flex justify-center items-center mb-[3rem]">
               <img
                 src="/ScrollDown.svg"
                 className="absolute rotate-infinite w-16 sm:w-20 "
@@ -76,9 +87,11 @@ function Home() {
           </div>
         </div>
       </div>
-    
+      {/*Login Modal */}
+      {showLoginModal && (
+        <LoginModal onClose={() => setShowLoginModal(false)} />
+      )}
 
-      
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
         <h1 className="text-center text-6xl  my-6 ">About Us</h1>
         <div className="flex text-[16px] px-auto mt-5 w-5/9 mx-auto text-xl">
@@ -117,12 +130,12 @@ function Home() {
             <span className="text-[16px] sm:text-[30px]  lg:text-[30px] ml-3  ">
               {user.name}
             </span>
-            <div className="ml-3 w-[95%] sm:text-[20px] flex text-sm  lg:text-[28px]  ">
+            <div className="ml-3 w-[95%] text-base flex  items-center gap-1  ">
               <img
                 src="./star1.svg"
-                className=" sm:w-5 sm:h-5 md:w-7  md:h-7 my-auto"
-                height="15px"
-                width="15px"
+                className=" my-auto"
+                height="20px"
+                width="20px"
                 alt=""
               />
               {user.rating}/5
