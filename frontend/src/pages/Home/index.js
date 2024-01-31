@@ -52,7 +52,7 @@ function Home() {
     <div className="w-full">
       <div className="hero__page w-full">
         <Navbar />
-        <div className="pt-[200px] flex flex-col items-center justify-center gap-7">
+        <div className="pt-[200px] sm:pt-64 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
             <div className="bg-[#FFF] h-10 rounded-2xl w-[50vw] text-[#474646] text-[10px] md:w-[35vw] md:text-[25px] flex justify-center items-center font-bold">
               <h1>Endless collaboration possibilities!</h1>
@@ -75,10 +75,10 @@ function Home() {
             >
               Get Started
             </button>
-            <div className="flex justify-center items-center ">
+            <div className="flex justify-center items-center mb-[3rem]">
               <img
                 src="/ScrollDown.svg"
-                className="absolute rotate-infinite"
+                className="absolute rotate-infinite w-16 sm:w-20 "
               />
               <img src="/Arrow.svg" alt="" className="absolute" />
             </div>
@@ -90,7 +90,7 @@ function Home() {
         <LoginModal onClose={() => setShowLoginModal(false)} />
       )}
 
-      {/*About-Us */}
+      
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
         <h1 className="text-center text-6xl  my-6 ">About Us</h1>
         <div className="flex text-[16px] px-auto mt-5 w-5/9 mx-auto text-xl">
@@ -109,8 +109,8 @@ function Home() {
       </div>
 
       {/*Browse Talent*/}
-      <div className="flex flex-col gap-4 pt-6">
-        <div className="text-[30px] text-[#EAEAEA] text-2xl md:text-[#EAEAEA] md:text-6xl ml-[13vw]">
+      <div className="flex flex-col gap-4 pt-6 text-[#EAEAEA]">
+        <div className="text-[30px]  text-2xl md:text-[#EAEAEA] md:text-6xl ml-[13vw]">
           Browse talent by category
         </div>
         <div className=" text-sm mt-[-2px] mb-4  md:text-[18px]  ml-[13vw]">
@@ -149,10 +149,11 @@ function Home() {
 
       {/*Circles */}
       <div className="flex justify-center">
-        <div className="w-[70px] h-[70px] m-[1.4rem] rounded-full border-[#8D9093] border-2"></div>
-        <div className="w-[70px] h-[70px] m-[1.4rem] rounded-full border-[#8D9093] border-2"></div>
-        <div className="w-[70px] h-[70px] m-[1.4rem] rounded-full border-[#8D9093] border-2"></div>
+        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2"></div>
+        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2 flex items-center justify-center"></div>
+        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20 m-[1rem] rounded-full border-[#8D9093] border-2"></div>
       </div>
+      <img src="/Arrow2.svg" className=" w-6 sm:w-[70px] mx-auto" alt="" />
 
       {/*Showcase Suite */}
       <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] ">
