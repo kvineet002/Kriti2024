@@ -4,17 +4,23 @@ import LoginModal from "./LoginModal";
 function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   return (
-
-    <nav className=" bg-[#0c0c0c97] p-6 fixed w-full md:px-12">
-      <div className=" flex  justify-between items-center">
-        <div className=" flex gap-6">
-          <div className="uppercase font-semibold text-2xl flex items-center flex-shrink-0 text-white">
+    <div className="fixed top-0 w-full z-50">
+    <nav className=" bg-[#0c0c0c97] p-6 w-full md:px-12">
+      <div className=" flex flex-col items-center justify-center">
+        <div className=" ">
+        <div> <div className="uppercase font-semibold text-2xl flex text-white">
             <span className="tracking-tight cursor-pointer">Collampus</span>
-
-          </div>
-         {!loggedIn&& <button className="block mt-4 lg:inline-block lg:mt-0 text-white hover:underline mr-4">
+            {!loggedIn&&  <button
+          className="border-2 px-4 py-2 bg-white text-black border-black rounded-[25px]   hover:bg-black hover:text-white text-sm"
+          onClick={() => {
+            setShowLoginModal(true);
+          }}
+        >
+          Get Started
+        </button>}
+          </div></div> 
+         {loggedIn&& <button className="block mt-4 lg:inline-block lg:mt-0 text-white hover:underline mr-4">
             Home
           </button>}
           <button className="block mt-4 lg:inline-block lg:mt-0 text-white hover:underline mr-4">
@@ -27,35 +33,14 @@ function Navbar() {
             People
           </button>
         </div>
-        <button
-          className="border-2 px-4 py-2 bg-white text-black border-black rounded-[25px]   hover:bg-black hover:text-white text-sm"
-          onClick={() => {
-            setShowLoginModal(true);
-          }}
-        >
-          Get Started
-        </button>
+    
       </div>
       {/*Login Modal */}
       {showLoginModal && (
         <LoginModal onClose={() => setShowLoginModal(false)} />
       )}
 
-      <div className="block lg:hidden">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center px-3 py-2 border rounded text-white border-white-400 hover:text-white hover:border-white"
-        >
-          <svg
-            className="fill-current h-3 w-3"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </button>
-      </div>
+
      
           {loggedIn && (
             <form className="flex">
@@ -79,7 +64,7 @@ function Navbar() {
               </button>
             </form>
           )}
-    </nav>
+    </nav></div>
   );
 }
 

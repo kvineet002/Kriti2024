@@ -6,17 +6,24 @@ const userSchema = new mongoose.Schema({
   token: { type: String },
   followers: [
     {
+      id:{type:String},
       name: { type: String },
       profilePicture: { type: String },
     }
   ],
   following: [
-    {
+    {id:{type:String},
       name: { type: String },
       profilePicture: { type: String },
     }
   ],
   yourProjects: [
+    {
+      projectName: { type: String },
+      projectDetails: { type: String },
+    }
+  ],
+  savedProjects: [
     {
       projectName: { type: String },
       projectDetails: { type: String },
