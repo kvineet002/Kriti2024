@@ -52,7 +52,7 @@ function Home() {
   return (
     <div className="w-full">
       <div className="hero__page w-full">
-        <Navbar />
+        < Navbar />
         <div className="pt-[200px] sm:pt-64 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
             <div className="bg-[#FFF] py-3 rounded-full  text-[#474646] text-[15px]  md:text-base flex justify-center items-center font-bold">
@@ -68,7 +68,7 @@ function Home() {
               Fostering innovation through collaborative design, development,
               and diverse expertise.
             </h3>
-           
+
             <button
               className="border-2 border-black rounded-[25px] hover:text-black hover:bg-white  w-44 h-12 text-xl my-5 bg-black text-white text-normal mb-[80px]"
               onClick={() => {
@@ -77,7 +77,7 @@ function Home() {
             >
               Get Started
             </button>
-            <div className="flex justify-center items-center mb-[3rem]"  onClick={()=>window.scrollTo( {top:800, behavior: 'smooth'})}>
+            <div className="flex justify-center items-center mb-[3rem]" onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}>
               <img
                 src="/ScrollDown.svg"
                 className="absolute rotate-infinite w-16 sm:w-20 "
@@ -110,51 +110,59 @@ function Home() {
       </div>
 
       {/*Browse Talent*/}
-      <div className="flex flex-col gap-4 pt-6 text-[#EAEAEA]">
-        <div className="text-[30px]  text-2xl md:text-[#EAEAEA] md:text-6xl ml-[13vw]">
-          Browse talent by category
-        </div>
-        <div className=" text-sm mt-[-2px] mb-4  md:text-[18px]  ml-[13vw]">
-          Looking for collab?
-          <span className="text-[#16ACE7] cursor-pointer">
-            {" "}
-            Browse Projects
-          </span>
-        </div>
-      </div>
+
 
       {/*User Cards*/}
-      <div className="flex w-[90vw] md:w-[95vw] flex-wrap justify-center items-center mx-auto">
-        {userData.users.map((user, index) => (
-          <div className="m-[8px] w-[34vw]  md:w-[18vw] rounded-[8px] h-[30vw] md:h-[16vw]  flex flex-col justify-between border-[1px] border-[#565656] bg-gradient-to-b from-[#343333d8] to-blue-500-500 to-black text-[#EAEAEA]  cursor-pointer ">
-            <span className="text-[16px] sm:text-[30px]  lg:text-[30px] ml-3  ">
-              {user.name}
-            </span>
-            <div className="ml-3 w-[95%] text-base flex  items-center gap-1  ">
-              <img
-                src="./star1.svg"
-                className=" my-auto"
-                height="20px"
-                width="20px"
-                alt=""
-              />
-              {user.rating}/5
-            </div>
-
-            <div className=" text-right  mb-4 mr-4 text-[#e8f8ff8e] text-[12px] md:text-end sm:">
-              {user.projectNo} Projects
-            </div>
+      <div className="relative">
+        <img className="absolute cover right-0 sm:top-16 top-16  sm:w-[30vw] w-[50vw] h-[200px] " src="/talentRightUp.svg " alt="" />
+        <div className="  flex flex-col gap-4 pt-6 text-[#EAEAEA]">
+          <div className="text-[30px]  text-2xl md:text-[#EAEAEA] md:text-6xl ml-[13vw]">
+            Browse talent by category
           </div>
-        ))}
+          <div className=" text-sm mt-[-2px] mb-4  md:text-[18px]  ml-[13vw]">
+            Looking for collab?
+            <span className="text-[#16ACE7] cursor-pointer">
+              {" "}
+              Browse Projects
+            </span>
+          </div>
+        </div>
+        <img className="absolute bottom-0  left-0 sm:h-68 h-72  w-[40vw] " src="/talentBottomLeft.png " alt="" />
+
+
+        <div className=" flex w-[90vw] md:w-[95vw] z-30 flex-wrap justify-center items-center mx-auto  ">
+          {userData.users.map((user, index) => (
+            <div className="m-[8px]  z-10 w-[34vw]  md:w-[18vw] rounded-[8px] h-[30vw] md:h-[16vw]  flex flex-col justify-between border-[1px] border-[#565656] bg-gradient-to-b from-[#343333d8] to-blue-500-500 to-black text-[#EAEAEA]  cursor-pointer ">
+              <span className="text-[16px] sm:text-[30px]  lg:text-[30px] ml-3  ">
+                {user.name}
+              </span>
+              <div className="ml-3 w-[95%] text-base flex  items-center gap-1  ">
+                <img
+                  src="./star1.svg"
+                  className=" my-auto"
+                  height="20px"
+                  width="20px"
+                  alt=""
+                />
+                {user.rating}/5
+              </div>
+
+              <div className=" text-right  mb-4 mr-4 text-[#e8f8ff8e] text-[12px] md:text-end sm:">
+                {user.projectNo} Projects
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/*Circles */}
+        <div className="flex justify-center">
+          <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2"></div>
+          <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2 flex items-center justify-center"></div>
+          <div className="w-[30px] h-[30px] sm:w-20 sm:h-20 m-[1rem] rounded-full border-[#8D9093] border-2"></div>
+        </div>
+        <img src="/Arrow2.svg" className=" w-6 sm:w-[70px] mx-auto" alt="" />
       </div>
 
-      {/*Circles */}
-      <div className="flex justify-center">
-        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2"></div>
-        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2 flex items-center justify-center"></div>
-        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20 m-[1rem] rounded-full border-[#8D9093] border-2"></div>
-      </div>
-      <img src="/Arrow2.svg" className=" w-6 sm:w-[70px] mx-auto" alt="" />
 
       {/*Showcase Suite */}
       <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] z-30 ">

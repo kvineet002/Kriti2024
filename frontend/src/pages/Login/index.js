@@ -7,7 +7,7 @@ const Login = () => {
   const [val,setVal]=useState('')
   const navigate= useNavigate();
   const handleLogin = async () => {
-
+    
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName,accessToken} = result.user;

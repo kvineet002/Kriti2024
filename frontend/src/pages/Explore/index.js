@@ -8,7 +8,7 @@ function Explore() {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [error, setError] = useState(null);
-  const [active, setActive] = useState("");
+
 
   // json data 
   const Projects = [
@@ -16,7 +16,7 @@ function Explore() {
       "title": "E-commerce Website Redesign",
       "description": "Redesigning the user interface and experience of an existing e-commerce website.",
       "category": "Web",
-      "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
+      "bannerUrl": "/project1.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
       "status": "Need help",
       "statusMessage": "Currently working on the frontend components.",
@@ -32,7 +32,7 @@ function Explore() {
       "title": "Mobile App for Fitness Tracking",
       "description": "Developing a mobile app to track and analyze fitness activities.",
       "category": "App",
-      "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
+      "bannerUrl": "/project1.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
       "status": "Completed",
       "statusMessage": "App successfully launched on app stores.",
@@ -48,7 +48,7 @@ function Explore() {
       "title": "Mobile App for Fitness Tracking",
       "description": "Developing a mobile app to track and analyze fitness activities.",
       "category": "Design",
-      "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
+      "bannerUrl": "/project2.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
       "status": "Completed",
       "statusMessage": "App successfully launched on app stores.",
@@ -64,7 +64,7 @@ function Explore() {
       "title": "Mobile App for Fitness Tracking",
       "description": "Developing a mobile app to track and analyze fitness activities.",
       "category": "Web",
-      "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
+      "bannerUrl": "/project2.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
       "status": "Completed",
       "statusMessage": "App successfully launched on app stores.",
@@ -96,7 +96,7 @@ function Explore() {
       "title": "E-commerce Website Redesign",
       "description": "Redesigning the user interface and experience of an existing e-commerce website.",
       "category": "Web",
-      "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
+      "bannerUrl": "/project1.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
       "status": "In Progress",
       "statusMessage": "Currently working on the frontend components.",
@@ -112,7 +112,7 @@ function Explore() {
       "title": "Mobile App for Fitness Tracking",
       "description": "Developing a mobile app to track and analyze fitness activities.",
       "category": "App",
-      "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
+      "bannerUrl": "/project2.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
       "status": "Completed",
       "statusMessage": "App successfully launched on app stores.",
@@ -128,7 +128,7 @@ function Explore() {
       "title": "Mobile App for Fitness Tracking",
       "description": "Developing a mobile app to track and analyze fitness activities.",
       "category": "App",
-      "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
+      "bannerUrl": "/project2.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
       "status": "Completed",
       "statusMessage": "App successfully launched on app stores.",
@@ -145,7 +145,7 @@ function Explore() {
       "title": "Mobile App for Fitness Tracking",
       "description": "Developing a mobile app to track and analyze fitness activities.",
       "category": "App",
-      "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
+      "bannerUrl": "/project1.svg",
       "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
       "status": "Completed",
       "statusMessage": "App successfully launched on app stores.",
@@ -177,6 +177,7 @@ function Explore() {
   ]
 
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -210,7 +211,7 @@ function Explore() {
   };
 
 
-  const colors = ["blue","green","pink",'#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#f0f0f0'];
+  const colors = ["rgb(91 91 190)","#549554","rgb(219 86 219)",'rgb(207 73 73)', 'rgb(91 91 190)', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#f0f0f0'];
   return (
     <div className='flex flex-col  text-white  '>
 
@@ -230,12 +231,12 @@ function Explore() {
             filteredProjects.map(project => (
               <Link to={`/project/${project.courseLink}`}>
                 <div key={project.title} className='relative w-[100vw] h-[290px] sm:w-[400px] flex flex-col m-2 rounded-2xl border-[1px]  mx-4 overflow-hidden ' >
-                  <div className='uppercase absolute right-3 top-0 mt-3  rounded-[10px] text-xs text-black bg-green-300 px-4 py-[2px] text-center'style={{ backgroundColor: colors[project.status[0]=='I'?0:project.status[0]=='C'?1:project.status[0]=='N'?3:0] }}>{project.status}</div>
+                  <div className='uppercase absolute right-3 top-0 mt-3  rounded-[10px] text-xs text-black bg-green-300 px-4 py-[2px] text-center'style={{ backgroundColor: colors[project.status[0]==='I'?0:project.status[0]==='C'?1:project.status[0]==='N'?3:0] }}>{project.status}</div>
                   <img src={project.bannerUrl} alt="" className='rounded-t-2xl h-[180px]  object-cover	 ' />
 
                   <div className='flex flex-col pl-2 py-2'>
-                    <h1 className='uppercase  text-xl md:[2xl-10px] leading-7 text-[] '>{project.title}</h1>
-                    <p className='text-[12px]  leading-4 '>{project.description.length>100?(project.description.substr(0,100)+".."):(project.description)}</p>
+                    <h1 className='uppercase  text-xl md:[2xl-10px] leading-7 text-slate-200 '>{project.title}</h1>
+                    <p className='text-[12px]  leading-4  text-slate-200 '>{project.description.length>100?(project.description.substr(0,100)+".."):(project.description)}</p>
                     <div className='flex absolute bottom-3 mt-1'>
                       {project.listTechnologies.map((tech, index) => {
                         if (index < 4) {
