@@ -4,11 +4,12 @@ const userSchema = new mongoose.Schema({
   Name: { type: String, required: true },
   Email: { type: String, required: true, unique: true },
   token: { type: String },
+  profileUrl: { type: String,default:"/profile-icon.jpg" },
   followers: [
     {
       id:{type:String},
       name: { type: String },
-      profilePicture: { type: String },
+      profilePicture: { type: String, },
     }
   ],
   following: [

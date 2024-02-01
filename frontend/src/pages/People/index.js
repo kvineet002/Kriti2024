@@ -44,7 +44,7 @@ function People() {
   }, []);
   const isUserFollowing = (userId) => {
     // Check if the user is in the list of following users
-    return followingUsers.some((user) => user.id === userId);
+    if(loggedIn)return followingUsers.some((user) => user.id === userId);
   };
   console.log(followingUsers);
 

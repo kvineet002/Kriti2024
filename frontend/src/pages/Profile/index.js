@@ -34,7 +34,7 @@ function Profile({isAuthenticated}) {
         <Navbar/>
         {isAuthenticated&&<div>isAuthenticated true user</div>}
         your profile page
-        <div>
+        <div className=' mt-[60%]'>
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <button className=' border border-black  rounded-full p-2 text-xs hover:bg-gray-500' onClick={handleUpload}>Upload Profile Picture</button>
       <img src={serverURL}/>

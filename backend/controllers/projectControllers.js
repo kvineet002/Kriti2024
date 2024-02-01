@@ -9,6 +9,7 @@ const createProject = async (req, res) => {
       category,
       bannerUrl,
       status,
+      bigdescription,
       statusMessage,
       technologies,
       creator,
@@ -20,6 +21,7 @@ const createProject = async (req, res) => {
       description,
       category,
       bannerUrl,
+      bigdescription,
       status,
       statusMessage,
       technologies,
@@ -39,7 +41,7 @@ const likeorunlikeProject = async (req, res) => {
     try {
       const { projectId, userId } = req.body;
   
-      const project = await Project.findOne(projectId);
+      const project = await Project.findById(projectId);
   
       if (!project) {
         return res.status(404).json({ error: 'Project not found' });
@@ -77,7 +79,7 @@ const likeorunlikeProject = async (req, res) => {
     try {
         const { projectId } = req.body;
   
-      const project = await Project.findOne(projectId);
+      const project = await Project.findById(projectId);
   
       if (!project) {
         return res.status(404).json({ error: 'Project not found' });
@@ -93,7 +95,7 @@ const likeorunlikeProject = async (req, res) => {
     try {
       const { projectId, userId } = req.body;
   
-      const project = await Project.findOne(projectId);
+      const project = await Project.findById(projectId);
   
       if (!project) {
         return res.status(404).json({ error: 'Project not found' });

@@ -7,6 +7,9 @@ const projectSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  bigdescription: {
+    type: String,
+  },
   category: {
     type: String,
     required: true,
@@ -36,6 +39,8 @@ const projectSchema = new mongoose.Schema({
       id: { type: String },
       Name: { type: String },
       email: { type: String },
+      designation: { type: String },
+      profileUrl:{type:String,default:"/profile-icon.jpg"},
     },
   ],
   likes: [
