@@ -33,7 +33,7 @@ const LoginModal = ({onClose}) => {
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm h-screen flex justify-center items-center">
       <div className="flex-col">
         <div className="pb-2  flex justify-end" >
-          <img src="/closeicon.svg" alt="" className="cursor-pointer" onClick={onClose}/>
+          <img src="/closeicon.svg" alt="close" className="cursor-pointer" onClick={onClose}/>
         </div>
         
         <div className="hero__page rounded-xl w-[80vw] sm:w-[50vw] lg:w-[40vw] flex flex-col items-center my_shadow">
