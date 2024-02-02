@@ -18,7 +18,7 @@ function Project() {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
-  const SERVER_URL="http://localhost:3002"
+  const SERVER_URL="https://kriti2024-backend.vercel.app"
   
   
   
