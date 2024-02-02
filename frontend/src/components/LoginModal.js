@@ -4,7 +4,7 @@ import { auth, provider } from "../pages/Login/authConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const LoginModal = ({onClose}) => {
+const LoginModal = ({onClose,SERVER_URL}) => {
   const [val,setVal]=useState('')
   const navigate= useNavigate();
   const location=useLocation();
@@ -13,7 +13,7 @@ const LoginModal = ({onClose}) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName,accessToken} = result.user;
-      const response = await axios.post('http://localhost:3002/api/users', {
+      const response = await axios.post(`${SERVER_URL}/api/users`, {
         Email: email,
         Name: displayName,
         token:accessToken

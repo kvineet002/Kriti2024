@@ -7,7 +7,7 @@ import LoginModal from "../../components/LoginModal";
 import { Link } from "react-router-dom";
 import ReviewBox from "../../components/ReviewBox";
 
-function Project() {
+function Project({SERVER_URL}) {
   const [loggedIn, setLoggedIn] = useState(true);
   const {id}=useParams();
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -18,7 +18,6 @@ function Project() {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
-  const SERVER_URL="https://kriti2024-backend.vercel.app"
   
   
   
@@ -158,7 +157,7 @@ useEffect(() => {
                     </button>
           </div>
           {showLoginModal && (
-            <LoginModal onClose={() => setShowLoginModal(false)} />
+            <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
           )}
           <div className="  w-full ">
             <img className=" rounded-xl" src={project&&project.bannerUrl} />

@@ -7,7 +7,7 @@ import { firebaseConfig } from '../Login/authConfig';
 // Initialize Firebase with the configuration
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
-function Profile({isAuthenticated}) {
+function Profile({isAuthenticated,SERVER_URL}) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [serverURL, setServerURL] = useState('');
   const handleFileChange = (event) => {

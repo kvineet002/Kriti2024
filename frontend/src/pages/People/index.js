@@ -5,18 +5,17 @@ import axios from "axios";
 import Navbar2 from "../../components/navbar2";
 import LoginModal from "../../components/LoginModal";
 
-function People() {
+function People({SERVER_URL}) {
   const [people, setPeople] = useState([]);
   const [followingUsers, setFollowingUsers] = useState([]);
+  const [followedUsers, setFollowedUsers] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
-
+  const [selectedTab, setSelectedTab] = useState('All');
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3002/api/users/allusers"
-        );
+        const response = await axios.get(`${SERVER_URL}/api/users/allusers`);
         console.log(response.data);
         setPeople(response.data);
       } catch (error) {
@@ -29,7 +28,7 @@ function People() {
   const fetchFollowingUsers = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3002/api/users/getfollowing",
+        `${SERVER_URL}/api/users/getfollowing`,
         {
           userId: "65b74ff720fcc017069a1d5c",
         }
@@ -42,6 +41,22 @@ function People() {
   useEffect(() => {
     fetchFollowingUsers();
   }, []);
+  useEffect(() => {
+    const fetchFollowedUsers = async () => {
+      try {
+        const response = await axios.post(
+          `${SERVER_URL}/api/users/getfollowers`,
+          {
+            userId: "65b74ff720fcc017069a1d5c",
+          }
+        );
+        setFollowingUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching following users:", error);
+      }
+    };
+    fetchFollowingUsers();
+  }, []);
   const isUserFollowing = (userId) => {
     // Check if the user is in the list of following users
     if(loggedIn)return followingUsers.some((user) => user.id === userId);
@@ -52,10 +67,12 @@ function People() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3002/api/users/togglefollow",
+        `${SERVER_URL}/api/users/togglefollow`,
         {
           userId: "65b74ff720fcc017069a1d5c",
           targetUserId: userId,
+          Name:"VENKATESH M",
+          designation:"Student at IIT Guwahati"
         }
       );
       fetchFollowingUsers();
@@ -64,12 +81,42 @@ function People() {
     }
   };
   const currentUserId = "65b74ff720fcc017069a1d5c";
+  const filteredPeople = () => {
+    if (selectedTab === 'All') {
+      return people;
+    } else if (selectedTab === 'Followers') {
+      return people.filter((person) => person.followers.id.includes(currentUserId));
+    } else if (selectedTab === 'Following') {
+      return  followingUsers;
+    }
+    return [];
+  };
   return (
     <div>
       <Navbar2 />
       List of people
       <div className="flex px-5 md:px-[20%] mt-16 flex-col gap-4">
-        {people.map(
+      <div className="flex gap-4 mb-4">
+          <button
+            onClick={() => setSelectedTab('All')}
+            className={`text-white ${selectedTab === 'All' ? 'font-bold' : ''}`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setSelectedTab('Followers')}
+            className={`text-white ${selectedTab === 'Followers' ? 'font-bold' : ''}`}
+          >
+            Followers
+          </button>
+          <button
+            onClick={() => setSelectedTab('Following')}
+            className={`text-white ${selectedTab === 'Following' ? 'font-bold' : ''}`}
+          >
+            Following
+          </button>
+        </div>
+        {filteredPeople().map(
           (person) =>
             person._id !== currentUserId && (
               <div key={person.id}>
@@ -80,8 +127,8 @@ function People() {
                         src="/profile-icon.jpg"
                         alt={`${person.Name}'s Profile`}
                         className="w-12 h-12 rounded-full"
-                      />
-                      {person.Name}
+                      /><div className=" flex flex-col"><div>{person.Name}</div><div className=" text-sm font-thin  text-gray-300"> {person.designation}</div></div>
+                      
                     </div>
                     <button >
                       {isUserFollowing(person._id) ? (

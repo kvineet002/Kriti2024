@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar2 from "../../components/navbar2";
 import LoginModal from "../../components/LoginModal";
-function Home() {
+function Home({SERVER_URL}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const userData = {
@@ -89,7 +89,7 @@ function Home() {
       </div>
       {/*Login Modal */}
       {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
+        <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
       )}
 
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">

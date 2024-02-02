@@ -9,17 +9,18 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 
 function App() {
-  const [isAuthenticated,setisAuthenticated]=useState(false)
+  const [isAuthenticated,setisAuthenticated]=useState(false);
+  const SERVER_URL="http://localhost:3002"
   return (
     <BrowserRouter>
     <Routes>
       {/* Student Side Routes*/}
-      <Route path="/" element={<Home />} />
-      <Route path="/explore" element={<Explore/>} />
-      <Route path="/people" element={<People />} />
-      <Route path="/project/:id" element={<Project />} />
-      <Route path="/profile/:id" element={<Profile/>} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Home SERVER_URL={SERVER_URL}/>} />
+      <Route path="/explore" element={<Explore SERVER_URL={SERVER_URL}/>} />
+      <Route path="/people" element={<People SERVER_URL={SERVER_URL} />} />
+      <Route path="/project/:id" element={<Project SERVER_URL={SERVER_URL} />} />
+      <Route path="/profile/:id" element={<Profile SERVER_URL={SERVER_URL}/>} />
+      <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
      
     </Routes>
   </BrowserRouter>
