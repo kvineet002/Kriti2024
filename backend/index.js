@@ -14,7 +14,7 @@ connect(
 );
 // 
 const allowedOrigins = [, 'http://localhost:3000'];
-app.use(cors({origin:'https://kriti2024.vercel.app'}));
+app.use(cors({origin:['https://kriti2024.vercel.app','http://localhost:3000']}));
 app.use(bodyParser.json());
 
 app.use("/api/users", userRoutes);
