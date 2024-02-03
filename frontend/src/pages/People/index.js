@@ -1,9 +1,9 @@
 import React, { useEffect, useId, useState } from "react";
-import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar2 from "../../components/navbar2";
 import LoginModal from "../../components/LoginModal";
+import Footer from "../../components/Footer";
 
 function People({SERVER_URL}) {
   const [people, setPeople] = useState([]);
@@ -147,6 +147,7 @@ function People({SERVER_URL}) {
             <LoginModal onClose={() => setShowLoginModal(false)} />
           )}
       </div>
+      <Footer/>
     </div>
   );
 }
