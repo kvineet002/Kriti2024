@@ -77,7 +77,7 @@ function Home({SERVER_URL}) {
             >
               Get Started
             </button>
-            <div className="flex justify-center items-center mb-[3rem]"  onClick={()=>window.scrollTo( {top:800, behavior: 'smooth'})}>
+            <div className="flex justify-center items-center mb-[3rem] cursor-pointer"  onClick={()=>window.scrollTo( {top:window. innerHeight, behavior: 'smooth'})}>
               <img
                 src="/ScrollDown.svg"
                 className="absolute rotate-infinite w-16 sm:w-20 "

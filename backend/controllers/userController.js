@@ -23,7 +23,6 @@ async function createUser(req, res) {
 const toggleFollowandfollowing = async (req, res) => {
   try {
     const { userId, targetUserId,Name,designation} = req.body;
-    console.log(designation)
     // Fetch the user and the target user
     const user = await User.findById(userId);
     const targetUser = await User.findById(targetUserId);
@@ -32,26 +31,26 @@ const toggleFollowandfollowing = async (req, res) => {
     }
 
     // Check if the user is already following the target user
-    const isFollowing = user.following.some((following) => following.id === targetUserId);
+    const isFollowing = user.following.some((following) => following._id === targetUserId);
 
     if (isFollowing) {
       // If already following, unfollow the target user
       await User.findByIdAndUpdate(
         userId,
-        { $pull: { following: { id:targetUserId } } },
+        { $pull: { following: { _id:targetUserId } } },
         { new: true }
       );
 
       // Also, remove the user from the target user's followers list
       await User.findByIdAndUpdate(
         targetUserId,
-        { $pull: { followers: { id:userId } } },
+        { $pull: { followers: { _id:userId } } },
         { new: true }
       );
 
       res.status(200).json({ message: 'Unfollowed', isFollowing: false });
     } else {
-      const newFollowing = {id: targetUserId,name:Name,Designation:designation};
+      const newFollowing = {_id: targetUserId,Name:Name,designation:designation};
 
       await User.findByIdAndUpdate(
         userId,
@@ -60,7 +59,7 @@ const toggleFollowandfollowing = async (req, res) => {
       );
 
     
-      const newFollower = { id:userId,name:Name,Designation:designation };
+      const newFollower = { _id:userId,Name:Name,designation:designation };
 
       await User.findByIdAndUpdate(
         targetUserId,

@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 
 function App() {
   const [isAuthenticated,setisAuthenticated]=useState(false);
-  const SERVER_URL="http://localhost:3002"
+  const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
   return (
     <BrowserRouter>
     <Routes>

@@ -82,7 +82,7 @@ function Project({SERVER_URL}) {
           userId: userId,
         }
       );
-     loggedIn&&setIsFollowing(response.data.some((user) => user.id === project.creator[0].id));
+     loggedIn&&setIsFollowing(response.data.some((user) => user._id === project.creator[0].id));
     } catch (error) {
       console.error("Error fetching following users:", error);
     }

@@ -1,8 +1,8 @@
 import React from 'react'
-import Navbar from '../../components/Navbar'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Navbar2 from '../../components/navbar2';
 
 function Explore({SERVER_URL}) {
   const [projects, setProjects] = useState([]);
@@ -210,11 +210,11 @@ function Explore({SERVER_URL}) {
   };
 
 
-  const colors = ["blue","green","pink",'#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#f0f0f0'];
+  const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#f0f0f0'];
   return (
     <div className='flex flex-col  text-white  '>
 
-      <Navbar></Navbar>
+      <Navbar2/>
       <div className='relative  mt-24  mb-8  flex  items-center mx-auto sm:ml-24 sm:align-left'>
         <div className='text-[16px] sm:text-xl border-[1px] px-5 sm:h-[40px] sm:rounded-[30px] items-center  uppercase border-[#EAEAEA]  cursor-pointer hidden sm:flex  mx-2  filter text-[#000] bg-white' onClick={(e) => filterProjects({ category: "", e })}>all</div>
         <div className='text-[16px] sm:text-xl border-[1px] px-5  sm:h-[40px] rounded-[30px] items-center  uppercase border-[#EAEAEA]  cursor-pointer flex mx-2   filter' onClick={(e) => filterProjects({ category: "App", e })}>App Dev</div>

@@ -97,7 +97,7 @@ export default function ReviewBox({ SERVER_URL, projectId }) {
             className="flex-grow px-6 py-3 outline-none  rounded-full"
           />
           <button
-            onClick={submitReview}
+            onClick={newReview.length>0?submitReview:()=>{}}
             className=" rounded-full bg-white flex items-start justify-center p-1 "
           >
             <img src="/send.svg" width="40px" />
