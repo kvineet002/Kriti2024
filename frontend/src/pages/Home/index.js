@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Navbar2 from "../../components/navbar2";
 import LoginModal from "../../components/LoginModal";
+import Footer from "../../components/Footer";
+
 function Home({SERVER_URL}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -169,7 +171,7 @@ function Home({SERVER_URL}) {
             Showcase Suite
           </h1>
         </div>
-        <div className="flex-col sm:flex sm:flex-row-reverse sm:flex-gap-[10px] sm:justify-between sm:items-center ">
+        <div className="flex-col sm:flex md:flex-row-reverse sm:flex-gap-[10px] sm:justify-between sm:items-center">
           <img
             src="/showcase.jpg"
             alt="architects"
@@ -217,6 +219,7 @@ function Home({SERVER_URL}) {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
