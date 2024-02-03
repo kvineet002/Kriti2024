@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../pages/Login/authConfig";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const LoginModal = ({onClose}) => {
+const LoginModal = ({onClose,SERVER_URL}) => {
   const [val,setVal]=useState('')
   const navigate= useNavigate();
+  const location=useLocation();
   const handleLogin = async () => {
 
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName,accessToken} = result.user;
-      const response = await axios.post('http://localhost:3002/api/users', {
+      const response = await axios.post(`${SERVER_URL}/api/users`, {
         Email: email,
         Name: displayName,
         token:accessToken
@@ -23,7 +24,9 @@ const LoginModal = ({onClose}) => {
       localStorage.setItem('token',response.data.user.token);
       
       console.log("Response from server:", response.data.user);
+     if(location.pathname==='/')
       navigate('/explore');
+    else onClose();
     } catch (error) {
       console.error("Error in login:", error);
     }
