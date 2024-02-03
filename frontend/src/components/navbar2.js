@@ -120,7 +120,7 @@ const Navbar2 = () => {
         )}
 
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-[#0c0c0c97]">
+          <div className="md:hidden flex flex-col gap-2 bg-[#0c0c0c97]">
                     {!loggedIn&& <a
                 href='/'
                 className="hover:underline px-3 py-1"
