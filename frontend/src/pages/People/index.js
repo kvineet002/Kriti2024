@@ -138,7 +138,7 @@ function People({SERVER_URL}) {
         </div>
         
         {loading ? (
-        <img src='/loading.gif' className='w-[50px] m-auto '></img>
+        <img src='/loading.gif' alt="Loading..." className='w-[50px] m-auto '></img>
       ) : (
         filteredPeople().map(
           (person) =>

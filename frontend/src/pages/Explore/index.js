@@ -76,7 +76,7 @@ function Explore({SERVER_URL}) {
       
         </div>
       {loading ? (
-        <img src='/loading.gif' className='w-[50px] m-auto'></img>
+        <img src='/loading.gif' alt='Loading...' className='w-[50px] m-auto'></img>
       ) : (
         <div className='flex flex-wrap gap-1 w-screen  '>
           {filteredProjects.length>0&&filteredProjects.map(project => (
