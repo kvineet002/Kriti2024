@@ -11,6 +11,7 @@ import {
 import { firebaseConfig } from "../Login/authConfig";
 import Footer from "../../components/Footer";
 import ProfileEditModal from "../../components/ProfileEditModal";
+import AddProject from "../../components/AddProject";
 
 // Initialize Firebase with the configuration
 const app = initializeApp(firebaseConfig);
@@ -21,10 +22,20 @@ function Profile({ isAuthenticated }) {
   const [serverURL, setServerURL] = useState("");
   const [isfollowing, setisfollowing] = useState(false);
   const [profileEdit, setProfileEdit] = useState(false);
+  const [formData, setFormData] = useState();
+  const [addProject, setAddProject] = useState(false);
+  const [projectData, setProjectData] = useState("");
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+  // const addProj = (data) => {
+  //   console.log(data);
+  // };
 
   const profile = {
     name: "Vikas Anand",
@@ -37,333 +48,347 @@ function Profile({ isAuthenticated }) {
       "https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=mail@ashallendesign.co.uk",
     savedProjects: [
       {
-        "title": "E-commerce Website Redesign",
-        "description": "Redesigning the user interface and experience of an existing e-commerce website.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
-        "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
-        "status": "Need help",
-        "statusMessage": "Currently working on the frontend components.",
-        "listTechnologies": ["React", "Node.js", "MongoDB", "Redux"],
-        "creator": "John Doe",
-        "likes": 120,
-        "saved": 56,
-        "collaborators": ["Jane Smith", "Bob Johnson"],
-        "courseLink": "https://example.com/web-development-course",
-        "rating": 4.7
+        title: "E-commerce Website Redesign",
+        description:
+          "Redesigning the user interface and experience of an existing e-commerce website.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?web-development",
+        extraMedia: "https://source.unsplash.com/800x600/?ecommerce",
+        status: "Need help",
+        statusMessage: "Currently working on the frontend components.",
+        listTechnologies: ["React", "Node.js", "MongoDB", "Redux"],
+        creator: "John Doe",
+        likes: 120,
+        saved: 56,
+        collaborators: ["Jane Smith", "Bob Johnson"],
+        courseLink: "https://example.com/web-development-course",
+        rating: 4.7,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "Design",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "Design",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "E-commerce Website Redesign",
-        "description": "Redesigning the user interface and experience of an existing e-commerce website.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
-        "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
-        "status": "In Progress",
-        "statusMessage": "Currently working on the frontend components.",
-        "listTechnologies": ["React", "Node.js", "MongoDB", "Redux"],
-        "creator": "John Doe",
-        "likes": 120,
-        "saved": 56,
-        "collaborators": ["Jane Smith", "Bob Johnson"],
-        "courseLink": "https://example.com/web-development-course",
-        "rating": 4.7
+        title: "E-commerce Website Redesign",
+        description:
+          "Redesigning the user interface and experience of an existing e-commerce website.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?web-development",
+        extraMedia: "https://source.unsplash.com/800x600/?ecommerce",
+        status: "In Progress",
+        statusMessage: "Currently working on the frontend components.",
+        listTechnologies: ["React", "Node.js", "MongoDB", "Redux"],
+        creator: "John Doe",
+        likes: 120,
+        saved: 56,
+        collaborators: ["Jane Smith", "Bob Johnson"],
+        courseLink: "https://example.com/web-development-course",
+        rating: 4.7,
       },
       {
-        "title": "E-commerce Website Redesign",
-        "description": "Redesigning the user interface and experience of an existing e-commerce website.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
-        "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
-        "status": "In Progress",
-        "statusMessage": "Currently working on the frontend components.",
-        "listTechnologies": ["React", "Node.js", "MongoDB", "Redux"],
-        "creator": "John Doe",
-        "likes": 120,
-        "saved": 56,
-        "collaborators": ["Jane Smith", "Bob Johnson"],
-        "courseLink": "https://example.com/web-development-course",
-        "rating": 4.7
+        title: "E-commerce Website Redesign",
+        description:
+          "Redesigning the user interface and experience of an existing e-commerce website.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?web-development",
+        extraMedia: "https://source.unsplash.com/800x600/?ecommerce",
+        status: "In Progress",
+        statusMessage: "Currently working on the frontend components.",
+        listTechnologies: ["React", "Node.js", "MongoDB", "Redux"],
+        creator: "John Doe",
+        likes: 120,
+        saved: 56,
+        collaborators: ["Jane Smith", "Bob Johnson"],
+        courseLink: "https://example.com/web-development-course",
+        rating: 4.7,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
-      }
-      ,
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
+      },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
-      }
-      ,
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
+      },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
-      }
-  
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
+      },
     ],
     ownProjects: [
       {
-        "title": "E-commerce Website Redesign",
-        "description": "Redesigning the user interface and experience of an existing e-commerce website.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
-        "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
-        "status": "Need help",
-        "statusMessage": "Currently working on the frontend components.",
-        "listTechnologies": ["React", "Node.js", "MongoDB", "Redux"],
-        "creator": "John Doe",
-        "likes": 120,
-        "saved": 56,
-        "collaborators": ["Jane Smith", "Bob Johnson"],
-        "courseLink": "https://example.com/web-development-course",
-        "rating": 4.7
+        title: "E-commerce Website Redesign",
+        description:
+          "Redesigning the user interface and experience of an existing e-commerce website.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?web-development",
+        extraMedia: "https://source.unsplash.com/800x600/?ecommerce",
+        status: "Need help",
+        statusMessage: "Currently working on the frontend components.",
+        listTechnologies: ["React", "Node.js", "MongoDB", "Redux"],
+        creator: "John Doe",
+        likes: 120,
+        saved: 56,
+        collaborators: ["Jane Smith", "Bob Johnson"],
+        courseLink: "https://example.com/web-development-course",
+        rating: 4.7,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "Design",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "Design",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "E-commerce Website Redesign",
-        "description": "Redesigning the user interface and experience of an existing e-commerce website.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
-        "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
-        "status": "In Progress",
-        "statusMessage": "Currently working on the frontend components.",
-        "listTechnologies": ["React", "Node.js", "MongoDB", "Redux"],
-        "creator": "John Doe",
-        "likes": 120,
-        "saved": 56,
-        "collaborators": ["Jane Smith", "Bob Johnson"],
-        "courseLink": "https://example.com/web-development-course",
-        "rating": 4.7
+        title: "E-commerce Website Redesign",
+        description:
+          "Redesigning the user interface and experience of an existing e-commerce website.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?web-development",
+        extraMedia: "https://source.unsplash.com/800x600/?ecommerce",
+        status: "In Progress",
+        statusMessage: "Currently working on the frontend components.",
+        listTechnologies: ["React", "Node.js", "MongoDB", "Redux"],
+        creator: "John Doe",
+        likes: 120,
+        saved: 56,
+        collaborators: ["Jane Smith", "Bob Johnson"],
+        courseLink: "https://example.com/web-development-course",
+        rating: 4.7,
       },
       {
-        "title": "E-commerce Website Redesign",
-        "description": "Redesigning the user interface and experience of an existing e-commerce website.",
-        "category": "Web",
-        "bannerUrl": "https://source.unsplash.com/800x400/?web-development",
-        "extraMedia": "https://source.unsplash.com/800x600/?ecommerce",
-        "status": "In Progress",
-        "statusMessage": "Currently working on the frontend components.",
-        "listTechnologies": ["React", "Node.js", "MongoDB", "Redux"],
-        "creator": "John Doe",
-        "likes": 120,
-        "saved": 56,
-        "collaborators": ["Jane Smith", "Bob Johnson"],
-        "courseLink": "https://example.com/web-development-course",
-        "rating": 4.7
+        title: "E-commerce Website Redesign",
+        description:
+          "Redesigning the user interface and experience of an existing e-commerce website.",
+        category: "Web",
+        bannerUrl: "https://source.unsplash.com/800x400/?web-development",
+        extraMedia: "https://source.unsplash.com/800x600/?ecommerce",
+        status: "In Progress",
+        statusMessage: "Currently working on the frontend components.",
+        listTechnologies: ["React", "Node.js", "MongoDB", "Redux"],
+        creator: "John Doe",
+        likes: 120,
+        saved: 56,
+        collaborators: ["Jane Smith", "Bob Johnson"],
+        courseLink: "https://example.com/web-development-course",
+        rating: 4.7,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
       },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
-      }
-      ,
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
+      },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
-      }
-      ,
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
+      },
       {
-        "title": "Mobile App for Fitness Tracking",
-        "description": "Developing a mobile app to track and analyze fitness activities.",
-        "category": "App",
-        "bannerUrl": "https://source.unsplash.com/800x400/?fitness-app",
-        "extraMedia": "https://source.unsplash.com/800x600/?mobile-app",
-        "status": "Completed",
-        "statusMessage": "App successfully launched on app stores.",
-        "listTechnologies": ["Swift", "iOS", "Firebase"],
-        "creator": "Alice Johnson",
-        "likes": 256,
-        "saved": 78,
-        "collaborators": ["Charlie Brown"],
-        "courseLink": "https://example.com/mobile-app-development-course",
-        "rating": 4.9
-      }
-  
+        title: "Mobile App for Fitness Tracking",
+        description:
+          "Developing a mobile app to track and analyze fitness activities.",
+        category: "App",
+        bannerUrl: "https://source.unsplash.com/800x400/?fitness-app",
+        extraMedia: "https://source.unsplash.com/800x600/?mobile-app",
+        status: "Completed",
+        statusMessage: "App successfully launched on app stores.",
+        listTechnologies: ["Swift", "iOS", "Firebase"],
+        creator: "Alice Johnson",
+        likes: 256,
+        saved: 78,
+        collaborators: ["Charlie Brown"],
+        courseLink: "https://example.com/mobile-app-development-course",
+        rating: 4.9,
+      },
     ],
     followings: [],
     follower: [],
@@ -375,7 +400,18 @@ function Profile({ isAuthenticated }) {
       instagram: "https://www.instagram.com/_darkm4tt3r_/",
     },
   };
-  const colors = ["blue","green","pink",'#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#f0f0f0'];
+  const colors = [
+    "blue",
+    "green",
+    "pink",
+    "#ff0000",
+    "#00ff00",
+    "#0000ff",
+    "#ffff00",
+    "#ff00ff",
+    "#00ffff",
+    "#f0f0f0",
+  ];
   const handleUpload = async () => {
     if (selectedFile) {
       try {
@@ -389,6 +425,7 @@ function Profile({ isAuthenticated }) {
       }
     }
   };
+  console.log(serverURL);
   return (
     <div className="flex flex-col">
       <Navbar />
@@ -517,7 +554,12 @@ function Profile({ isAuthenticated }) {
         </div>
       </div>
       <div className="flex-col bg-black justify-center items-center">
-        <div className="text-white bg-[#1c1b1b] flex rounded-lg w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer">
+        <div
+          className="text-white bg-[#1c1b1b] flex rounded-lg w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer"
+          onClick={() => {
+            setAddProject(true);
+          }}
+        >
           <span className="text-[150px] font-thin my-[-50px]">+</span>{" "}
           <span> ADD PROJECT</span>
         </div>
@@ -532,7 +574,7 @@ function Profile({ isAuthenticated }) {
 
         <div className="bg-[#7c7c7c] h-[1px] my-4 mx-6" />
       </div>
-      <div className="flex flex-wrap gap-1 w-screen justify-center shadow-inner text-white items-center">
+      <div className="flex flex-wrap gap-1 w-screen shadow-inner text-white justify-start">
         {profile.savedProjects.map((project) => (
           <Link to={`/project/${project.courseLink}`}>
             <div
@@ -591,7 +633,6 @@ function Profile({ isAuthenticated }) {
                 </div>
               </div>
             </div>
-            
           </Link>
         ))}
       </div>
@@ -602,6 +643,16 @@ function Profile({ isAuthenticated }) {
           onClose={() => {
             setProfileEdit(false);
           }}
+          onSubmit={onSubmit}
+        />
+      )}
+      {addProject && (
+        <AddProject
+          onCancel={() => {
+            setAddProject(false);
+          }}
+          projectData = {projectData}
+          setProjectData = {setProjectData}
         />
       )}
     </div>

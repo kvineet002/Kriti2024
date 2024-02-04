@@ -6,7 +6,7 @@ function ProfileEditModal({ onClose, onSubmit }) {
   const [imagePreview, setImagePreview] = useState(null);
 
   const onSubmitHandler = (data) => {
-    console.log(data);
+    
     if (onSubmit) {
       onSubmit(data);
     }
@@ -69,6 +69,7 @@ function ProfileEditModal({ onClose, onSubmit }) {
               name="image"
               control={control}
               render={({ field }) => (
+                
                 <input
                   type="file"
                   id="image"
