@@ -16,8 +16,7 @@ import AddProject from "../../components/AddProject";
 // Initialize Firebase with the configuration
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
-
-function Profile({ isAuthenticated }) {
+function Profile({isAuthenticated,SERVER_URL}) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [serverURL, setServerURL] = useState("");
   const [isfollowing, setisfollowing] = useState(false);
@@ -655,6 +654,17 @@ function Profile({ isAuthenticated }) {
           setProjectData = {setProjectData}
         />
       )}
+    <div>
+        <Navbar/>
+        {isAuthenticated&&<div>isAuthenticated true user</div>}
+        your profile page
+        <div className=' mt-[60%]'>
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <button className=' border border-black  rounded-full p-2 text-xs hover:bg-gray-500' onClick={handleUpload}>Upload Profile Picture</button>
+      <img src={serverURL}/>
+      <object className=' h-screen w-screen' data={serverURL}/>
+    </div>
+      
     </div>
   );
 }

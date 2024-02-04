@@ -1,13 +1,238 @@
-import React from 'react'
-import Navbar from '../../components/Navbar'
+import React, { useEffect, useId, useState } from "react";
+import Navbar from "../../components/Navbar";
+import Navbar2 from "../../components/navbar2";
+import { useParams } from "react-router";
+import axios from "axios";
+import LoginModal from "../../components/LoginModal";
+import { Link } from "react-router-dom";
+import ReviewBox from "../../components/ReviewBox";
 
-function Project() {
+function Project({SERVER_URL}) {
+  const [loggedIn, setLoggedIn] = useState(true);
+  const {id}=useParams();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const userId="65b74ff720fcc017069a1d5c"
+  const [project, setProject] = useState(null);
+  const [likeCount, setLikeCount] = useState(0);
+  const [saveCount, setSaveCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+  
+  
+  
+  const handleLike = async () => {
+
+    try {
+      const response = await axios.post(
+        `${SERVER_URL}/project/likeorunlike-project`,
+        {
+          userId: userId,
+          projectId:id
+          
+        }
+      );
+    } catch (error) {
+      console.error("Error updating following status:", error);
+    }
+  };
+  const handleSave = async () => {
+
+    try {
+      const response = await axios.post(
+        `${SERVER_URL}/project/saveorunsave-project`,
+        {
+          userId: userId,
+          projectId:id
+        }
+      );
+    } catch (error) {
+      console.error("Error updating following status:", error);
+    }
+  };
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await axios.post( `${SERVER_URL}/project/getproject`,{
+        
+            projectId: id,
+        });
+
+        setProject(response.data);
+        setLikeCount(response.data.likes.length);
+        loggedIn&&setIsLiked(response.data.likes.some(like => like.id === userId));
+        setSaveCount(response.data.saved.length);
+       loggedIn&& setIsSaved(response.data.saved.some(save=> save.id === userId));
+
+
+      } catch (error) {
+        console.error('Error fetching project:', error);
+        // Handle the error as needed in your application
+      }
+    };
+
+    fetchProject();
+
+  }, [handleLike,handleSave]);
+  const fetchFollowingUsers = async () => {
+    try {
+      const response = await axios.post(
+        `${SERVER_URL}/api/users/getfollowing`,
+        {
+          userId: userId,
+        }
+      );
+     loggedIn&&setIsFollowing(response.data.some((user) => user._id === project.creator[0].id));
+    } catch (error) {
+      console.error("Error fetching following users:", error);
+    }
+  };
+ 
+ const handleFollow = async () => {
+
+  try {
+    const response = await axios.post(
+      `${SERVER_URL}/api/users/togglefollow`,
+      {
+        userId: userId,
+        targetUserId: (project&&project.creator[0].id),
+      }
+    );
+    fetchFollowingUsers();
+  } catch (error) {
+    console.error("Error updating following status:", error);
+  }
+};
+useEffect(() => {
+  fetchFollowingUsers();
+}, [handleFollow]);
   return (
     <div>
-      your specific project page
-      <h1>this is profile page </h1>
+      <Navbar2 />
+      <div className=" my-[5%] rounded-lg border-[#565656] border-2 p-5 md:mx-20 mx-2">
+        <div className=" flex flex-col gap-6">
+          <div className=" flex  flex-col gap-2">
+            <div className=" flex  justify-between items-center">
+            <div className=" flex gap-2 items-center">
+              <div className=" text-white font-bold text-sm  md:text-2xl">
+             {project&&project.title}
+              </div>
+            </div>
+            <div className=" flex gap-4">
+<div onClick={loggedIn?handleLike:()=>{setShowLoginModal(true)}} className=" rounded-full md:px-6 pr-6 pl-3 py-1 flex items-center bg-white cursor-pointer ">
+  <img className=" w-5" src={isLiked?"/likestate.svg":"/unlikestate.svg"}/><span className="   font-semibold">{likeCount}</span> 
+</div>
+<div onClick={loggedIn?handleSave:()=>{setShowLoginModal(true)}} className=" rounded-full md:px-6 pr-6 pl-3 py-1 flex items-center gap-1 bg-white cursor-pointer ">
+  <img className=" w-5" src={isSaved?"/savestate.svg":"/unsavestate.svg"}/><span className="   font-semibold">{saveCount}</span> 
+</div>
+            </div>
+            </div>
+            <div className=" text-white  font-light text-sm w-[90%]">
+            {project&&project.description}   </div>
+          </div>
+          <div className=" flex justify-between px-2">
+            <div className="flex gap-2  items-center">
+              <div className=" w-8 h-8  bg-slate-400 rounded-full flex items-center justify-center ">
+                <img src={project&&project.creator[0].profileUrl} className=" rounded-full" alt="" />
+              </div>
+              <Link to={`/profile/${project&&project.creator[0].id}`} className=" flex flex-col">
+                <div className="  text-white">{project&&project.creator[0].Name}</div>
+                <div className=" text-[#C4C4C4] text-xs">{project&&project.creator[0].designation}</div>
+              </Link>
+            </div>
+            
+            <button >
+                      {isFollowing? (
+                        <div onClick={() => handleFollow()} className="bg-[rgba(0, 0, 0, 0.10)] rounded-full text-white border-white border-2 px-4 text-center uppercase text-xs py-[3px] flex justify-center items-center gap-1 font-bold cursor-pointer">
+                          <img src="/check.svg" className="h-6" />
+                          <div>Following</div>
+                        </div>
+                      ) : (
+                        <div onClick={(loggedIn)?() => handleFollow():() => {
+                          setShowLoginModal(true);
+                        }} className="bg-white rounded-full  border-white border-2 px-4 text-center uppercase text-xs py-[6px] flex justify-center items-center font-bold cursor-pointer">
+                       Follow
+                        </div>
+                      )}
+                    </button>
+          </div>
+          {showLoginModal && (
+            <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
+          )}
+          <div className="  w-full ">
+            <img className=" rounded-xl" src={project&&project.bannerUrl} />
+          </div>
+          <div className=" flex-col flex md:flex-row md:flex w-full md:justify-between ">
+            <div className=" flex flex-col md:w-[35%] gap-8 w-full">
+              <div className=" flex flex-col gap-1">
+                <label className=" text-white">Project Links</label>
+                <div className=" border border-white flex gap-3 p-2 rounded-xl">
+                  <a
+                    target="blank"
+                    href=""
+                    className=" px-3 py-1  justify-center gap-1  text-black  font-bold text-xs flex items-center bg-[#FFF]  rounded-full"
+                  >
+                    <img src="/github.svg" /> GITHUB
+                  </a>
+                  <a
+                    target="blank"
+                    href=""
+                    className=" px-3 py-1  text-black  font-bold text-xs flex gap-1 items-center bg-[#FFF]  rounded-full"
+                  >
+                    <img width="15px" src="/demo.svg" /> DEMO
+                  </a>
+                </div>
+              </div>
+              <div className=" flex flex-col gap-1">
+                <label className=" text-white">Tech stacks</label>
+                <div className=" border border-white flex flex-wrap gap-3 p-2 rounded-xl">
+                  {project&&project.technologies.map((data, index) => (
+                    <a
+                      href={data.link}
+                      className={` px-3 py-1  text-black   font-bold text-xs flex items-center  rounded-full bg-white bg-[${data.color}]`}
+                    >
+                      {data.Title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div className=" flex flex-col gap-1">
+                <label className=" text-white">Courses / material</label>
+                <div className=" border border-white flex flex-col gap-3 p-2 py-4  rounded-xl">
+                  {project&&project.courseLinks.map((data, index) => (
+                    <a
+                      href={data.link}
+                      target="blank"
+                      className=" px-2  underline   gap-2 text-white font-thin text-xs flex items-center"
+                    >
+                      <img
+                        width={"15px"}
+                        className="  border-white"
+                        src="/pin.svg"
+                      />{" "}
+                      <div className=" truncate flex w-full flex-wrap">
+                        {data.link}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className=" flex  flex-col md:w-[60%] w-full">
+              <div className=" flex flex-col gap-4">
+                <div className=" flex flex-col gap-1">
+                  <label className=" text-white">About</label>
+                  <div className=" border px-8 border-white flex gap-3 p-2 rounded-xl text-white">
+                  {project&&project.bigdescription} </div>
+                </div>
+           <ReviewBox SERVER_URL={SERVER_URL} projectId={id}  />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Project
+export default Project;

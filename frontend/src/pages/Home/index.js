@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar2 from "../../components/navbar2";
 import LoginModal from "../../components/LoginModal";
 import Footer from "../../components/Footer";
-function Home() {
+
+function Home({SERVER_URL}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const userData = {
     users: [
       {
         name: "John Doe",
-        rating: 4.5,
+        profile: 4.5,
         projectNo: 10,
       },
       {
@@ -53,8 +54,8 @@ function Home() {
   return (
     <div className="w-full">
       <div className="hero__page w-full">
-        <Navbar />
-        <div className="pt-[200px] sm:pt-64 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
+        <Navbar2 />
+        <div className="pt-[200px] sm:pt-44 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
             <div className="bg-[#FFF] py-3 rounded-full  text-[#474646] text-[15px]  md:text-base flex justify-center items-center font-bold">
               <h1 className=" px-12 md:px-16">Endless collaboration possibilities!</h1>
@@ -78,7 +79,7 @@ function Home() {
             >
               Get Started
             </button>
-            <div className="flex justify-center items-center mb-[3rem]">
+            <div className="flex justify-center items-center mb-[3rem] cursor-pointer"  onClick={()=>window.scrollTo( {top:window. innerHeight, behavior: 'smooth'})}>
               <img
                 src="/ScrollDown.svg"
                 className="absolute rotate-infinite w-16 sm:w-20 "
@@ -90,7 +91,7 @@ function Home() {
       </div>
       {/*Login Modal */}
       {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
+        <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
       )}
 
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
@@ -158,7 +159,7 @@ function Home() {
       <img src="/Arrow2.svg" className=" w-6 sm:w-[70px] mx-auto" alt="" />
 
       {/*Showcase Suite */}
-      <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] ">
+      <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] z-30 ">
         <div className="flex gap-3 pt-3 items-center pl-3">
           <div className="h-[45px] w-[45px] bg-[#262626] rounded-[50%] flex items-center justify-center">
             <img src="/flag.svg" height="30px" width="30px" />
