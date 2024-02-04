@@ -50,7 +50,7 @@ const Navbar2 = ({SERVER_URL}) => {
                 People
               </a>
               <a
-                href='/'
+                href='/courses'
                 className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
               >
                 Courses
@@ -140,7 +140,7 @@ const Navbar2 = ({SERVER_URL}) => {
                 People
               </a>
               <a
-                href='/'
+                href='/courses'
                 className="hover:underline px-3 py-1"
               >
                 Courses
