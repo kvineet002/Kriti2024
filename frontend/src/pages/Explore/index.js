@@ -81,7 +81,7 @@ function Explore({SERVER_URL}) {
         <div className='flex flex-wrap gap-1 w-screen  '>
           {filteredProjects.length>0&&filteredProjects.map(project => (
               <Link to={`/project/${project._id}`}>
-                <div key={project.title} className='relative w-full  hover:opacity-80  h-[290px] sm:w-[400px] flex flex-col m-2 rounded-2xl border-[1px] border-[#565656] mx-4 overflow-hidden ' >
+                <div key={project.title} className='relative w-[95vw]  hover:opacity-80  h-[290px] sm:w-[400px] flex flex-col m-2 rounded-2xl border-[1px] border-[#565656] mx-4 overflow-hidden ' >
                   <div className='uppercase absolute right-3 top-0 mt-3  rounded-[10px] text-xs text-black  px-4 py-[2px] text-center bg-[#83FF70]'>{project.status}</div>
                   <img src={filteredProjects&&project.bannerUrl} alt="" className='rounded-t-2xl h-[180px]  object-cover	 ' />
 
