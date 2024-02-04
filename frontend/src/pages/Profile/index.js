@@ -415,7 +415,7 @@ function Profile({ isAuthenticated, SERVER_URL }) {
   };
   return (
     <div className="flex flex-col">
-      <Navbar2 />
+      <Navbar2 SERVER_URL={SERVER_URL}/>
       {/* {isAuthenticated && <div>isAuthenticated true user</div>}
       your profile page
       <div>

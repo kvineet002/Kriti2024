@@ -6,7 +6,7 @@ import {
   differenceInMinutes,
   differenceInHours,
 } from "date-fns";
-export default function ReviewBox({ SERVER_URL, projectId }) {
+export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginModal}) {
     const [loading,setloading]=useState(false)
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
@@ -60,7 +60,7 @@ export default function ReviewBox({ SERVER_URL, projectId }) {
       <div className="flex flex-col">
         <div className="text-white font-bold text-lg mb-2">REVIEWS</div>
         <div
-          className="flex flex-col space-y-4 border rounded-lg py-5 px-4 overflow-y-auto"
+          className="flex flex-col space-y-4 border border-[#565656] rounded-lg py-5 px-4 overflow-y-auto"
           style={{ maxHeight: "300px" }}
         >
 {loading ? (
@@ -97,7 +97,7 @@ export default function ReviewBox({ SERVER_URL, projectId }) {
             className="flex-grow px-6 py-3 outline-none  rounded-full"
           />
           <button
-            onClick={newReview.length>0?submitReview:()=>{}}
+            onClick={loggedIn?newReview.length>0?submitReview:()=>{}:()=>{setShowLoginModal(true)}}
             className=" rounded-full bg-white flex items-start justify-center p-1 "
           >
             <img src="/send.svg" width="40px" />

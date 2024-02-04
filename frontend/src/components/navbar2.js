@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import LoginModal from "./LoginModal";
 
-const Navbar2 = () => {
+const Navbar2 = ({SERVER_URL}) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -33,25 +33,25 @@ const Navbar2 = () => {
             <div className="hidden ml-8  md:flex space-x-4">
             { !loggedIn&&<a
                 href='/'
-                className="hover:underline px-3 py-1"
+                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
               >
                 Home
               </a>}
               <a
                 href='/explore'
-                className="hover:underline px-3 py-1"
+                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
               >
                 Explore
               </a>
               <a
                 href='/people'
-                className="hover:underline px-3 py-1"
+                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
               >
                 People
               </a>
               <a
                 href='/'
-                className="hover:underline px-3 py-1"
+                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
               >
                 Courses
               </a>
@@ -116,7 +116,7 @@ const Navbar2 = () => {
           </div>
         </div>
         {showLoginModal && (
-          <LoginModal onClose={() => setShowLoginModal(false)} />
+          <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
         )}
 
         {isMobileMenuOpen && (
