@@ -1,11 +1,12 @@
 // Navbar.js
 import React, { useState, useEffect, useRef } from "react";
 import LoginModal from "./LoginModal";
+import { useLocation } from "react-router";
 
 const Navbar2 = ({SERVER_URL}) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-
+  const location=useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -33,25 +34,25 @@ const Navbar2 = ({SERVER_URL}) => {
             <div className="hidden ml-8  md:flex space-x-4">
             { !loggedIn&&<a
                 href='/'
-                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
+                className={`${location.pathname==='/'&&'border-b-[2px] border-[#565656]  text-white opacity-100 '} opacity-80 px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out`}
               >
                 Home
               </a>}
               <a
                 href='/explore'
-                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
+                className={`${location.pathname==='/explore'&&'border-b-[2px] border-[#565656] text-white opacity-100 '} opacity-80 px-3 py-1 hover:border-b-[2px] hover:border-[#404040] transition duration-300 ease-in-out`}
               >
                 Explore
               </a>
               <a
                 href='/people'
-                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
+                className={`${location.pathname==='/people'&&'border-b-[2px] border-[#565656] text-white opacity-100 '} opacity-80 px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out`}
               >
                 People
               </a>
               <a
                 href='/courses'
-                className="px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out"
+                className={`${location.pathname==='/courses'&&'border-b-[2px] border-[#565656]  text-white opacity-100 '} opacity-80 px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out`}
               >
                 Courses
               </a>
