@@ -19,13 +19,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
     }));
   };
 
-  const removeImage = () => {
-    setSelectedImage(null);
-    setProfileEditData((prev) => ({
-      ...prev,
-      profileUrl: "",
-    }));
-  };
+
 
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
