@@ -96,6 +96,7 @@ const categories = ["Web Dev", "Android Dev", "AI/ML"];
 
 function AddProject({ onCancel, projectData, setProjectData }) {
   const [images, setImages] = useState([]);
+  const [banner, setbanner] = useState(null);
   const [techStackInput, setTechStackInput] = useState("");
   const [techStackSuggestions, setTechStackSuggestions] = useState([]);
   const [newUrl, setNewUrl] = useState("");
@@ -104,19 +105,20 @@ function AddProject({ onCancel, projectData, setProjectData }) {
   const handleBannerImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setbanner({
+        file,
+        preview: URL.createObjectURL(file)
+      })
       setProjectData({
         ...projectData,
-        bannerImage: {
-          file,
-          preview: URL.createObjectURL(file),
-        },
+        bannerUrl: URL.createObjectURL(file)
       });
     }
   };
   const removeBannerImage = () => {
     setProjectData({
       ...projectData,
-      bannerImage: null,
+      bannerUrl: null,
     });
   };
 
@@ -307,10 +309,10 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                   Choose Banner
                 </div>
                 <div className="flex flex-wrap px-5 w-full mb-4">
-                  {projectData.bannerImage && (
+                  {banner && (
                     <div className="relative w-70 h-40 m-2 overflow-hidden shadow-lg border-[#565656] border-2 rounded-lg">
                       <img
-                        src={projectData.bannerImage.preview}
+                        src={banner.preview}
                         alt={`Uploaded Banner`}
                         className="w-full h-full object-cover"
                       />
@@ -322,7 +324,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                       />
                     </div>
                   )}
-                  {!projectData.bannerImage && (
+                  {!banner && (
                     <label
                       htmlFor="bannerImageInput"
                       className="relative w-[200px] h-36 m-2 shadow-lg border-[#565656] border-2 rounded-lg flex flex-col justify-center items-center cursor-pointer hover:bg-[#3a3a3a]"

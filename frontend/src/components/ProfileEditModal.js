@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 10 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -12,12 +12,14 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
         file,
         preview: URL.createObjectURL(file),
       });
+
+      setProfileEditData((prev) => ({
+        ...prev,
+        profileUrl: URL.createObjectURL(file),
+      }));
     }
-    setProfileEditData((prev) => ({
-      ...prev,
-      profileUrl: selectedImage ? selectedImage.file : null,
-    }));
   };
+  
 
 
 
