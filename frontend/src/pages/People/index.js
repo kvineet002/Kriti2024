@@ -1,8 +1,7 @@
 import React, { useEffect, useId, useState } from "react";
-import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Navbar2 from "../../components/navbar2";
+import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
 
 function People({SERVER_URL}) {
@@ -93,7 +92,7 @@ function People({SERVER_URL}) {
   };
   return (
     <div>
-      <Navbar2 />
+      <Navbar />
       <div className="flex px-5 md:px-[20%] mt-24 flex-col gap-4">
       <div className="flex gap-4 mb-4">
           <button

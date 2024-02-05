@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar2 from "../../components/navbar2";
+import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
 import Footer from "../../components/Footer";
 
@@ -54,7 +54,7 @@ function Home({SERVER_URL}) {
   return (
     <div className="w-full">
       <div className="hero__page w-full">
-        <Navbar2 />
+        <Navbar />
         <div className="pt-[200px] sm:pt-44 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
             <div className="bg-[#FFF] py-3 rounded-full  text-[#474646] text-[15px]  md:text-base flex justify-center items-center font-bold">
