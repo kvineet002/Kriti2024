@@ -4,6 +4,7 @@ import axios from "axios";
 import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
 import Footer from "../../components/Footer";
+import Navbar2 from "../../components/navbar2";
 
 function People({SERVER_URL}) {
   const [people, setPeople] = useState([]);

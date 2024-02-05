@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
 import Footer from "../../components/Footer";
 import InfiniteScrollingGallery from "../../components/Home";
+import Navbar2 from "../../components/navbar2";
 
 function Home({SERVER_URL}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
