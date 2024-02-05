@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
+import Footer from "../../components/Footer";
 
 function People({SERVER_URL}) {
   const [people, setPeople] = useState([]);
@@ -11,9 +12,13 @@ function People({SERVER_URL}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
   const [selectedTab, setSelectedTab] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading,setLoading]=useState(false)
+
   const currentUserId = "65b74ff720fcc017069a1d5c";
 
   useEffect(() => {
+    setLoading(true)
     const fetchData = async () => {
       try {
         const response = await axios.get(`${SERVER_URL}/api/users/allusers`);
@@ -21,7 +26,7 @@ function People({SERVER_URL}) {
         setPeople(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-      }
+      }finally{setLoading(false)}
     };
 
     fetchData();
@@ -81,39 +86,65 @@ function People({SERVER_URL}) {
     }
   };
   const filteredPeople = () => {
+    let filteredList = [];
     if (selectedTab === 'All') {
-      return people;
+      filteredList = people;
     } else if (selectedTab === 'Followers') {
-      return followedUsers;
+      filteredList = followedUsers;
     } else if (selectedTab === 'Following') {
-      return  followingUsers;
+      filteredList = followingUsers;
     }
-    return []; 
+
+    if (searchQuery) {
+      filteredList = filteredList.filter(person => {
+        const name = person.Name ? person.Name.toLowerCase() : '';
+        const designation = person.designation ? person.designation.toLowerCase() : '';
+        return name.includes(searchQuery.toLowerCase()) || designation.includes(searchQuery.toLowerCase());
+      });
+    }
+
+    return filteredList;
   };
+
   return (
     <div>
-      <Navbar />
-      <div className="flex px-5 md:px-[20%] mt-24 flex-col gap-4">
+      <Navbar2 SERVER_URL={SERVER_URL}/>
+     
+      <div className="flex px-5 md:px-[20%] mt-24  flex-col gap-4">
+      <div className="flex gap-1 bg-[#F2F2F2] items-center  mb-4 w-full px-2  text-black rounded-full border border-[#565656]">
+        <img src="/search.svg"/>
+      <input
+        type="text"
+        placeholder="Search People..."
+        className=" py-2 outline-none w-full  bg-transparent"
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+  
+    </div>
       <div className="flex gap-4 mb-4">
           <button
             onClick={() => setSelectedTab('All')}
-            className={`  border border-white rounded-full px-3 py-1 ${selectedTab === 'All' ? 'font-bold text-black bg-white' : ' text-white'}`}
+            className={`hover:opacity-80  border border-[#565656] rounded-full px-3 py-1 ${selectedTab === 'All' ? 'font-bold text-black bg-white' : ' text-white'}`}
           >
             All
           </button>
          { loggedIn&&<button
             onClick={() => setSelectedTab('Followers')}
-            className={`border border-white rounded-full px-3 py-1 ${selectedTab === 'Followers' ? 'font-bold text-black bg-white' : ' text-white'}`}
+            className={`border hover:opacity-80 border-[#565656] rounded-full px-3 py-1 ${selectedTab === 'Followers' ? 'font-bold text-black bg-white' : ' text-white'}`}
           >
             Followers
           </button>}
       
         </div>
-        {filteredPeople().map(
+        
+        {loading ? (
+        <img src='/loading.gif' alt="Loading..." className='w-[50px] m-auto '></img>
+      ) : (
+        filteredPeople().map(
           (person) =>
             person._id !== currentUserId && (
               <div key={person.id}>
-                <div className="border rounded-lg p-4 gap-4  ">
+                <div style={{ background: "url('/grid2.svg')"}} className="border bg-opacity-20 before:opacity-50 rounded-lg p-4 gap-4  ">
                   <div className=" flex justify-between items-center">
                     <Link to={`/profile/${person._id}`} className="text-white font-bold flex items-center gap-1 text-lg cursor-pointer">
                       <img
@@ -141,11 +172,14 @@ function People({SERVER_URL}) {
                 </div>
               </div>
             )
-        )}
+
+        ))}
          {showLoginModal && (
             <LoginModal onClose={() => setShowLoginModal(false)} />
           )}
+          
       </div>
+      <Footer/>
     </div>
   );
 }

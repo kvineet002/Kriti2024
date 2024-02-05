@@ -1,11 +1,11 @@
 import React, { useEffect, useId, useState } from "react";
-import Navbar from "../../components/Navbar";
 import Navbar2 from "../../components/navbar2";
 import { useParams } from "react-router";
 import axios from "axios";
 import LoginModal from "../../components/LoginModal";
 import { Link } from "react-router-dom";
 import ReviewBox from "../../components/ReviewBox";
+import Footer from "../../components/Footer";
 
 function Project({SERVER_URL}) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -18,6 +18,7 @@ function Project({SERVER_URL}) {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [loading,setLoading]=useState(true)
   
   
   
@@ -31,7 +32,9 @@ function Project({SERVER_URL}) {
           projectId:id
           
         }
-      );
+        );
+        setIsLiked(!isLiked); 
+        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
     } catch (error) {
       console.error("Error updating following status:", error);
     }
@@ -46,11 +49,14 @@ function Project({SERVER_URL}) {
           projectId:id
         }
       );
+      setIsSaved(!isSaved); 
+      setSaveCount(isSaved ? saveCount - 1 : saveCount + 1);
     } catch (error) {
       console.error("Error updating following status:", error);
     }
   };
   useEffect(() => {
+    setLoading(true)
     const fetchProject = async () => {
       try {
         const response = await axios.post( `${SERVER_URL}/project/getproject`,{
@@ -67,13 +73,13 @@ function Project({SERVER_URL}) {
 
       } catch (error) {
         console.error('Error fetching project:', error);
-        // Handle the error as needed in your application
-      }
+        
+      }finally{setLoading(false)}
     };
 
     fetchProject();
 
-  }, [handleLike,handleSave]);
+  }, [id,userId]);
   const fetchFollowingUsers = async () => {
     try {
       const response = await axios.post(
@@ -108,8 +114,11 @@ useEffect(() => {
 }, [handleFollow]);
   return (
     <div>
-      <Navbar2 />
-      <div className=" my-[5%] rounded-lg border-[#565656] border-2 p-5 md:mx-20 mx-2">
+      <Navbar2 SERVER_URL={SERVER_URL}/>
+      {loading ? (
+        <img src='/loading.gif' className='w-[50px] md:mt-[8%] mt-[25%] m-auto '></img>
+      ) : (
+      <div className=" md:mt-[8%] mt-[25%] rounded-lg border-[#565656] border p-5 md:mx-20 mx-2">
         <div className=" flex flex-col gap-6">
           <div className=" flex  flex-col gap-2">
             <div className=" flex  justify-between items-center">
@@ -166,7 +175,7 @@ useEffect(() => {
             <div className=" flex flex-col md:w-[35%] gap-8 w-full">
               <div className=" flex flex-col gap-1">
                 <label className=" text-white">Project Links</label>
-                <div className=" border border-white flex gap-3 p-2 rounded-xl">
+                <div className=" border border-[#565656]  flex gap-3 p-2 rounded-xl">
                   <a
                     target="blank"
                     href=""
@@ -185,7 +194,7 @@ useEffect(() => {
               </div>
               <div className=" flex flex-col gap-1">
                 <label className=" text-white">Tech stacks</label>
-                <div className=" border border-white flex flex-wrap gap-3 p-2 rounded-xl">
+                <div className=" border border-[#565656] flex flex-wrap gap-3 p-2 rounded-xl">
                   {project&&project.technologies.map((data, index) => (
                     <a
                       href={data.link}
@@ -198,7 +207,7 @@ useEffect(() => {
               </div>
               <div className=" flex flex-col gap-1">
                 <label className=" text-white">Courses / material</label>
-                <div className=" border border-white flex flex-col gap-3 p-2 py-4  rounded-xl">
+                <div className=" border border-[#565656]  flex flex-col gap-3 p-2 py-4  rounded-xl">
                   {project&&project.courseLinks.map((data, index) => (
                     <a
                       href={data.link}
@@ -207,7 +216,7 @@ useEffect(() => {
                     >
                       <img
                         width={"15px"}
-                        className="  border-white"
+                        className="  border-[#565656] "
                         src="/pin.svg"
                       />{" "}
                       <div className=" truncate flex w-full flex-wrap">
@@ -222,15 +231,16 @@ useEffect(() => {
               <div className=" flex flex-col gap-4">
                 <div className=" flex flex-col gap-1">
                   <label className=" text-white">About</label>
-                  <div className=" border px-8 border-white flex gap-3 p-2 rounded-xl text-white">
+                  <div className=" border px-8 border-[#565656]  flex gap-3 p-2 rounded-xl text-white">
                   {project&&project.bigdescription} </div>
                 </div>
-           <ReviewBox SERVER_URL={SERVER_URL} projectId={id}  />
+           <ReviewBox SERVER_URL={SERVER_URL} projectId={id} loggedIn={loggedIn} setShowLoginModal={setShowLoginModal}/>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>)}
+      <Footer/>
     </div>
   );
 }

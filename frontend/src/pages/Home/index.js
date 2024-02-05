@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
 import Footer from "../../components/Footer";
+import InfiniteScrollingGallery from "../../components/Home";
 
 function Home({SERVER_URL}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -54,8 +55,8 @@ function Home({SERVER_URL}) {
   return (
     <div className="w-full">
       <div className="hero__page w-full">
-        <Navbar />
-        <div className="pt-[200px] sm:pt-44 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
+        <Navbar2 SERVER_URL={SERVER_URL}/>
+        <div className="pt-[200px]  sm:pt-44 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
             <div className="bg-[#FFF] py-3 rounded-full  text-[#474646] text-[15px]  md:text-base flex justify-center items-center font-bold">
               <h1 className=" px-12 md:px-16">Endless collaboration possibilities!</h1>
@@ -63,7 +64,7 @@ function Home({SERVER_URL}) {
           </div>
           <div className=" flex flex-col items-center text-white">
             <img className=" w-[70vw]" src="/herotext.svg" />
-            <p className=" text-slate-400  lg:text-xl font-medium mt-4">
+            <p className=" text-slate-400  lg:text-xl font-medium  text-center mt-4">
               Empoise, Lorem ipsum dolor sit amet. Transform
             </p>
             <h3 className="mt-12 font-thin font-sans text-center">
@@ -93,16 +94,18 @@ function Home({SERVER_URL}) {
       {showLoginModal && (
         <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
       )}
-
+<div className=" relative">
+<img src="/element2.svg" className=" absolute opacity-10"/>
+</div>
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
-        <h1 className="text-center text-6xl  my-6 ">About Us</h1>
-        <div className="flex text-[16px] px-auto mt-5 w-5/9 mx-auto text-xl">
-          <p className="w-2/5 text-[16px] mx-auto my-8 md:text-xl sm:text-base ">
+        <h1 className=" pl-[5%] text-4xl  my-6 ">About Us</h1>
+        <div className="flex text-[14px] px-auto mt-5 w-5/9 mx-auto text-xl">
+          <p className="w-2/5 text-[14px] mx-auto my-8 md:text-xl sm:text-base ">
             Lorem ipsum do Lorem ipsum dolor, sit amet consectetur adipisicing
             elit. Numquam molestiae exercitationem volaerat. Voluptas doloribus
             aspernatur temporibus in fugiat eveniet nostrum ipsum?
           </p>
-          <p className="w-2/5 text-[16px] mx-auto my-8 md:text-xl sm:text-base ">
+          <p className="w-2/5 text-[14px] mx-auto my-8 md:text-xl sm:text-base ">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
             quisquam unde consequatur sunt, inventore corporis qui repellat
             natus, repudiandae similique nihil culpa neque eligendi quo,
@@ -112,49 +115,15 @@ function Home({SERVER_URL}) {
       </div>
 
       {/*Browse Talent*/}
-      <div className="flex flex-col gap-4 pt-6 text-[#EAEAEA]">
-        <div className="text-[30px]  text-2xl md:text-[#EAEAEA] md:text-6xl ml-[13vw]">
-          Browse talent by category
-        </div>
-        <div className=" text-sm mt-[-2px] mb-4  md:text-[18px]  ml-[13vw]">
-          Looking for collab?
-          <span className="text-[#16ACE7] cursor-pointer">
-            {" "}
-            Browse Projects
-          </span>
-        </div>
-      </div>
-
+   
       {/*User Cards*/}
-      <div className="flex w-[90vw] md:w-[95vw] flex-wrap justify-center items-center mx-auto">
-        {userData.users.map((user, index) => (
-          <div className="m-[8px] w-[34vw]  md:w-[18vw] rounded-[8px] h-[30vw] md:h-[16vw]  flex flex-col justify-between border-[1px] border-[#565656] bg-gradient-to-b from-[#343333d8] to-blue-500-500 to-black text-[#EAEAEA]  cursor-pointer ">
-            <span className="text-[16px] sm:text-[30px]  lg:text-[30px] ml-3  ">
-              {user.name}
-            </span>
-            <div className="ml-3 w-[95%] text-base flex  items-center gap-1  ">
-              <img
-                src="./star1.svg"
-                className=" my-auto"
-                height="20px"
-                width="20px"
-                alt=""
-              />
-              {user.rating}/5
-            </div>
-
-            <div className=" text-right  mb-4 mr-4 text-[#e8f8ff8e] text-[12px] md:text-end sm:">
-              {user.projectNo} Projects
-            </div>
-          </div>
-        ))}
-      </div>
+<InfiniteScrollingGallery/>
 
       {/*Circles */}
       <div className="flex justify-center">
-        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2"></div>
-        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20  m-[1rem] rounded-full border-[#8D9093] border-2 flex items-center justify-center"></div>
-        <div className="w-[30px] h-[30px] sm:w-20 sm:h-20 m-[1rem] rounded-full border-[#8D9093] border-2"></div>
+        <div className="w-[30px] h-[30px] sm:w-16 sm:h-16  m-[1rem] rounded-full border-[#8D9093] border-2"></div>
+        <div className="w-[30px] h-[30px] sm:w-16 sm:h-16  m-[1rem] rounded-full border-[#8D9093] border-2 flex items-center justify-center"><img className=" w-8" src="/arrow22.svg"/></div>
+        <div className="w-[30px] h-[30px] sm:w-16 sm:h-16 m-[1rem] rounded-full border-[#8D9093] border-2"></div>
       </div>
       <img src="/Arrow2.svg" className=" w-6 sm:w-[70px] mx-auto" alt="" />
 
