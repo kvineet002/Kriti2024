@@ -200,6 +200,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
             <form className="flex flex-wrap justify-between w-full mt-5 gap-2" onSubmit={(e)=>{
               e.preventDefault();
               console.log(projectData);
+              onCancel();
             }}>
               {/* Left Side */}
               <div className="w-full overflow-hidden md:w-[65%]">
@@ -230,9 +231,10 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                   <label htmlFor="text" className="text-sm font-medium">
                     Description
                   </label>
-                  <textarea
+                  <input
                     name="description"
-                    className="outline-none bg-transparent border-white border-b-2 w-full h-20"
+                    type="text"
+                    className="outline-none bg-transparent border-white border-b-2 w-full h-10"
                     onChange={(e)=>{
                       const inp = e.target.value;
                       setProjectData((prev)=>({
@@ -240,7 +242,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                         description: inp
                       }))
                     }}
-                  ></textarea>
+                  ></input>
 
 
                   {/* About */}
@@ -249,9 +251,10 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                   <label htmlFor="text" className="text-sm font-medium">
                     About
                   </label>
-                  <textarea
+                  <input
                     name="about"
-                    className="outline-none bg-transparent border-white border-b-2 w-full h-24"
+                    type="text"
+                    className="outline-none bg-transparent border-white border-b-2 w-full h-10"
                     onChange={(e)=>{
                       const inp = e.target.value;
                       setProjectData((prev)=>({
@@ -259,7 +262,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                         bigdescription: inp
                       }))
                     }}
-                  ></textarea>
+                  ></input>
                 </div>
 
 
@@ -346,7 +349,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                   Choose Media
                 </div>
                 <div className="flex flex-wrap px-5 w-full mb-4">
-                  {projectData.extraMedia.map((image, index) => (
+                  {images.map((image, index) => (
                     <div
                       key={index}
                       className="relative w-70 h-40 m-2 overflow-hidden shadow-lg border-[#565656] border-2 rounded-lg"
@@ -486,9 +489,9 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                     Tech stacks
                   </div>
                   <div className="border-2 flex flex-col items-center justify-between border-[#565656] w-full rounded-lg">
-                    <div className="flex justify-start w-full gap-2 px-4 py-4">
+                    <div className="flex justify-start w-full gap-2 px-4 py-4 flex-wrap">
                     {projectData.technologies.map((stack, index) => (
-                      <div className="flex bg-white text-black items-center px-2 rounded-lg font-semibold">
+                      <div className="flex bg-white text-black items-center px-2 rounded-lg font-semibold my-1">
                         <div className="text-sm">{stack}</div>
                         <img
                           src="/closeicon.svg"
@@ -598,7 +601,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
               <div className="flex md:justify-end justify-center md:mr-10 items-center gap-4 mt-5 w-full">
                 <div
                   onClick={onCancel}
-                  className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor text-black"
+                  className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor-pointer text-black "
                 >
                   Cancel
                 </div>

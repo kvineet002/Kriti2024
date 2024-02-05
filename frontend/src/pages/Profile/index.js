@@ -398,7 +398,25 @@ function Profile({isAuthenticated,SERVER_URL}) {
   const [serverURL, setServerURL] = useState("");
   const [isfollowing, setisfollowing] = useState(false);
   const [profileEdit, setProfileEdit] = useState(false);
-  const [formData, setFormData] = useState();
+  const [profileEditData, setProfileEditData] = useState(
+    {
+      profileUrl: "",
+      Name: "",
+      designation: "",
+      Email: "",
+      about: "",
+      joiningYear: "",
+      graduatingYear: "",
+      socials : {
+        github: "",
+        linkedin: "",
+        instagram: "",
+        facebook: "",
+        twitter: "",
+        youtube: ""
+      }
+    }
+  );
   const [addProject, setAddProject] = useState(false);
   const [projectData, setProjectData] = useState({
     title: "",
@@ -656,7 +674,8 @@ function Profile({isAuthenticated,SERVER_URL}) {
           onClose={() => {
             setProfileEdit(false);
           }}
-          onSubmit={onSubmit}
+          profileEditData={profileEditData}
+          setProfileEditData={setProfileEditData}
         />
       )}
       {addProject && (
