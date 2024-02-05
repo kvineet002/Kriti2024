@@ -436,12 +436,7 @@ function Profile({isAuthenticated,SERVER_URL}) {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-  // const addProj = (data) => {
-  //   console.log(data);
-  // };
+
 
 
   const handleUpload = async () => {
