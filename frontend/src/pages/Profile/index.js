@@ -499,9 +499,9 @@ console.log(profile)
               className="border-slate-300 border-2 rounded-[50%] m-auto"
             />
           </div>
-          <div className="flex w-[60%] md:w-[60%] flex-col mr-4">
-            <div className=" text-[30px] sm:text-[50px] text-[#00b2ff] font-bold uppercase flex justify-between leading-8 sm:leading-tight">
-              <div>
+          <div className="flex  justify-start w-[60%] md:w-[60%] flex-col mr-4">
+            <div className=" text-[30px] sm:text-[40px] text-[#C0C0C0]  font-bold uppercase flex justify-between leading-8 sm:leading-tight">
+              <div className="mytext">
                 {profile.Name}
                 {/* <span className=" text-[6px] font-thin text-white flex flex-nowrap mt-[-6px] mb-[6px] sm:mt-0">{`${
                   profile.graduationPeriod - 4
