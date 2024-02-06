@@ -16,7 +16,7 @@ function People({SERVER_URL}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading,setLoading]=useState(false)
 
-  const currentUserId = "65b74ff720fcc017069a1d5c";
+  const currentUserId = localStorage.getItem('id')
 
   useEffect(() => {
     setLoading(true)
