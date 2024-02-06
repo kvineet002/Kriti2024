@@ -11,7 +11,7 @@ function People({SERVER_URL}) {
   const [followingUsers, setFollowingUsers] = useState([]);
   const [followedUsers, setFollowedUsers] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
   const [selectedTab, setSelectedTab] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading,setLoading]=useState(false)
