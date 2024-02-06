@@ -3,8 +3,11 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   Name: { type: String, required: true },
   Email: { type: String, required: true, unique: true },
+  About:{type:String},
   token: { type: String },
   designation: { type: String },
+  joiningYear: {type:Number},
+  graduatingYear:{type:Number},
   profileUrl: { type: String,default:"/profile-icon.jpg" },
   followers: [
     {

@@ -25,7 +25,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
 
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
-      <div className="relative w-[95%] sm:w-[80%] md:w-[50%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14">
+      <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14">
         <div className="flex flex-col justify-center items-center ">
           <div className="self-start text-[30px] sm:text-[48px] font-medium mx-8 sm:mx-14">
             Edit Profile
@@ -39,7 +39,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
             }}
           >
             {/* Profile and Profile Urls */}
-            <div className="flex flex-wrap w-full justify-between">
+            <div className="flex flex-wrap items-center w-full justify-between">
               <div className="flex flex-col mx-auto">
                 {/* Circular Image Preview and Add image button goes here */}
                 <div className="rounded-[50%] border-2 border-white w-[200px] h-[200px] md:w-[250px] md:h-[250px] mx-5 mt-6 sm:items-center flex flex-col justify-center shadow-lg shadow-[#ffffff2c]">
@@ -51,6 +51,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                     }
                     alt={`Selected Image`}
                     className="w-full h-full object-cover rounded-full"
+                  
                   />
                 </div>
                 <label
@@ -64,6 +65,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                     accept="image/*"
                     onChange={handleImageUpload}
                     className="hidden"
+                    required
                   />
                 </label>
               </div>
@@ -215,6 +217,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                   designation: inp,
                 }));
               }}
+              required
             />
             <div className="text-sm font-medium px-10">Email</div>
             <input
@@ -241,6 +244,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                   about: inp,
                 }));
               }}
+              required
             />
             <div className="flex mt-4 flex-wrap mx-10 gap-4 justify-between">
               <div className="flex justify-between gap-4">
@@ -298,7 +302,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                 type="submit"
                 className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor text-black hover:opacity-80"
               >
-                Add Project
+                Update
               </button>
             </div>
           </form>

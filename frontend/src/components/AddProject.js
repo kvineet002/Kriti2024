@@ -222,6 +222,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                             title: inp
                           }))
                     }}
+                    required
                   />
                 </div>
 
@@ -244,6 +245,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                         description: inp
                       }))
                     }}
+                    required
                   ></input>
 
 
@@ -264,6 +266,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                         bigdescription: inp
                       }))
                     }}
+                    required
                   ></input>
                 </div>
 
@@ -283,6 +286,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                         GitURL: inp
                       }))
                     }}
+                    required
                   />
                 </div>
 
