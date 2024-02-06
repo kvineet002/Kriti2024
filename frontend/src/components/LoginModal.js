@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../pages/Login/authConfig";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,6 +8,22 @@ function LoginModal({onClose,SERVER_URL}) {
   const [val,setVal]=useState('')
   const navigate= useNavigate();
   const location=useLocation();
+  let menuRef = useRef();
+
+  useEffect(()=>{
+    let handler = (e) => {
+      if(!menuRef.current.contains(e.target)){
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown",handler);
+
+    return() => {
+      document.removeEventListener("mousedown",handler);
+    }
+  })
+
   const handleLogin = async () => {
 
     try {
@@ -36,7 +52,7 @@ function LoginModal({onClose,SERVER_URL}) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm h-screen flex justify-center items-center">
-      <div className="flex-col">
+      <div className="flex-col" ref={menuRef}>
         <div className="pb-2  flex justify-end" >
           <img src="/closeicon.svg" alt="close" className="cursor-pointer" onClick={onClose}/>
         </div>
