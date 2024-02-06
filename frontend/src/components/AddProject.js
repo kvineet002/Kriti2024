@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const techStack = [
   "JavaScript",
@@ -101,6 +101,22 @@ function AddProject({ onCancel, projectData, setProjectData }) {
   const [techStackSuggestions, setTechStackSuggestions] = useState([]);
   const [newUrl, setNewUrl] = useState("");
 
+  let menuRef = useRef();
+
+  useEffect(()=>{
+    let handler = (e) => {
+      if(!menuRef.current.contains(e.target)){
+        onCancel();
+      }
+    };
+
+    document.addEventListener("mousedown",handler);
+
+    return() => {
+      document.removeEventListener("mousedown",handler);
+    }
+  })
+
   //Handling Banner Image
   const handleBannerImageUpload = (e) => {
     const file = e.target.files[0];
@@ -194,7 +210,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
-        <div className="relative w-[95%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 my-10 h-[90vh] overflow-y-scroll md:no-scrollbar">
+        <div className="relative w-[95%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 my-10 h-[90vh] overflow-y-scroll md:no-scrollbar" ref={menuRef}>
           <div className="flex flex-col justify-center items-center ">
             <div className=" self-start text-[36px] font-semibold mx-5">
               Add New Project

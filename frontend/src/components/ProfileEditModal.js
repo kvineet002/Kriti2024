@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
+
+  let menuRef = useRef();
+
+  useEffect(()=>{
+    let handler = (e) => {
+      if(!menuRef.current.contains(e.target)){
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown",handler);
+
+    return() => {
+      document.removeEventListener("mousedown",handler);
+    }
+  })
+
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -25,7 +42,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
 
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
-      <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14">
+      <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14 " ref={menuRef}>
         <div className="flex flex-col justify-center items-center ">
           <div className="self-start text-[30px] sm:text-[48px] font-medium mx-8 sm:mx-14">
             Edit Profile
