@@ -149,9 +149,9 @@ function People({SERVER_URL}) {
                   <div className=" flex justify-between items-center">
                     <Link to={`/profile/${person._id}`} className="text-white font-bold flex items-center gap-1 text-lg cursor-pointer">
                       <img
-                        src="/profile-icon.jpg"
+                        src={person.profileUrl}
                         alt={`${person.Name}'s Profile`}
-                        className="w-12 h-12 rounded-full"
+                        className="w-12 h-12 rounded-full mr-2"
                       /><div className=" flex flex-col"><div>{person.Name}</div><div className=" text-sm font-thin  text-gray-300"> {person.designation}</div></div>
                       
                     </Link>

@@ -1,13 +1,6 @@
 import React, { useEffect, useId, useState } from "react";
-import { initializeApp } from "firebase/app";
 import { Link, useParams } from "react-router-dom";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "@firebase/storage";
-import { firebaseConfig } from "../Login/authConfig";
+
 import Footer from "../../components/Footer";
 import ProfileEditModal from "../../components/ProfileEditModal";
 import AddProject from "../../components/AddProject";
@@ -15,11 +8,9 @@ import AddProject from "../../components/AddProject";
 import Navbar2 from "../../components/navbar2";
 import axios from "axios";
 
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
 function Profile({isAuthenticated,SERVER_URL}) {
   const {id}=useParams();
-  const userId="65b74ff720fcc017069a1d5c"
+  const userId=localStorage.getItem('id')
 
 
 
@@ -31,9 +22,7 @@ function Profile({isAuthenticated,SERVER_URL}) {
   const [profileEditData, setProfileEditData] = useState(
     {
       profileUrl: "",
-      Name: "",
       designation: "",
-      Email: "",
       about: "",
       joiningYear: "",
       graduatingYear: "",
@@ -459,23 +448,10 @@ function Profile({isAuthenticated,SERVER_URL}) {
     fetchUserById();
   }, [userId]);
 
-console.log(profile)
-  const handleUpload = async () => {
-    if (selectedFile) {
-      try {
-        const storageRef = ref(storage, `${selectedFile.name}`);
-        await uploadBytes(storageRef, selectedFile);
-        const downloadUrl = await getDownloadURL(storageRef);
-        setServerURL(downloadUrl);
-        console.log("File available at", downloadUrl);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+// console.log(profile)
   return (
     <div className="flex flex-col">
-      <Navbar2 SERVER_URL={SERVER_URL}/>
+      <Navbar2 SERVER_URL={SERVER_URL} />
       {/* {isAuthenticated && <div>isAuthenticated true user</div>}
       your profile page
       <div>
@@ -495,7 +471,7 @@ console.log(profile)
             <img
               src={profile.profileUrl}
               alt="profileImg"
-              className="border-slate-300 border-2 rounded-full h-48 w-48 m-auto"
+              className="border-slate-300 border-2 rounded-full h-24 w-24 md:h-48 md:w-48  m-auto"
             />
           </div>
           <div className="flex  justify-start w-[60%] md:w-[60%] flex-col mr-4">
@@ -522,7 +498,7 @@ console.log(profile)
               {profile.designation}
             </div>
             <div className="text-white pt-6 mt-4 overflow-auto max-h-[100px]">
-              {profile.about}
+              {profile.About}
             </div>
 
             {/* <div className="flex gap-2 pt-4">
@@ -691,15 +667,20 @@ console.log(profile)
           }}
           profileEditData={profileEditData}
           setProfileEditData={setProfileEditData}
+          Email={profile.Email}
+          Name={profile.Name}
+          SERVER_URL={SERVER_URL}
         />
       )}
       {addProject && (
         <AddProject
           onCancel={() => {
             setAddProject(false);
+
           }}
           projectData={projectData}
           setProjectData={setProjectData}
+          SERVER_URL={SERVER_URL}
         />
       )}
       {/* <div>

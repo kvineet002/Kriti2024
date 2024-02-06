@@ -10,7 +10,6 @@ import Home from "./pages/Home";
 import Courses from "./pages/courses";
 
 function App() {
-  const [isAuthenticated,setisAuthenticated]=useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
   const SERVER_URL="https://dihingkriti2024-backend.vercel.app"

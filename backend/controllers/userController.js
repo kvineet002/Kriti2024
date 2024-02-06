@@ -146,7 +146,7 @@ const updateUserDetails = async (req, res) => {
       userId,
       {
         $set: {
-          about,
+          About,
           designation,
           joiningYear,
           graduatingYear,

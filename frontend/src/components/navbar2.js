@@ -1,15 +1,22 @@
 // Navbar.js
 import React, { useState, useEffect, useRef } from "react";
 import LoginModal from "./LoginModal";
-import { useLocation } from "react-router";
+import { useLocation,useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
-const Navbar2 = ({SERVER_URL}) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+const Navbar2 = ({SERVER_URL,openEdit}) => {
+  const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
   const [showLoginModal, setShowLoginModal] = useState(false);
   const location=useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate=useNavigate();
+
+  useEffect(()=>{
+    const token=localStorage.getItem('token')
+    if(token)setLoggedIn(true);
+  },[])
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -21,7 +28,14 @@ const Navbar2 = ({SERVER_URL}) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownRef]);
 
- 
+ const handleLogout=()=>{
+  localStorage.removeItem('token');
+  localStorage.removeItem('Name');
+  localStorage.removeItem('email');
+  localStorage.removeItem('id');
+  localStorage.removeItem('onboarding');
+  navigate('/')
+ }
 
   return (
     <nav className="bg-[#0c0c0c97] text-white fixed top-0 left-0 right-0 z-50">
@@ -105,12 +119,19 @@ const Navbar2 = ({SERVER_URL}) => {
               )}
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
+                  <Link
+                   to={`/profile/${localStorage.getItem('id')}`}
+                    className="block px-4 cursor-pointer py-2 text-sm text-gray-800 hover:bg-gray-200"
+                  >
+                    Profile
+                  </Link>
+                  <div 
+                    
+                    onClick={handleLogout}
+                    className="block px-4 cursor-pointer py-2 text-sm text-gray-800 hover:bg-gray-200"
                   >
                     Logout
-                  </a>
+                  </div>
                 </div>
               )}
             </div>

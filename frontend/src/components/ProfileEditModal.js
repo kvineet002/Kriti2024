@@ -1,27 +1,70 @@
 import React, { useState } from "react";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "../pages/Login/authConfig";
 
-function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "@firebase/storage";
+import axios from "axios";
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData,Name,Email }) {
+  
   const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState('');
   const currentYear = new Date().getFullYear();
+  const [loading,setLoading]=useState(false);
   const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedImage({
-        file,
-        preview: URL.createObjectURL(file),
-      });
-
-      setProfileEditData((prev) => ({
-        ...prev,
-        profileUrl: URL.createObjectURL(file),
-      }));
+  const handleUpload = async () => {
+    if (selectedImage) {
+      try {
+        const storageRef = ref(storage, `${selectedImage.name}`);
+        await uploadBytes(storageRef, selectedImage);
+        const downloadUrl = await getDownloadURL(storageRef);
+        console.log(downloadUrl)
+        setProfileEditData((prev) => ({
+          ...prev,
+          profileUrl: downloadUrl,
+        }));
+      } catch (error) {
+        console.error("firebase upload error:"+error);
+      }
     }
   };
-  
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    console.log(file)
+    setSelectedImage(file);
+    console.log(selectedImage)
+    setPreviewImage(URL.createObjectURL(file));
+    console.log(previewImage)
+      handleUpload();
+      console.log("uploaded image")
 
+  };
+  const userId="65b651321f0b0adc02fcebd9"//TODO: get from local storage
 
+const handleSubmit=async()=>{
+  try {
+    // Make a POST request to your backend endpoint
+    const response = await axios.post(`${SERVER_URL}/api/users/updateuser`, {
+      userId:userId,
+      About:profileEditData.about,
+      designation:profileEditData.designation,
+      joiningYear:profileEditData.joiningYear,
+      graduatingYear:profileEditData.graduatingYear,
+      profileUrl:profileEditData.profileUrl,
+    });
+
+    console.log('User details updated:', response.data);
+  } catch (error) {
+    console.error('Error updating user details:', error);
+  }
+}
 
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
@@ -34,8 +77,11 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
             className="flex flex-col flex-wrap justify-between w-full mt-5 gap-2"
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(profileEditData);
-              onClose();
+              setLoading(true)
+              handleSubmit()
+              setLoading(false);
+              console.log("uploaded")
+              // onClose();
             }}
           >
             {/* Profile and Profile Urls */}
@@ -46,7 +92,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                   <img
                     src={
                       selectedImage
-                        ? selectedImage.preview
+                        ? previewImage
                         : "/profile-icon.jpg"
                     }
                     alt={`Selected Image`}
@@ -63,7 +109,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                     type="file"
                     id="imageInput"
                     accept="image/*"
-                    onChange={handleImageUpload}
+                    onChange={handleFileChange}
                     className="hidden"
                     required
                   />
@@ -197,13 +243,9 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
               type="text"
               className="mx-10 bg-transparent outline-none border-b-2 pb-2 w-[80%] sm:w-[90%] text-lg"
               placeholder="Enter Name"
-              onChange={(e) => {
-                const inp = e.target.value;
-                setProfileEditData((prev) => ({
-                  ...prev,
-                  Name: inp,
-                }));
-              }}
+              value={Name}
+              readOnly
+
             />
             <div className="text-sm font-medium px-10">Designation</div>
             <input
@@ -224,6 +266,8 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
               type="text"
               className="mx-10 bg-transparent outline-none border-b-2 pb-2 w-[80%] sm:w-[90%] text-lg"
               placeholder="Enter Email"
+              value={Email}
+              readOnly
               onChange={(e) => {
                 const inp = e.target.value;
                 setProfileEditData((prev) => ({
@@ -258,7 +302,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                       joiningYear: parseInt(e.target.value,10)
                     }))
                   }}
-                  className="bg-transparent outline-none border-b-2"
+                  className="bg-transparent px-3 outline-none border-b-2"
                 >
                   {years.map((year) => (
                     <option key={year} value={year} className="bg-black">
@@ -279,7 +323,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                       graduatingYear: parseInt(e.target.value,10)
                     }))
                   }}
-                  className="bg-transparent outline-none border-b-2"
+                  className="bg-transparent px-3 outline-none border-b-2"
                 >
                   {years.map((year) => (
                     <option key={year} value={year} className="bg-black">
