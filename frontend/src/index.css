@@ -25,9 +25,7 @@ body {
     background-color: #181818;
     
 }
-.mytext{
-  background: url(../public/silver-metal.jpg);
-}
+
 .about-us{
     background: linear-gradient(180deg, #242424 0%, #121212 100%);
 }

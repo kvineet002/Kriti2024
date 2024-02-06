@@ -450,7 +450,6 @@ function Profile({isAuthenticated,SERVER_URL}) {
         const response = await axios.post(`${SERVER_URL}/api/users/getuser`, {
           userId:id,
         });
-
         setprofile(response.data);
       } catch (error) {
         console.error('Error fetching user:', error);
@@ -492,16 +491,16 @@ console.log(profile)
       </div> */}
       <div className="hero__page">
         <div className="flex md:gap-3 pt-[120px] md:justify-start">
-          <div className="px-2 w-[35%] md:w-[20%] overflow-hidden mx-4">
+          <div className="px-2 w-[35%] md:w-[20%] flex items-center overflow-hidden mx-4">
             <img
               src={profile.profileUrl}
               alt="profileImg"
-              className="border-slate-300 border-2 rounded-[50%] m-auto"
+              className="border-slate-300 border-2 rounded-full h-48 w-48 m-auto"
             />
           </div>
           <div className="flex  justify-start w-[60%] md:w-[60%] flex-col mr-4">
-            <div className=" text-[30px] sm:text-[40px] text-[#C0C0C0]  font-bold uppercase flex justify-between leading-8 sm:leading-tight">
-              <div className="mytext">
+            <div className=" text-[30px] sm:text-[40px]   font-bold  flex justify-between leading-8 sm:leading-tight">
+              <div className="text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE]  to-[#79D0F6]]">
                 {profile.Name}
                 {/* <span className=" text-[6px] font-thin text-white flex flex-nowrap mt-[-6px] mb-[6px] sm:mt-0">{`${
                   profile.graduationPeriod - 4
