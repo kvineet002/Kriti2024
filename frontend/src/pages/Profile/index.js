@@ -496,7 +496,6 @@ function Profile({isAuthenticated,SERVER_URL}) {
                 />
               </div>
             </div>
-
             <div className="uppercase text-white text-xs sm:text-base mt-[-4px]">
               {profile.designation}
             </div>
@@ -668,6 +667,17 @@ function Profile({isAuthenticated,SERVER_URL}) {
           onClose={() => {
             setProfileEdit(false);
           }}
+          profileEditData={profileEditData}
+          setProfileEditData={setProfileEditData}
+        />
+      )}
+      {addProject && (
+        <AddProject
+          onCancel={() => {
+            setAddProject(false);
+          }}
+          projectData={projectData}
+          setProjectData={setProjectData}
         />
       )}
       {/* <div>
