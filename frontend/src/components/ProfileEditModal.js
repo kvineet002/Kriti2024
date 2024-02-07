@@ -12,60 +12,50 @@ import axios from "axios";
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData,Name,Email }) {
-  
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState('');
   const currentYear = new Date().getFullYear();
-  const [loading,setLoading]=useState(false);
   const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
-
-  const handleUpload = async () => {
-    if (selectedImage) {
-      try {
-        const storageRef = ref(storage, `${selectedImage.name}`);
-        await uploadBytes(storageRef, selectedImage);
-        const downloadUrl = await getDownloadURL(storageRef);
-        console.log(downloadUrl)
-        setProfileEditData((prev) => ({
-          ...prev,
-          profileUrl: downloadUrl,
-        }));
-      } catch (error) {
-        console.error("firebase upload error:"+error);
-      }
-    }
-  };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log(file)
-    setSelectedImage(file);
-    console.log(selectedImage)
-    setPreviewImage(URL.createObjectURL(file));
-    console.log(previewImage)
-      handleUpload();
-      console.log("uploaded image")
-
+    setSelectedFile(file);
+    setPreviewImage(URL.createObjectURL(file))
   };
-  const userId="65b651321f0b0adc02fcebd9"//TODO: get from local storage
+
+  const userId=localStorage.getItem('id')//TODO: get from local storage
 
 const handleSubmit=async()=>{
+  setLoading(true);
   try {
-    // Make a POST request to your backend endpoint
-    const response = await axios.post(`${SERVER_URL}/api/users/updateuser`, {
-      userId:userId,
-      About:profileEditData.about,
-      designation:profileEditData.designation,
-      joiningYear:profileEditData.joiningYear,
-      graduatingYear:profileEditData.graduatingYear,
-      profileUrl:profileEditData.profileUrl,
-    });
-
-    console.log('User details updated:', response.data);
+    if (selectedFile) {
+      const storageRef = ref(storage, `Profiles/${selectedFile.name}`);
+      const uploadResult = await uploadBytes(storageRef, selectedFile);
+      const downloadUrl = await getDownloadURL(uploadResult.ref);
+  
+      const response = await axios.post(`${SERVER_URL}/api/users/updateuser`, {
+        userId:userId,
+        About:profileEditData.about,
+        designation:profileEditData.designation,
+        joiningYear:profileEditData.joiningYear,
+        graduatingYear:profileEditData.graduatingYear,
+        profileUrl:downloadUrl,
+        socials: profileEditData.socials,
+      });
+      localStorage.setItem('profileUrl',response.data.profileUrl);
+      localStorage.setItem('designation',response.data.designation);
+      // console.log('User details updated:', response.data);
+    } else {
+      console.log("No file selected");
+    }
   } catch (error) {
     console.error('Error updating user details:', error);
+  }finally {
+    setLoading(false); 
+    onClose(); 
   }
 }
-
+console.log(profileEditData.joiningYear)
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
       <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14">
@@ -77,11 +67,7 @@ const handleSubmit=async()=>{
             className="flex flex-col flex-wrap justify-between w-full mt-5 gap-2"
             onSubmit={(e) => {
               e.preventDefault();
-              setLoading(true)
               handleSubmit()
-              setLoading(false);
-              console.log("uploaded")
-              // onClose();
             }}
           >
             {/* Profile and Profile Urls */}
@@ -91,7 +77,7 @@ const handleSubmit=async()=>{
                 <div className="rounded-[50%] border-2 border-white w-[200px] h-[200px] md:w-[250px] md:h-[250px] mx-5 mt-6 sm:items-center flex flex-col justify-center shadow-lg shadow-[#ffffff2c]">
                   <img
                     src={
-                      selectedImage
+                      selectedFile
                         ? previewImage
                         : "/profile-icon.jpg"
                     }
@@ -344,9 +330,10 @@ const handleSubmit=async()=>{
               </div>
               <button
                 type="submit"
+                disabled={loading}
                 className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor text-black hover:opacity-80"
               >
-                Update
+             {loading ? 'Updating...' : 'Update'} 
               </button>
             </div>
           </form>

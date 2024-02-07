@@ -9,6 +9,14 @@ const userSchema = new mongoose.Schema({
   joiningYear: {type:Number},
   graduatingYear:{type:Number},
   profileUrl: { type: String,default:"/profile-icon.jpg" },
+  socials: {
+    github: String,
+    linkedin: String,
+    instagram: String,
+    facebook: String,
+    twitter: String,
+    youtube: String,
+  },
   followers: [
     {
       _id:{type:String},

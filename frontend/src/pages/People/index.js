@@ -69,7 +69,7 @@ function People({SERVER_URL}) {
     if(loggedIn)return followingUsers.some((user) => user._id === userId);
   };
 
-  const handleFollow = async (userId,Name,designation) => {
+  const handleFollow = async (userId) => {
 
     try {
       const response = await axios.post(

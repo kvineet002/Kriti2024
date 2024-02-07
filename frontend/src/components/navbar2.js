@@ -33,7 +33,8 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
   localStorage.removeItem('Name');
   localStorage.removeItem('email');
   localStorage.removeItem('id');
-  localStorage.removeItem('onboarding');
+  localStorage.removeItem('profileUrl');
+  localStorage.removeItem('designation');
   navigate('/')
  }
 
@@ -111,7 +112,7 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
                   className="focus:outline-none"
                 >
                   <img
-                    src="/profile-icon.jpg"
+                    src={localStorage.getItem('profileUrl')}
                     alt="Profile"
                     className="w-8 h-8 rounded-full"
                   />
