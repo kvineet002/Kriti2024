@@ -12,8 +12,8 @@ import Courses from "./pages/courses";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
-  const SERVER_URL="http://localhost:3002"
+  const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
+  // const SERVER_URL="http://localhost:3002"
   return (
     <BrowserRouter>
     <Routes>
