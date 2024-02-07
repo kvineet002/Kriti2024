@@ -8,10 +8,10 @@ import ReviewBox from "../../components/ReviewBox";
 import Footer from "../../components/Footer";
 
 function Project({SERVER_URL}) {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
   const {id}=useParams();
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const userId="65b74ff720fcc017069a1d5c"
+  const userId=localStorage.getItem('id')
   const [project, setProject] = useState(null);
   const [likeCount, setLikeCount] = useState(0);
   const [saveCount, setSaveCount] = useState(0);

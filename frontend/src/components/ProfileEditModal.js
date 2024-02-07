@@ -1,26 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 
 function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
-
-  let menuRef = useRef();
-
-  useEffect(()=>{
-    let handler = (e) => {
-      if(!menuRef.current.contains(e.target)){
-        onClose();
-      }
-    };
-
-    document.addEventListener("mousedown",handler);
-
-    return() => {
-      document.removeEventListener("mousedown",handler);
-    }
-  })
-
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -35,11 +18,14 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
         profileUrl: URL.createObjectURL(file),
       }));
     }
-  };
-  
-
-
-
+  } catch (error) {
+    console.error('Error updating user details:', error);
+  }finally {
+    setLoading(false); 
+    onClose(); 
+  }
+}
+console.log(profileEditData.joiningYear)
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
       <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14 " ref={menuRef}>
@@ -51,8 +37,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
             className="flex flex-col flex-wrap justify-between w-full mt-5 gap-2"
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(profileEditData);
-              onClose();
+              handleSubmit()
             }}
           >
             {/* Profile and Profile Urls */}
@@ -62,8 +47,8 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                 <div className="rounded-[50%] border-2 border-white w-[200px] h-[200px] md:w-[250px] md:h-[250px] mx-5 mt-6 sm:items-center flex flex-col justify-center shadow-lg shadow-[#ffffff2c]">
                   <img
                     src={
-                      selectedImage
-                        ? selectedImage.preview
+                      selectedFile
+                        ? previewImage
                         : "/profile-icon.jpg"
                     }
                     alt={`Selected Image`}
@@ -80,7 +65,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                     type="file"
                     id="imageInput"
                     accept="image/*"
-                    onChange={handleImageUpload}
+                    onChange={handleFileChange}
                     className="hidden"
                     required
                   />
@@ -214,13 +199,9 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
               type="text"
               className="mx-10 bg-transparent outline-none border-b-2 pb-2 w-[80%] sm:w-[90%] text-lg"
               placeholder="Enter Name"
-              onChange={(e) => {
-                const inp = e.target.value;
-                setProfileEditData((prev) => ({
-                  ...prev,
-                  Name: inp,
-                }));
-              }}
+              value={Name}
+              readOnly
+
             />
             <div className="text-sm font-medium px-10">Designation</div>
             <input
@@ -241,6 +222,8 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
               type="text"
               className="mx-10 bg-transparent outline-none border-b-2 pb-2 w-[80%] sm:w-[90%] text-lg"
               placeholder="Enter Email"
+              value={Email}
+              readOnly
               onChange={(e) => {
                 const inp = e.target.value;
                 setProfileEditData((prev) => ({
@@ -275,7 +258,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                       joiningYear: parseInt(e.target.value,10)
                     }))
                   }}
-                  className="bg-transparent outline-none border-b-2"
+                  className="bg-transparent px-3 outline-none border-b-2"
                 >
                   {years.map((year) => (
                     <option key={year} value={year} className="bg-black">
@@ -296,7 +279,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
                       graduatingYear: parseInt(e.target.value,10)
                     }))
                   }}
-                  className="bg-transparent outline-none border-b-2"
+                  className="bg-transparent px-3 outline-none border-b-2"
                 >
                   {years.map((year) => (
                     <option key={year} value={year} className="bg-black">
@@ -317,9 +300,10 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
               </div>
               <button
                 type="submit"
+                disabled={loading}
                 className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor text-black hover:opacity-80"
               >
-                Update
+             {loading ? 'Updating...' : 'Update'} 
               </button>
             </div>
           </form>

@@ -39,8 +39,8 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
   const submitReview = async () => {
     try {
       await axios.post(`${SERVER_URL}/reviews/create-review`, {
-        Name: "VINEET ANSAL", // Replace with the user's name
-        profileUrl: "/profile-icon.jpg", // Replace with the user's profile picture URL
+        Name: localStorage.getItem('Name'), 
+        profileUrl:localStorage.getItem('profileUrl'),
         message: newReview,
         projectId: projectId,
       });

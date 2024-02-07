@@ -11,12 +11,12 @@ function People({SERVER_URL}) {
   const [followingUsers, setFollowingUsers] = useState([]);
   const [followedUsers, setFollowedUsers] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
   const [selectedTab, setSelectedTab] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading,setLoading]=useState(false)
 
-  const currentUserId = "65b74ff720fcc017069a1d5c";
+  const currentUserId = localStorage.getItem('id')
 
   useEffect(() => {
     setLoading(true)
@@ -69,7 +69,7 @@ function People({SERVER_URL}) {
     if(loggedIn)return followingUsers.some((user) => user._id === userId);
   };
 
-  const handleFollow = async (userId,Name,designation) => {
+  const handleFollow = async (userId) => {
 
     try {
       const response = await axios.post(
@@ -77,8 +77,8 @@ function People({SERVER_URL}) {
         {
           userId:currentUserId,
           targetUserId: userId,
-          Name:"Name",
-          designation:"designation"
+          Name:localStorage.getItem('Name'),
+          designation:localStorage.getItem('designation')
         }
       );
       fetchFollowingUsers();
@@ -149,9 +149,9 @@ function People({SERVER_URL}) {
                   <div className=" flex justify-between items-center">
                     <Link to={`/profile/${person._id}`} className="text-white font-bold flex items-center gap-1 text-lg cursor-pointer">
                       <img
-                        src="/profile-icon.jpg"
+                        src={person.profileUrl}
                         alt={`${person.Name}'s Profile`}
-                        className="w-12 h-12 rounded-full"
+                        className="w-12 h-12 rounded-full mr-2"
                       /><div className=" flex flex-col"><div>{person.Name}</div><div className=" text-sm font-thin  text-gray-300"> {person.designation}</div></div>
                       
                     </Link>

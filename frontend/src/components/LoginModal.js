@@ -40,10 +40,13 @@ function LoginModal({onClose,SERVER_URL}) {
       localStorage.setItem('Name',response.data.user.Name);
       localStorage.setItem('email',response.data.user.Email);
       localStorage.setItem('token',response.data.user.token);
+      localStorage.setItem('profileUrl',response.data.user.profileUrl);
+      localStorage.setItem('designation',response.data.user.designation);
       
       console.log("Response from server:", response.data.user);
-     if(location.pathname==='/')
-      navigate('/explore');
+     if(location.pathname==='/'){
+       navigate(`/profile/${localStorage.getItem('id')}`);
+    }
     else onClose();
     } catch (error) {
       console.error("Error in login:", error);

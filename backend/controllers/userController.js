@@ -140,31 +140,28 @@ const getUserDetails = async (req, res) => {
 };
 const updateUserDetails = async (req, res) => {
   try {
-    const { userId, about, designation, joiningYear, graduatingYear, profileUrl } = req.body;
-
-    const user = await User.findByIdAndUpdate(
-      userId,
-      {
-        $set: {
-          about,
-          designation,
-          joiningYear,
-          graduatingYear,
-          profileUrl,
-        },
-      },
-      { new: true }
-    );
-
+    const { userId, About, designation, joiningYear, graduatingYear, profileUrl,socials } = req.body;
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+  if(About&&About.length>0) user.About=About;
+  if(designation&&designation.length>0) user.designation=designation;
+  if(profileUrl&&profileUrl.length>0)  user.profileUrl=profileUrl;
+  if(joiningYear)  user.joiningYear=joiningYear;
+  if(graduatingYear)  user.graduatingYear=graduatingYear;
+  if (socials && typeof socials === 'object') {
+    user.socials = { ...user.socials, ...socials };
+  }
+  await user.save();
 
+    // await user.save();
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 module.exports = {createUser,getAllUsers,getFollowingList,toggleFollowandfollowing,getFollowersList,getUserDetails,updateUserDetails};
