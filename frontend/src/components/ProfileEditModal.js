@@ -1,22 +1,52 @@
 import React, { useState } from "react";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "../pages/Login/authConfig";
 
-function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
-  const [selectedImage, setSelectedImage] = useState(null);
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "@firebase/storage";
+import axios from "axios";
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData,Name,Email }) {
+  const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState('');
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    setPreviewImage(URL.createObjectURL(file))
+  };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedImage({
-        file,
-        preview: URL.createObjectURL(file),
+  const userId=localStorage.getItem('id')//TODO: get from local storage
+
+const handleSubmit=async()=>{
+  setLoading(true);
+  try {
+    if (selectedFile) {
+      const storageRef = ref(storage, `Profiles/${selectedFile.name}`);
+      const uploadResult = await uploadBytes(storageRef, selectedFile);
+      const downloadUrl = await getDownloadURL(uploadResult.ref);
+  
+      const response = await axios.post(`${SERVER_URL}/api/users/updateuser`, {
+        userId:userId,
+        About:profileEditData.about,
+        designation:profileEditData.designation,
+        joiningYear:profileEditData.joiningYear,
+        graduatingYear:profileEditData.graduatingYear,
+        profileUrl:downloadUrl,
+        socials: profileEditData.socials,
       });
-
-      setProfileEditData((prev) => ({
-        ...prev,
-        profileUrl: URL.createObjectURL(file),
-      }));
+      localStorage.setItem('profileUrl',response.data.profileUrl);
+      localStorage.setItem('designation',response.data.designation);
+      // console.log('User details updated:', response.data);
+    } else {
+      console.log("No file selected");
     }
   } catch (error) {
     console.error('Error updating user details:', error);
@@ -28,7 +58,7 @@ function ProfileEditModal({ onClose, profileEditData, setProfileEditData }) {
 console.log(profileEditData.joiningYear)
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
-      <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14 " ref={menuRef}>
+      <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14">
         <div className="flex flex-col justify-center items-center ">
           <div className="self-start text-[30px] sm:text-[48px] font-medium mx-8 sm:mx-14">
             Edit Profile
