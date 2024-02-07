@@ -78,7 +78,8 @@ function People({SERVER_URL}) {
           userId:currentUserId,
           targetUserId: userId,
           Name:localStorage.getItem('Name'),
-          designation:localStorage.getItem('designation')
+          designation:localStorage.getItem('designation'),
+          profileUrl:localStorage.getItem('profileUrl')
         }
       );
       fetchFollowingUsers();

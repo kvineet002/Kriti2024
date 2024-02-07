@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     {
       _id:{type:String},
       Name: { type: String },
-      profilePicture: { type: String, },
+      profileUrl: { type: String, },
   designation: { type: String },
       
     }
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
   following: [
     {_id:{type:String},
       Name: { type: String },
-      profilePicture: { type: String },
+      profileUrl: { type: String },
   designation: { type: String },
 
     }

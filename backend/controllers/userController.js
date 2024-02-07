@@ -22,7 +22,7 @@ async function createUser(req, res) {
 }
 const toggleFollowandfollowing = async (req, res) => {
   try {
-    const { userId, targetUserId,Name,designation} = req.body;
+    const { userId, targetUserId,Name,designation,profileUrl} = req.body;
     // Fetch the user and the target user
     const user = await User.findById(userId);
     const targetUser = await User.findById(targetUserId);
@@ -50,7 +50,7 @@ const toggleFollowandfollowing = async (req, res) => {
 
       res.status(200).json({ message: 'Unfollowed', isFollowing: false });
     } else {
-      const newFollowing = {_id: targetUserId,Name:Name,designation:designation};
+      const newFollowing = {_id: targetUserId,Name:Name,designation:designation,profileUrl:profileUrl};
 
       await User.findByIdAndUpdate(
         userId,
@@ -59,7 +59,7 @@ const toggleFollowandfollowing = async (req, res) => {
       );
 
     
-      const newFollower = { _id:userId,Name:Name,designation:designation };
+      const newFollower = { _id:userId,Name:Name,designation:designation,profileUrl:profileUrl };
 
       await User.findByIdAndUpdate(
         targetUserId,
