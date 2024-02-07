@@ -11,7 +11,9 @@ import {
 import axios from "axios";
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
-function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData,Name,Email }) {
+
+
+function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData, Name, Email}) {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState('');
@@ -139,6 +141,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
+                      
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -247,7 +250,6 @@ console.log(profileEditData.joiningYear)
               placeholder="Enter Name"
               value={Name}
               readOnly
-
             />
             <div className="text-sm font-medium px-10">Designation</div>
             <input

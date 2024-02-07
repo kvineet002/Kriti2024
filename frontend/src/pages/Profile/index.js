@@ -79,17 +79,18 @@ function Profile({SERVER_URL}) {
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
       <div className="hero__page">
-        <div className="flex md:gap-3 pt-[120px] md:justify-start">
-          <div className="px-2 w-[35%] md:w-[20%] flex items-center overflow-hidden mx-4">
+        <div className="flex md:gap-3 pt-[120px]">
+          <div className="px-2 w-[180px] h-[180px] md:w-[300px] md:h-[300px] rounded-[50%] flex items-center overflow-hidden mx-4 justify-center border-slate-300 border-2 md:mb-3 md:mx-16">
             <img
               src={profile.profileUrl}
               alt="profileImg"
-              className="border-slate-300 border-2 rounded-full h-24 w-24 md:h-48 md:w-48  m-auto"
+              className="object-cover my-auto min-h-full min-w-full"
             />
           </div>
-          <div className="flex  justify-start w-[60%] md:w-[60%] flex-col mr-4">
-            <div className=" text-[30px] sm:text-[40px]   font-bold  flex justify-between leading-8 sm:leading-tight">
-              <div className="text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE]  to-[#79D0F6]]">
+          <div className="flex md:w-[60%] flex-col mr-4 justify-center">
+            
+            <div className=" text-[30px] sm:text-[40px] font-bold flex justify-between leading-8 sm:leading-tight">
+              <div className="text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE]  to-[#79D0F6]] md:text-6xl">
                 {profile.Name}
                 {/* <span className=" text-[6px] font-thin text-white flex flex-nowrap mt-[-6px] mb-[6px] sm:mt-0">{`${
                   profile.graduationPeriod - 4
@@ -100,14 +101,14 @@ function Profile({SERVER_URL}) {
                 <img
                   src="/edit.svg"
                   alt=""
-                  className="w-[95px] cursor-pointer hover:invert"
+                  className="w-[95px] cursor-pointer hover:invert md:w-[120px]"
                   onClick={() => {
                     setProfileEdit(true);
                   }}
                 />
               </div>}
             </div>
-            <div className=" text-white pl-2 text-xs sm:text-base mt-[-4px]">
+            <div className=" text-white opacity-60 text-xs sm:text-base mt-[-4px] pt-1">
               {profile.designation}
             </div>
             <div className="text-white pt-6 mt-4 overflow-auto max-h-[100px]">
@@ -120,7 +121,7 @@ function Profile({SERVER_URL}) {
                   <img
                     src="/github.svg"
                     alt="github"
-                    className="w-5  md:w-6"
+                    className="h-[18px] md:h-7"
                   />
                 </Link>
               )}
@@ -205,7 +206,7 @@ function Profile({SERVER_URL}) {
           }}
         >
           <span className="text-[150px] font-thin my-[-50px]">+</span>
-          <span> ADD PROJECT</span>
+          <span>ADD PROJECT</span>
         </div>}
         <div className="flex gap-3 justify-center items-center mt-6 mb-6">
           <div className="bg-[rgba(0, 0, 0, 0.10)] rounded-[33.5px] text-white border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center gap-1 font-bold cursor-pointer">
@@ -291,6 +292,7 @@ function Profile({SERVER_URL}) {
           setProfileEditData={setProfileEditData}
           Email={profile.Email}
           Name={profile.Name}
+          profile={profile}
           SERVER_URL={SERVER_URL}
         />
       )}
