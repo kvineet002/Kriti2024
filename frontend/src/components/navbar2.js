@@ -44,7 +44,7 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <span className="tracking-tight uppercase font-semibold text-2xl  text-white cursor-pointer">
-              Collampus
+              <Link to="/">Collampus</Link>
             </span>
             <div className="hidden ml-8  md:flex space-x-4">
             { !loggedIn&&<a
