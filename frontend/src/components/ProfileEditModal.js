@@ -13,12 +13,13 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
 
-function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData, Name, Email}) {
+function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData, Name, Email,profile}) {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [previewImage, setPreviewImage] = useState('');
+  const [previewImage, setPreviewImage] = useState(localStorage.getItem('profileUrl'));
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
+  const formref = useRef(null);
+  const years = Array.from({ length: 10 }, (_, index) => currentYear - 5 + index);
   let menuRef = useRef();
 
   useEffect(()=>{
@@ -94,10 +95,7 @@ console.log(profileEditData.joiningYear)
                 {/* Circular Image Preview and Add image button goes here */}
                 <div className="rounded-[50%] border-2 border-white w-[200px] h-[200px] md:w-[250px] md:h-[250px] mx-5 mt-6 sm:items-center flex flex-col justify-center shadow-lg shadow-[#ffffff2c]">
                   <img
-                    src={
-                      selectedFile
-                        ? previewImage
-                        : "/profile-icon.jpg"
+                    src={ previewImage
                     }
                     alt={`Selected Image`}
                     className="w-full h-full object-cover rounded-full"
@@ -115,7 +113,6 @@ console.log(profileEditData.joiningYear)
                     accept="image/*"
                     onChange={handleFileChange}
                     className="hidden"
-                    required
                   />
                 </label>
               </div>
@@ -141,7 +138,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
-                      
+                      ref={formref} defaultValue={profile.socials&&profile.socials.github}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -161,6 +158,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
+                      ref={formref} defaultValue={profile.socials.instagram}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -180,6 +178,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
+                      ref={formref} defaultValue={profile.socials.linkedin}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -199,6 +198,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
+                      ref={formref} defaultValue={profile.socials.twitter}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -218,6 +218,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
+                      ref={formref} defaultValue={profile.socials.facebook}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -237,6 +238,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
+                      ref={formref} defaultValue={profile.socials.youtube}
                     />
                   </div>
                 </div>
@@ -263,6 +265,7 @@ console.log(profileEditData.joiningYear)
                   designation: inp,
                 }));
               }}
+              ref={formref} defaultValue={profile.designation}
               required
             />
             <div className="text-sm font-medium px-10">Email</div>
@@ -279,6 +282,7 @@ console.log(profileEditData.joiningYear)
                   Email: inp,
                 }));
               }}
+              ref={formref} defaultValue={profile.Email}
             />
             <div className="text-sm font-medium px-10">About</div>
             <input
@@ -293,6 +297,7 @@ console.log(profileEditData.joiningYear)
                 }));
               }}
               required
+              ref={formref} defaultValue={profile.About}
             />
             <div className="flex mt-4 flex-wrap mx-10 gap-4 justify-between">
               <div className="flex justify-between gap-4">

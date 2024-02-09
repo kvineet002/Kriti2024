@@ -404,6 +404,7 @@ function Profile({ SERVER_URL }) {
           Email={profile.Email}
           Name={profile.Name}
           SERVER_URL={SERVER_URL}
+          profile = {profile}
         />
       )}
       {addProject && (
