@@ -14,7 +14,11 @@ const Community = ({ SERVER_URL }) => {
   const [loggedIn, setLoggedIn] = useState(
     false || localStorage.getItem("token")
   );
-  const [previewData, setPreviewData] = useState(null);
+
+const placeH = ["Type something here...", "Keep typing...", "Let's see what you've got!"];
+    const [index, setIndex] = useState(0);
+    const [placeholder, setPlaceholder] = useState(placeH[index].slice(0, 0));
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);  const [previewData, setPreviewData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [newReview, setNewReview] = useState("");
   const [newPost, setnewPost] = useState("");
@@ -25,7 +29,24 @@ const Community = ({ SERVER_URL }) => {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [dropdownOpenStates, setDropdownOpenStates] = useState({});
   const [postReviews, setPostReviews] = useState({});
-
+useEffect(() => {
+        const intr = setInterval(() => {
+            if (placeholderIndex + 1 > placeH[index].length) {
+                if (placeholder.length > 0) {
+                    setPlaceholder(prevPlaceholder => prevPlaceholder.slice(0, -1));
+                } else {
+                    setPlaceholderIndex(0);
+                    setIndex(prev => (prev + 1) % placeH.length);
+                }
+            } else {
+                setPlaceholder(prevPlaceholder => prevPlaceholder + placeH[index][placeholderIndex]);
+                setPlaceholderIndex(placeholderIndex + 1);
+            }
+        }, 120);
+        return () => {
+            clearInterval(intr);
+        }
+    }, [index, placeholder, placeholderIndex]);
   const getTimeDifference = (startTime, endTime) => {
     const msDifference = differenceInMilliseconds(endTime, startTime);
 
@@ -178,7 +199,7 @@ const Community = ({ SERVER_URL }) => {
             onChange={(e) => {
               setnewPost(e.target.value);
             }}
-            placeholder="create new post "
+            placeholder={placeholder}
             className=" rounded-full w-full px-4 py-2 "
           />
           <button
