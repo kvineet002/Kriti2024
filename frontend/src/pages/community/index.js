@@ -113,9 +113,17 @@ const Community = ({ SERVER_URL }) => {
 
   return (
     <div>
+      {showLoginModal && (
+            <LoginModal
+                SERVER_URL={SERVER_URL}
+                onClose={() => setShowLoginModal(false)}
+              />
+      )}
       <Navbar2 SERVER_URL={SERVER_URL} />
       <div className=" flex flex-col mt-[20%] md:mt-[9%]">
+      
         <div className="mx-4 mb-10 flex items-center gap-4 md:mx-64  ">
+
           <input onChange={(e)=>{setnewPost(e.target.value)}} placeholder="create new post " className=" rounded-full w-full px-4 py-2 " />
           <div className=" bg-white py-2 rounded-full px-4 cursor-pointer">Post</div>
         </div>
@@ -254,12 +262,7 @@ const Community = ({ SERVER_URL }) => {
                 </div>
               )}
             </div>
-            {showLoginModal && (
-              <LoginModal
-                SERVER_URL={SERVER_URL}
-                onClose={() => setShowLoginModal(false)}
-              />
-            )}
+            
           </div>
         </div>
       </div>

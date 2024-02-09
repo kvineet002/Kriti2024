@@ -152,7 +152,7 @@ function People({SERVER_URL}) {
                       <img
                         src={person.profileUrl}
                         alt={`${person.Name}'s Profile`}
-                        className="w-12 h-12 rounded-full mr-2"
+                        className="w-12 h-12 rounded-full mr-2 object-cover"
                       /><div className=" flex flex-col"><div>{person.Name}</div><div className=" text-sm font-thin  text-gray-300"> {person.designation}</div></div>
                       
                     </Link>

@@ -27,7 +27,9 @@ body {
     
 }
 .about-us{
-    background: linear-gradient(180deg, #242424 0%, #121212 100%);
+    background: url(../public/aboutus.png) no-repeat;
+    background-color: #181818;
+    background-size: cover;
 }
 
 .font_urbanist{
@@ -38,6 +40,13 @@ body {
 .my_shadow{
     filter: drop-shadow(4px 4px 47.7px rgba(249, 249, 249, 0.15));
 }
+
+.queries{
+  background: url(../public/queriesbg.png) no-repeat;
+    background-color: #181818;
+    background-size: cover;
+}
+
 
 @keyframes rotate {
     from {
