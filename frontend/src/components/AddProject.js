@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../pages/Login/authConfig";
 import {
@@ -103,6 +102,7 @@ const techStack = [
   "Monday.com",
   "Notion",
 ];
+
 const statuses = ["Completed", "Ongoing"];
 const categories = ["Web Dev", "Android Dev", "AI/ML"];
 
@@ -117,7 +117,6 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
   const userId=localStorage.getItem('id')//TODO: get from local storage
 
   let menuRef = useRef();
-
   useEffect(()=>{
     let handler = (e) => {
       if(!menuRef.current.contains(e.target)){

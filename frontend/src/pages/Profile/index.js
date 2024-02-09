@@ -151,129 +151,137 @@ function Profile({ SERVER_URL }) {
   return (
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
-      <div className="hero__page">
-        <div className="flex md:gap-3 pt-[120px]">
-          <div className="px-2 w-[180px] h-[180px] md:w-[300px] md:h-[300px] rounded-[50%] flex items-center overflow-hidden mx-4 justify-center border-slate-300 border-2 md:mb-3 md:mx-16">
+      <div className="hero__page w-full">
+        <div className="flex md:gap-3 pt-[120px] pb-4 md:justify-start">
+          <div className="w-[35%] md:w-[20%] flex items-center overflow-hidden mx-2 my-auto">
             <img
               src={profile.profileUrl}
               alt="profileImg"
-              className="object-cover my-auto min-h-full min-w-full"
+              className="border-slate-300 object-cover border-2 rounded-full h-40 w-40 md:h-48 md:w-48 m-auto"
             />
           </div>
-          <div className="flex md:w-[60%] flex-col mr-4 justify-center">
-            
-            <div className=" text-[30px] sm:text-[40px] font-bold flex justify-between leading-8 sm:leading-tight">
-              <div className="text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE]  to-[#79D0F6]] md:text-6xl">
-                {profile.Name}
-                <span className=" text-[14px] font-thin text-white  mt-[-6px] mb-[6px] sm:mt-0">{`${
+          <div className="flex flex-wrap w-[60%] justify-between">
+            <div className="flex justify-start flex-col mr-4">
+              <div className=" text-[30px] sm:text-[40px] font-bold flex justify-between leading-8 sm:leading-tight">
+                {/* <div className="text-transparent flex flex-wrap bg-clip-text font-extrabold bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE]  to-[#79D0F6]] w-full border-2">
+                  <div className="">{profile.Name}</div>
+                  {profile.joiningYear && profile.graduatingYear && <div className=" text-[12px] font-thin text-white">{`${
                   profile.joiningYear
-                } - ${profile.graduatingYear}`}</span>
+                } - ${profile.graduatingYear}`}</div>}
+                </div> */}
+                <div className="flex flex-wrap gap-1">
+                  <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE] to-[#79D0F6]]">{profile.Name}</div>
+                  {profile.joiningYear && profile.graduatingYear && <div className=" text-[12px] font-thin text-[#aeaeae] mt-auto">{`${
+                  profile.joiningYear
+                } - ${profile.graduatingYear}`}</div>}
+                </div>
+              </div>
+              <div className=" text-white text-xs sm:text-base mt-[-4px]">
+                {profile.designation}
+              </div>
+              <div className="text-white pt-6 mt-4 overflow-auto max-h-[100px]">
+                {profile.About}
               </div>
 
-            { (id===userId)&& <div className="flex justify-end">
-                <img
-                  src="/edit.svg"
-                  alt=""
-                  className="w-[95px] cursor-pointer hover:invert md:w-[120px]"
-                  onClick={() => {
-                    setProfileEdit(true);
-                  }}
-                />
-              </div>}
-            </div>
-            <div className=" text-white opacity-60 text-xs sm:text-base mt-[-4px] pt-1">
-              {profile.designation}
-            </div>
-            <div className="text-white pt-6 mt-4 overflow-auto max-h-[100px]">
-              {profile.About}
-            </div>
-
-            <div className="flex gap-2 pt-4">
-              {(profile.socials&&profile.socials.github )&& (
-                <Link to={`https://${profile.socials.github}`}  target="blank">
-                  <img
-                    src="/github.svg"
-                    alt="github"
-                    className="h-[18px] md:h-7"
-                  />
-                </Link>
-              )}
-              {profile.socials && profile.socials.facebook && (
-                <Link to={`https://${profile.socials.facebook}`} target="blank">
-                  {" "}
-                  <img
-                    src="/facebook.svg"
-                    alt="facebook"
-                    className="w-5 sm:w-7 "
-                  />
-                </Link>
-              )}
-              {profile.socials && profile.socials.linkedin && (
-                <Link to={`https://${profile.socials.linkedin}`} target="blank">
-                  {" "}
-                  <img
-                    src="/linkedin.svg"
-                    alt="linkedin"
-                    className="w-5 sm:w-7 "
-                  />
-                </Link>
-              )}
-              {profile.socials && profile.socials.twitter && (
-                <Link to={`https://${profile.socials.twitter}`} target="blank">
-                  <img
-                    src="/twitter.svg"
-                    alt="twitter"
-                    className="w-5 sm:w-7 "
-                  />
-                </Link>
-              )}
-              {profile.socials && profile.socials.youtube && (
-                <Link to={`https://${profile.socials.youtube}`} target="blank">
-                  <img
-                    src="/youtube.svg"
-                    alt="youtube"
-                    className="w-5 sm:w-7"
-                  />
-                </Link>
-              )}
-              {profile.socials && profile.socials.instagram && (
-                <a href={`https://${profile.socials.instagram}`} target="blank">
-                  <img
-                    src="/instagram.svg"
-                    alt="instagram"
-                    className="w-5 sm:w-7"
-                  />
-                </a>
-              )}
-            </div>
-            <div className="mt-8 mb-10">
-              {id !== userId &&
-                (   <button>
-                  {isFollowing ? (
-                    <div
-                      onClick={() => handleFollow()}
-                      className="bg-[rgba(0, 0, 0, 0.10)] rounded-full text-white border-white border-2 px-4 text-center uppercase text-xs py-[3px] flex justify-center items-center gap-1 font-bold cursor-pointer"
-                    >
-                      <img src="/check.svg" className="h-6" />
-                      <div>Following</div>
-                    </div>
-                  ) : (
-                    <div
-                      onClick={
-                        loggedIn
-                          ? () => handleFollow()
-                          : () => {
-                              setShowLoginModal(true);
-                            }
-                      }
-                      className="bg-white rounded-full  border-white border-2 px-4 text-center uppercase text-xs py-[6px] flex justify-center items-center font-bold cursor-pointer"
-                    >
-                      Follow
+              <div className="flex gap-2 py-4">
+                {profile.socials && profile.socials.github && (
+                  <Link to={`https://${profile.socials.github}`} target="blank">
+                    <img src="/github.svg" alt="github" className="w-5  md:w-6" />
+                  </Link>
+                )}
+                {profile.socials && profile.socials.facebook && (
+                  <Link to={`https://${profile.socials.facebook}`} target="blank">
+                    {" "}
+                    <img
+                      src="/facebook.svg"
+                      alt="facebook"
+                      className="w-5 sm:w-7 "
+                    />
+                  </Link>
+                )}
+                {profile.socials && profile.socials.linkedin && (
+                  <Link to={`https://${profile.socials.linkedin}`} target="blank">
+                    {" "}
+                    <img
+                      src="/linkedin.svg"
+                      alt="linkedin"
+                      className="w-5 sm:w-7 "
+                    />
+                  </Link>
+                )}
+                {profile.socials && profile.socials.twitter && (
+                  <Link to={`https://${profile.socials.twitter}`} target="blank">
+                    <img
+                      src="/twitter.svg"
+                      alt="twitter"
+                      className="w-5 sm:w-7 "
+                    />
+                  </Link>
+                )}
+                {profile.socials && profile.socials.youtube && (
+                  <Link to={`https://${profile.socials.youtube}`} target="blank">
+                    <img
+                      src="/youtube.svg"
+                      alt="youtube"
+                      className="w-5 sm:w-7"
+                    />
+                  </Link>
+                )}
+                {profile.socials && profile.socials.instagram && (
+                  <a href={`https://${profile.socials.instagram}`} target="blank">
+                    <img
+                      src="/instagram.svg"
+                      alt="instagram"
+                      className="w-5 sm:w-7"
+                    />
+                  </a>
+                )}
+              </div>
+                {id !== userId &&
+                  ( <div className="mt-8 mb-10"> <button>
+                    {isFollowing ? (
+                      <div
+                        onClick={() => handleFollow()}
+                        className="bg-[rgba(0, 0, 0, 0.10)] rounded-full text-white border-white border-2 px-4 text-center uppercase text-xs py-[3px] flex justify-center items-center gap-1 font-bold cursor-pointer"
+                      >
+                        <img src="/check.svg" className="h-6" />
+                        <div>Following</div>
+                      </div>
+                    ) : (
+                      <div
+                        onClick={
+                          loggedIn
+                            ? () => handleFollow()
+                            : () => {
+                                setShowLoginModal(true);
+                              }
+                        }
+                        className="bg-white rounded-full  border-white border-2 px-4 text-center uppercase text-xs py-[6px] flex justify-center items-center font-bold cursor-pointer"
+                      >
+                        Follow
+                      </div>
+                    )}
+                  </button>
                     </div>
                   )}
-                </button>)}
+              
             </div>
+            
+            {id === userId && (
+                <div className=" py-4">
+                  <img
+                    src="/edit.svg"
+                    alt=""
+                    className="w-[95px] cursor-pointer hover:invert"
+                    onClick={() => {
+                      setProfileEdit(true);
+                    }}
+                  />
+                </div>
+              )}
+            
           </div>
+          
         </div>
       </div>
       {showLoginModal && (
@@ -283,15 +291,17 @@ function Profile({ SERVER_URL }) {
               />
             )}
       <div className="flex-col bg-black justify-center items-center">
-      {  (id===userId)&&<div
-          className="text-white bg-[#1c1b1b] flex rounded-lg w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer"
-          onClick={() => {
-            setAddProject(true);
-          }}
-        >
-          <span className="text-[150px] font-thin my-[-50px]">+</span>
-          <span>ADD PROJECT</span>
-        </div>}
+        {id === userId && (
+          <div
+            className="text-white bg-[#1c1b1b] flex  w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer"
+            onClick={() => {
+              setAddProject(true);
+            }}
+          >
+            <span className="text-[150px] font-thin my-[-50px]">+</span>
+            <span> ADD PROJECT</span>
+          </div>
+        )}
         <div className="flex gap-3 justify-center items-center mt-6 mb-6">
           <button
             onClick={() => {
@@ -393,7 +403,6 @@ function Profile({ SERVER_URL }) {
           setProfileEditData={setProfileEditData}
           Email={profile.Email}
           Name={profile.Name}
-          profile={profile}
           SERVER_URL={SERVER_URL}
         />
       )}
