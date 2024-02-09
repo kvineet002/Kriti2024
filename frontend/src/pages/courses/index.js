@@ -3,10 +3,10 @@ import Navbar2 from "../../components/navbar2";
 import CommentDrawer from "../../components/CommentDrawer";
 import Footer from "../../components/Footer";
 
-function Courses() {
+function Courses({SERVER_URL}) {
   return (
     <div>
-      <Navbar2 />
+      <Navbar2  SERVER_URL={SERVER_URL}/>
       <div className=" mt-[15%]"></div>
       <CommentDrawer />   
       <Footer/>

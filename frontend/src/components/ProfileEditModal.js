@@ -16,7 +16,7 @@ function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditD
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState('');
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 30 }, (_, index) => currentYear - 20 + index);
+  const years = Array.from({ length: 8}, (_, index) => currentYear - 4 + index);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -281,11 +281,11 @@ console.log(profileEditData.joiningYear)
                 <label htmlFor="Joiningyear" className="text-sm font-bold">Joining Year:</label>
                 <select
                   id="Joiningyear"
-                  value={profileEditData.joiningYear}
                   onChange={(e)=>{
+                    const inp = e.target.value;
                     setProfileEditData((prev)=>({
                       ...prev,
-                      joiningYear: parseInt(e.target.value,10)
+                      joiningYear: inp
                     }))
                   }}
                   className="bg-transparent px-3 outline-none border-b-2"
@@ -302,11 +302,11 @@ console.log(profileEditData.joiningYear)
                 <label htmlFor="endingyear" className="text-sm font-bold">Graduating Year:</label>
                 <select
                   id="endingyear"
-                  value={profileEditData.graduatingYear}
                   onChange={(e)=>{
+                    const inp = e.target.value;
                     setProfileEditData((prev)=>({
                       ...prev,
-                      graduatingYear: parseInt(e.target.value,10)
+                      graduatingYear: inp
                     }))
                   }}
                   className="bg-transparent px-3 outline-none border-b-2"

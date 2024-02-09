@@ -11,6 +11,11 @@ import Courses from "./pages/courses";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
+  const token=localStorage.getItem('token')
+  useEffect(()=>{
+    if(token)setLoggedIn(true);
+    else setLoggedIn(false);
+  },[token])
 
   const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
   // const SERVER_URL="http://localhost:3002"

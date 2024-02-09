@@ -13,8 +13,6 @@ function LoginModal({onClose,SERVER_URL}) {
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName,accessToken} = result.user;
-      console.log(SERVER_URL)
-      console.log(result.user)
       const response = await axios.post(`${SERVER_URL}/api/users`, {
         Email: email,
         Name: displayName,
@@ -27,11 +25,7 @@ function LoginModal({onClose,SERVER_URL}) {
       localStorage.setItem('profileUrl',response.data.user.profileUrl);
       localStorage.setItem('designation',response.data.user.designation);
       
-      console.log("Response from server:", response.data.user);
-     if(location.pathname==='/'){
        navigate(`/profile/${localStorage.getItem('id')}`);
-    }
-    else onClose();
     } catch (error) {
       console.error("Error in login:", error);
     }

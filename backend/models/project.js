@@ -22,18 +22,19 @@ const projectSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Open for Collabration", "Completed"],
+    enum: ["Ongoing", "Completed"],
     default: "Completed",
   },
   statusMessage: {
     type: String,
   },
-  technologies:  [
-    {
-      Title: { type: String },
-      color: { type: String ,default:"#FFF"},
-    },
-  ],
+  technologies:  {
+    type: [String], // Assuming an array of media URLs
+  },
+  projectLinks:{
+    github:{ type: String},
+    demo:{ type: String},
+  },
   creator: [
     {
       id: { type: String },
@@ -55,13 +56,8 @@ const projectSchema = new mongoose.Schema({
       link: { type: String },
     },
   ],
-  courseLinks:[ {
-    
-        link: { type: String },
-}],
-  rating: {
-    type: Number,
-    default: 0,
+  courseLinks:{
+    type: [String], // Assuming an array of media URLs
   },
 });
 

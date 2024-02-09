@@ -8,51 +8,6 @@ import Navbar2 from "../../components/navbar2";
 function Home({SERVER_URL}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const userData = {
-    users: [
-      {
-        name: "John Doe",
-        profile: 4.5,
-        projectNo: 10,
-      },
-      {
-        name: "Jane Doe",
-        rating: 3.8,
-        projectNo: 7,
-      },
-      {
-        name: "Alice Johnson",
-        rating: 4.2,
-        projectNo: 12,
-      },
-      {
-        name: "Bob Smith",
-        rating: 4.0,
-        projectNo: 8,
-      },
-      {
-        name: "Eva Martinez",
-        rating: 4.7,
-        projectNo: 15,
-      },
-      {
-        name: "Michael Brown",
-        rating: 3.9,
-        projectNo: 9,
-      },
-      {
-        name: "Sophia Lee",
-        rating: 4.5,
-        projectNo: 11,
-      },
-      {
-        name: "Daniel Wilson",
-        rating: 4.2,
-        projectNo: 10,
-      },
-    ],
-  };
-
   return (
     <div className="w-full">
       <div className="hero__page w-full">
@@ -96,7 +51,7 @@ function Home({SERVER_URL}) {
         <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
       )}
 <div className=" relative">
-<img src="/element2.svg" className=" absolute opacity-10"/>
+<img src="/element2.svg" className=" absolute rotate-infiniteslow opacity-10"/>
 </div>
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
         <h1 className=" pl-[5%] text-4xl  my-6 ">About Us</h1>
@@ -120,13 +75,6 @@ function Home({SERVER_URL}) {
       {/*User Cards*/}
 <InfiniteScrollingGallery/>
 
-      {/*Circles */}
-      <div className="flex justify-center">
-        <div className="w-[30px] h-[30px] sm:w-16 sm:h-16  m-[1rem] rounded-full border-[#8D9093] border-2"></div>
-        <div className="w-[30px] h-[30px] sm:w-16 sm:h-16  m-[1rem] rounded-full border-[#8D9093] border-2 flex items-center justify-center"><img className=" w-8" src="/arrow22.svg"/></div>
-        <div className="w-[30px] h-[30px] sm:w-16 sm:h-16 m-[1rem] rounded-full border-[#8D9093] border-2"></div>
-      </div>
-      <img src="/Arrow2.svg" className=" w-6 sm:w-[70px] mx-auto" alt="" />
 
       {/*Showcase Suite */}
       <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] z-30 ">

@@ -14,6 +14,7 @@ const createProject = async (req, res) => {
       technologies,
       creator,
       courseLinks,
+      projectLinks,
     } = req.body;
 
     const newProject = new Project({
@@ -26,7 +27,8 @@ const createProject = async (req, res) => {
       statusMessage,
       technologies,
       creator,
-      courseLinks
+      courseLinks,
+      projectLinks
     });
 
     const savedProject = await newProject.save();

@@ -148,8 +148,8 @@ const updateUserDetails = async (req, res) => {
   if(About&&About.length>0) user.About=About;
   if(designation&&designation.length>0) user.designation=designation;
   if(profileUrl&&profileUrl.length>0)  user.profileUrl=profileUrl;
-  if(joiningYear)  user.joiningYear=joiningYear;
-  if(graduatingYear)  user.graduatingYear=graduatingYear;
+  if(joiningYear&&joiningYear.length>0)  user.joiningYear=joiningYear;
+  if(graduatingYear&&graduatingYear.length>0)  user.graduatingYear=graduatingYear;
   if (socials && typeof socials === 'object') {
     user.socials = { ...user.socials, ...socials };
   }

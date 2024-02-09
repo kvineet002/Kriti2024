@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "../pages/Login/authConfig";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "@firebase/storage";
+import axios from "axios";
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 const techStack = [
   "JavaScript",
   "Python",
@@ -31,7 +41,7 @@ const techStack = [
   "PostgreSQL",
   "MongoDB",
   "SQLite",
-  "Microsoft SQL Server",
+  "SQL Server",
   "Oracle Database",
   "Express.js",
   "Django",
@@ -43,9 +53,9 @@ const techStack = [
   "Go (Golang)",
   "Node.js",
   "PHP",
-  "Amazon Web Services (AWS)",
+  "(AWS)",
   "Microsoft Azure",
-  "Google Cloud Platform (GCP)",
+  "(GCP)",
   "Heroku",
   "DigitalOcean",
   "Git",
@@ -71,7 +81,7 @@ const techStack = [
   "Spring Boot (Java)",
   "ASP.NET Core (C#)",
   "Laravel (PHP)",
-  "React Native (JavaScript)",
+  "React Native",
   "Flutter (Dart)",
   "Xamarin (C#)",
   "Jest",
@@ -80,7 +90,7 @@ const techStack = [
   "Cypress",
   "JUnit",
   "NUnit",
-  "Visual Studio Code",
+  "VS Code",
   "IntelliJ IDEA",
   "Eclipse",
   "Atom",
@@ -91,15 +101,18 @@ const techStack = [
   "Monday.com",
   "Notion",
 ];
-const statuses = ["Completed", "Ongoing", "Need Help"];
+const statuses = ["Completed", "Ongoing"];
 const categories = ["Web Dev", "Android Dev", "AI/ML"];
 
-function AddProject({ onCancel, projectData, setProjectData }) {
+function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
+  const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [banner, setbanner] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [techStackInput, setTechStackInput] = useState("");
   const [techStackSuggestions, setTechStackSuggestions] = useState([]);
   const [newUrl, setNewUrl] = useState("");
+  const userId=localStorage.getItem('id')//TODO: get from local storage
 
   //Handling Banner Image
   const handleBannerImageUpload = (e) => {
@@ -109,17 +122,13 @@ function AddProject({ onCancel, projectData, setProjectData }) {
         file,
         preview: URL.createObjectURL(file)
       })
-      setProjectData({
-        ...projectData,
-        bannerUrl: URL.createObjectURL(file)
-      });
+
+      setSelectedFile(file);
+
     }
   };
   const removeBannerImage = () => {
-    setProjectData({
-      ...projectData,
-      bannerUrl: null,
-    });
+  setbanner(null)
   };
 
 
@@ -161,35 +170,50 @@ function AddProject({ onCancel, projectData, setProjectData }) {
   };
 
 
-  //Handling Image Upload
-  const handleImageUpload = (e) => {
-    const files = e.target.files;
-    if (files.length > 0) {
-      const newImages = Array.from(files).map((file) => ({
-        file,
-        preview: URL.createObjectURL(file),
-      }));
+console.log(selectedFile)
+  const handleSubmit=async()=>{
+    setLoading(true);
+    try {
+      if (selectedFile) {
+        const storageRef = ref(storage, `Profiles/${selectedFile.name}`);
+        const uploadResult = await uploadBytes(storageRef, selectedFile);
+        const downloadUrl = await getDownloadURL(uploadResult.ref);
+    
+        const response = await axios.post(`${SERVER_URL}/project/create`, {
+          title:projectData.title,
+          description:projectData.description,
+          category:projectData.category,
+          bannerUrl:downloadUrl,
+          bigdescription:projectData.bigdescription,
+          status:projectData.status,
+          statusMessage:projectData.statusMessage,
+          technologies:projectData.technologies,
+          creator:{
+            id:userId,
+            Name:localStorage.getItem('Name'),
+            email:localStorage.getItem('email'),
+            designation:localStorage.getItem('designation'),
+            profileUrl:localStorage.getItem('profileUrl'),
 
-      setImages((prevImages) => [...prevImages, ...newImages]);
-      setProjectData((prev)=>({
-        ...prev,
-        extraMedia: [...prev.extraMedia, ...newImages.map(image => ({ file: image.file }))],
-      }))
+          },
+          courseLinks:projectData.courseLink,
+          projectLinks:{
+            github:projectData.GitURL,
+            demo:projectData.DemoLink,
+          }
+        });
+        console.log('Project added :', response.data);
+      } else {
+        console.log("No file selected");
+      }
+    } catch (error) {
+      console.error('Error adding details:', error);
+    }finally {
+      setLoading(false); 
+      onCancel(); 
     }
-  };
-
-  const removeImage = (index, e) => {
-    e.preventDefault();
-    const newImages = [...images];
-    newImages.splice(index, 1);
-    setImages(newImages);
-    setProjectData((prev)=>({
-      ...prev,
-      extraMedia: newImages.map(image => ({ file: image.file })),
-    }))
-  };
-
-
+  }
+console.log(projectData)
 
   return (
     <>
@@ -201,8 +225,7 @@ function AddProject({ onCancel, projectData, setProjectData }) {
             </div>
             <form className="flex flex-wrap justify-between w-full mt-5 gap-2" onSubmit={(e)=>{
               e.preventDefault();
-              console.log(projectData);
-              onCancel();
+             handleSubmit()
             }}>
               {/* Left Side */}
               <div className="w-full overflow-hidden md:w-[65%]">
@@ -286,7 +309,22 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                         GitURL: inp
                       }))
                     }}
-                    required
+                  />
+                </div>
+                <div className="flex flex-col self-start px-5 mb-4 gap-1 w-full">
+                  <label htmlFor="text" className="text-sm font-medium">
+                    Website Link(Optional)
+                  </label>
+                  <input
+                    type="text"
+                    className=" outline-none bg-transparent border-white border-b-2 w-full"
+                    onChange={(e)=>{
+                      const inp = e.target.value;
+                      setProjectData((prev)=>({
+                        ...prev,
+                        DemoLink: inp
+                      }))
+                    }}
                   />
                 </div>
 
@@ -348,49 +386,6 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                   )}
                 </div>
 
-
-
-                {/* Media Selection */}
-                <div className="bg-white text-black text-sm font-semibold w-32 ml-7 text-center mr-auto rounded-lg mt-6 mb-2 cursor-pointer self-start">
-                  Choose Media
-                </div>
-                <div className="flex flex-wrap px-5 w-full mb-4">
-                  {images.map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative w-70 h-40 m-2 overflow-hidden shadow-lg border-[#565656] border-2 rounded-lg"
-                    >
-                      <img
-                        src={image.preview}
-                        alt={`Uploaded ${index}`}
-                        className="w-full h-full object-cover "
-                      />
-                      <img
-                        src="/closeicon.svg"
-                        alt="x"
-                        onClick={(e) => removeImage(index, e)}
-                        className="absolute top-0 right-0  text-white border-none cursor-pointer mt-1 mr-1 z-60  "
-                      />
-                    </div>
-                  ))}
-                  <label
-                    htmlFor="imageInput"
-                    className="relative w-[200px] h-36 m-2  shadow-lg border-[#565656] border-2 rounded-lg flex flex-col justify-center items-center cursor-pointer hover:bg-[#3a3a3a]"
-                  >
-                    <span className="block text-[120px] font-thin leading-none">
-                      +
-                    </span>
-                    <span className=" block pb-8">Add Image</span>
-                    <input
-                      type="file"
-                      id="imageInput"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                      multiple
-                    />
-                  </label>
-                </div>
               </div>
 
               
@@ -616,7 +611,8 @@ function AddProject({ onCancel, projectData, setProjectData }) {
                   className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor text-black"
                  
                 >
-                  Add Project
+             {loading ? 'Adding Project...' : 'Add Project'} 
+                  
                 </button>
               </div>
             </form>
