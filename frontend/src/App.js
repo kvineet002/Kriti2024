@@ -1,25 +1,35 @@
 // frontend/src/components/App.js
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Explore from "./pages/Explore";
-import People from "./pages/People";
 import Project from "./pages/Project";
+import People from "./pages/People";
+import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Community from "./pages/community";
 
 function App() {
-  const [isAuthenticated,setisAuthenticated]=useState(false)
+  const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
+  const token=localStorage.getItem('token')
+  useEffect(()=>{
+    if(token)setLoggedIn(true);
+    else setLoggedIn(false);
+  },[token])
+
+  const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
+  // const SERVER_URL="http://localhost:3002"
   return (
     <BrowserRouter>
     <Routes>
       {/* Student Side Routes*/}
-      <Route path="/" element={<Home />} />
-      <Route path="/explore" element={<Explore  />} />
-      <Route path="/people" element={<People />} />
-      <Route path="/project/:id" element={<Project />} />
-      <Route path="/profile/:id" element={<Profile/>} />
-      <Route path="/login" element={<Login />} />
+    { <Route path="/" element={loggedIn?<Explore SERVER_URL={SERVER_URL}/>:<Home SERVER_URL={SERVER_URL}/>} />}
+      <Route path="/explore" element={<Explore SERVER_URL={SERVER_URL}/>} />
+      <Route path="/people" element={<People SERVER_URL={SERVER_URL} />} />
+      <Route path="/community" element={<Community SERVER_URL={SERVER_URL} />} />
+      <Route path="/project/:id" element={<Project SERVER_URL={SERVER_URL} />} />
+      <Route path="/profile/:id" element={<Profile SERVER_URL={SERVER_URL}/>} />
+      <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
      
     </Routes>
   </BrowserRouter>

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 *{
     margin: 0;
@@ -9,7 +10,9 @@
 }
 
 body {
-    background: rgb(34, 34, 34);
+    background: rgb(20, 20, 20);
+    font-family: 'Poppins', sans-serif;
+
 }
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 .hero__page{
@@ -48,3 +51,31 @@ body {
     animation: rotate infinite 4s linear;
   }
   
+  
+  .rotate-infiniteslow {
+    animation: rotate infinite 80s linear;
+  }
+  
+  .rotate180 {
+    transform: rotate(180deg);
+  }
+  
+  .rotate0 {
+    transform: rotate(0deg);
+  }
+  
+  .transition-transform {
+    transition: transform 0.5s ease;
+  }
+  
+  .transition-max-height {
+    transition: max-height 0.5s ease-linear;
+  }
+  
+  .max-h-0 {
+    max-height: 0;
+  }
+  
+  .max-h-96 {
+    max-height: 24rem; /* Adjust this value based on your content size */
+  }
