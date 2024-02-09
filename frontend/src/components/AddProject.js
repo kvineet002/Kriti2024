@@ -187,7 +187,6 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
   };
 
 
-console.log(selectedFile)
   const handleSubmit=async()=>{
     setLoading(true);
     try {
@@ -230,7 +229,6 @@ console.log(selectedFile)
       onCancel(); 
     }
   }
-console.log(projectData)
 
   return (
     <>
