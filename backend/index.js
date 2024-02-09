@@ -4,6 +4,7 @@ const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const postsRoutes = require("./routes/postsRoutes");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use("/api/users", userRoutes);
 app.use("/project", projectRoutes);
 app.use("/reviews", reviewRoutes);
+app.use("/post", postsRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
