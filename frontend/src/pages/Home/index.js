@@ -51,7 +51,7 @@ function Home({SERVER_URL}) {
         <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
       )}
 <div className=" relative">
-<img src="/element2.svg" className=" absolute rotate-infiniteslow opacity-10"/>
+<img src="/element2.svg" className=" absolute opacity-10"/>
 </div>
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
         <h1 className=" pl-[5%] text-4xl  my-6 ">About Us</h1>
