@@ -8,8 +8,6 @@ import Footer from '../../components/Footer';
 function Explore({SERVER_URL}) {
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [AllProjects, setAllProjects] = useState([]);
-  const [error, setError] = useState(null);
-  const [active, setActive] = useState("");
   const [selectedTab, setSelectedTab] = useState('All');
   const [loading,setLoading]=useState(false)
 
