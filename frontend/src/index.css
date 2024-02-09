@@ -23,6 +23,7 @@ body {
         ),
     url(../public/grid.png), url(../public/smoke.png) no-repeat;
     background-color: #181818;
+    background-size: cover;
     
 }
 .about-us{

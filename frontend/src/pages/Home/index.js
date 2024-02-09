@@ -10,7 +10,7 @@ function Home({SERVER_URL}) {
 
   return (
     <div className="w-full">
-      <div className="hero__page w-full">
+      <div className="hero__page w-full ">
         <Navbar2 SERVER_URL={SERVER_URL}/>
         <div className="pt-[200px]  sm:pt-44 sm:pb-[50px] flex flex-col items-center justify-center gap-7">
           <div>
@@ -21,11 +21,10 @@ function Home({SERVER_URL}) {
           <div className=" flex flex-col items-center text-white">
             <img className=" w-[70vw]" src="/herotext.svg" />
             <p className=" text-slate-400  lg:text-xl font-medium  text-center mt-4">
-              Empoise, Lorem ipsum dolor sit amet. Transform
+            Collaborate. Create. Innovate. Inspire. Revolutionize.
             </p>
-            <h3 className="mt-12 font-thin font-sans text-center">
-              Fostering innovation through collaborative design, development,
-              and diverse expertise.
+            <h3 className="mt-12 font-thin text-center">
+            Spark innovation through dynamic collaboration and diverse expertise. Embrace the revolution!
             </h3>
            
             <button
@@ -54,19 +53,25 @@ function Home({SERVER_URL}) {
 <img src="/element2.svg" className=" absolute opacity-10"/>
 </div>
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
-        <h1 className=" pl-[5%] text-4xl  my-6 ">About Us</h1>
-        <div className="flex text-[14px] px-auto mt-5 w-5/9 mx-auto text-xl">
-          <p className="w-2/5 text-[14px] mx-auto my-8 md:text-xl sm:text-base ">
-            Lorem ipsum do Lorem ipsum dolor, sit amet consectetur adipisicing
-            elit. Numquam molestiae exercitationem volaerat. Voluptas doloribus
-            aspernatur temporibus in fugiat eveniet nostrum ipsum?
+        <h1 className=" pl-6 text-6xl my-3">About Us</h1>
+        <div className="flex text-[14px] px-auto mt-5  mx-auto text-xl">
+          <p className="text-[14px] px-6 my-8 md:text-xl sm:text-base ">
+          Step into our cutting-edge platform, where creativity knows no bounds. Discover a modern, stylish space to showcase your projects, collaborate seamlessly, and connect with fellow innovators. Join our vibrant community and unlock endless opportunities to elevate your work and make your mark in the ever-evolving world of digital expression.
           </p>
-          <p className="w-2/5 text-[14px] mx-auto my-8 md:text-xl sm:text-base ">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
-            quisquam unde consequatur sunt, inventore corporis qui repellat
-            natus, repudiandae similique nihil culpa neque eligendi quo,
-            voluptates ullam ratione dignissimos! Id.
-          </p>
+          <div className="flex flex-wrap justify-center items-center">
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+          </div>
         </div>
       </div>
 
