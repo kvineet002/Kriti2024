@@ -57,4 +57,26 @@ body {
     animation: rotate infinite 80s linear;
   }
   
+  .rotate180 {
+    transform: rotate(180deg);
+  }
   
+  .rotate0 {
+    transform: rotate(0deg);
+  }
+  
+  .transition-transform {
+    transition: transform 0.5s ease;
+  }
+  
+  .transition-max-height {
+    transition: max-height 0.5s ease-linear;
+  }
+  
+  .max-h-0 {
+    max-height: 0;
+  }
+  
+  .max-h-96 {
+    max-height: 24rem; /* Adjust this value based on your content size */
+  }

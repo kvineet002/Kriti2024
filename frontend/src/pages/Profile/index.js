@@ -7,14 +7,20 @@ import AddProject from "../../components/AddProject";
 
 import Navbar2 from "../../components/navbar2";
 import axios from "axios";
+import LoginModal from "../../components/LoginModal";
 
 function Profile({ SERVER_URL }) {
+  const [loggedIn, setLoggedIn] = useState(
+    false || localStorage.getItem("token")
+  );
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   const { id } = useParams();
   const userId = localStorage.getItem("id");
   const [profile, setprofile] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [AllProjects, setAllProjects] = useState([]);
-  const [isfollowing, setisfollowing] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [profileEdit, setProfileEdit] = useState(false);
   const [selectedTab, setSelectedTab] = useState("Your Projects");
   const [loading, setLoading] = useState(false);
@@ -108,7 +114,40 @@ function Profile({ SERVER_URL }) {
   
     setFilteredProjects(filtered);
   };
+  const fetchFollowingUsers = async () => {
+    try {
+      const response = await axios.post(
+        `${SERVER_URL}/api/users/getfollowing`,
+        {
+          userId: userId,
+        }
+      );
+      loggedIn &&
+        setIsFollowing(
+          response.data.some((user) => user._id === id)
+        );
+    } catch (error) {
+      console.error("Error fetching following users:", error);
+    }
+  };
   
+  const handleFollow = async () => {
+    try {
+      const response = await axios.post(
+        `${SERVER_URL}/api/users/togglefollow`,
+        {
+          userId: userId,
+          targetUserId: id,
+        }
+      );
+      fetchFollowingUsers();
+    } catch (error) {
+      console.error("Error updating following status:", error);
+    }
+  };
+  useEffect(() => {
+    fetchFollowingUsers();
+  }, [handleFollow]);
   return (
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
@@ -206,30 +245,40 @@ function Profile({ SERVER_URL }) {
             </div>
             <div className="mt-8 mb-10">
               {id !== userId &&
-                (isfollowing ? (
-                  <div
-                    className="bg-[rgba(0, 0, 0, 0.10)] rounded-[33.5px] text-white border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center gap-1 font-bold cursor-pointer"
-                    onClick={() => {
-                      setisfollowing(!isfollowing);
-                    }}
-                  >
-                    <img src="/check.svg" className="h-6" />
-                    <div>Following</div>
-                  </div>
-                ) : (
-                  <div
-                    onClick={() => {
-                      setisfollowing(!isfollowing);
-                    }}
-                    className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor-pointer"
-                  >
-                    <p>Follow</p>
-                  </div>
-                ))}
+                (   <button>
+                  {isFollowing ? (
+                    <div
+                      onClick={() => handleFollow()}
+                      className="bg-[rgba(0, 0, 0, 0.10)] rounded-full text-white border-white border-2 px-4 text-center uppercase text-xs py-[3px] flex justify-center items-center gap-1 font-bold cursor-pointer"
+                    >
+                      <img src="/check.svg" className="h-6" />
+                      <div>Following</div>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={
+                        loggedIn
+                          ? () => handleFollow()
+                          : () => {
+                              setShowLoginModal(true);
+                            }
+                      }
+                      className="bg-white rounded-full  border-white border-2 px-4 text-center uppercase text-xs py-[6px] flex justify-center items-center font-bold cursor-pointer"
+                    >
+                      Follow
+                    </div>
+                  )}
+                </button>)}
             </div>
           </div>
         </div>
       </div>
+      {showLoginModal && (
+              <LoginModal
+                SERVER_URL={SERVER_URL}
+                onClose={() => setShowLoginModal(false)}
+              />
+            )}
       <div className="flex-col bg-black justify-center items-center">
         {id === userId && (
           <div
@@ -254,7 +303,8 @@ function Profile({ SERVER_URL }) {
                 : " text-white"
             }`}
           >
-            Your Projects
+
+         {userId===id?"Your Projects":"Projects"}
           </button>
           <button
             onClick={() => {

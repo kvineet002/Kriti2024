@@ -1,191 +1,202 @@
-// // CommentDrawer.js
-// import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import {
+  differenceInMilliseconds,
+  differenceInSeconds,
+  differenceInMinutes,
+  differenceInHours,
+} from "date-fns";
+import LoginModal from "./LoginModal";
+import axios from "axios";
+const CommentDrawer = ({ url,SERVER_URL}) => {
+  const [loggedIn, setLoggedIn] = useState(
+    false || localStorage.getItem("token")
+  );
+  const [previewData, setPreviewData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [newReview, setNewReview] = useState("");
+  const [loading,setloading]=useState(false)
+  const [reviews, setReviews] = useState([
+    {message:"hello wold"},
+    {message:"hello wold"},
+    {message:"hello wold"},
+    {message:"hello wold"},
+    {message:"hello wold"},
+    {message:"hello wold"},
+    {message:"hello wold"},
+    {message:"hello wold"},
+    {message:"hello wold"},
 
-// const CommentDrawer = () => {
-//   const [comments, setComments] = useState([]);
-//   const [newComment, setNewComment] = useState('');
-//   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  ]);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-//   const toggleDrawer = () => {
-//     setIsDrawerOpen(!isDrawerOpen);
-//   };
+  const getTimeDifference = (startTime, endTime) => {
+    const msDifference = differenceInMilliseconds(endTime, startTime);
 
-//   const addComment = () => {
-//     if (newComment.trim() !== '') {
-//       setComments([...comments, newComment.trim()]);
-//       setNewComment('');
-//     }
-//   };
+    if (msDifference < 1000) {
+      return `${msDifference} milliseconds`;
+    } else if (msDifference < 60000) {
+      const seconds = differenceInSeconds(endTime, startTime);
+      return `${seconds} second${seconds !== 1 ? "s" : ""}`;
+    } else if (msDifference < 3600000) {
+      const minutes = differenceInMinutes(endTime, startTime);
+      return `${minutes} minute${minutes !== 1 ? "s" : ""}`;
+    } else {
+      const hours = differenceInHours(endTime, startTime);
+      return `${hours} hour${hours !== 1 ? "s" : ""}`;
+    }
+  };
+  const toggleDropdown = () => setIsOpen(!isOpen);
 
-//   return (
-//     <div className="fixed bottom-0 left-0 w-full">
-//       <button onClick={toggleDrawer} className=" bg-blue-500 text-white p-2 rounded">
-//         {isDrawerOpen ? 'Close Comments' : 'Open Comments'}
-//       </button>
+  useEffect(() => {
+    const fetchPreviewData = async () => {
+      // Replace YOUR_API_KEY with your actual LinkPreview API key
+      const apiKey = "64826c44d88ac1727f774f7a1e913076";
+      try {
+        const response = await fetch(
+          `https://api.linkpreview.net/?key=${apiKey}&q=${encodeURIComponent(
+            url
+          )}`
+        );
+        const data = await response.json();
+        setPreviewData(data);
+      } catch (error) {
+        console.error("Error fetching link preview:", error);
+      }
+    };
 
-//       {isDrawerOpen && (
-//         <div className="bg-gray-100 p-4 shadow-md">
-//           <input
-//             type="text"
-//             placeholder="Add a comment..."
-//             value={newComment}
-//             onChange={(e) => setNewComment(e.target.value)}
-//             className="w-full p-2 mb-2 border border-gray-300 rounded"
-//           />
-//           <button onClick={addComment} className="bg-blue-500 text-white p-2 rounded">
-//             Add Comment
-//           </button>
-//           <ul className="list-none p-0">
-//             {comments.map((comment, index) => (
-//               <li key={index} className="bg-white p-2 mb-2 border border-gray-300 rounded">
-//                 {comment}
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
+    if (url) {
+      fetchPreviewData();
+    }
+  }, []);
+  const endTime = new Date();
+  const submitReview = async () => {
+    try {
+      await axios.post(`${SERVER_URL}/reviews/create-review`, {
+        Name: localStorage.getItem('Name'), 
+        profileUrl:localStorage.getItem('profileUrl'),
+        message: newReview,
+      });
+      setNewReview("");
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  };
 
-// export default CommentDrawer;
-// PostTile.js
-// import React, { useState } from 'react';
-
-// const CommentDrawer = ({ userProfile, userName, description, imageUrl }) => {
-//   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-//   const [rating, setRating] = useState(0);
-//   const [comment, setComment] = useState('');
-
-//   const toggleComments = () => {
-//     setIsCommentsOpen(!isCommentsOpen);
-//   };
-
-//   const handleRatingChange = (newRating) => {
-//     setRating(newRating);
-//   };
-
-//   const handleCommentChange = (e) => {
-//     setComment(e.target.value);
-//   };
-
-//   const submitComment = () => {
-//     // Implement your logic to submit the comment
-//     console.log(`Rating: ${rating}, Comment: ${comment}`);
-//     setComment(''); // Clear the comment field after submission
-//   };
-
-//   return (
-//     <div className=" mx-[15%] p-4 my-4 border border-[#565656] rounded shadow-md">
-//       <div className="flex items-center mb-4">
-//         <img src={userProfile} alt="User Profile" className="w-10 h-10 rounded-full mr-2" />
-//         <div>
-//           <p className="font-bold">{userName}</p>
-//           <p className="text-gray-500">Posted on {new Date().toLocaleDateString()}</p>
-//         </div>
-//       </div>
-
-//       <p className="mb-4">{description}</p>
-
-//       <img src={imageUrl} alt="Post Image" className="mb-4 rounded-md" />
-
-//       <div className="flex items-center mb-4">
-//         <p className="mr-2">Rate:</p>
-//         <select
-//           value={rating}
-//           onChange={(e) => handleRatingChange(parseInt(e.target.value, 10))}
-//           className="border rounded p-2"
-//         >
-//           <option value={0}>0</option>
-//           <option value={1}>1</option>
-//           <option value={2}>2</option>
-//           <option value={3}>3</option>
-//           <option value={4}>4</option>
-//           <option value={5}>5</option>
-//         </select>
-//       </div>
-
-//       <button onClick={toggleComments} className="bg-blue-500 text-white p-2 rounded">
-//         {isCommentsOpen ? 'Close Comments' : 'Open Comments'}
-//       </button>
-
-//       {isCommentsOpen && (
-//         <div className="mt-4">
-//           <textarea
-//             value={comment}
-//             onChange={handleCommentChange}
-//             placeholder="Add a comment..."
-//             className="w-full p-2 border rounded"
-//           ></textarea>
-//           <button onClick={submitComment} className="bg-blue-500 text-white p-2 mt-2 rounded">
-//             Submit Comment
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default CommentDrawer;
-import React from 'react';
-
-const CommentDrawer = () => {
   return (
     <div className="mx-4 md:mx-64 border border-[#565656] rounded-lg shadow-md overflow-hidden">
       <div className="flex items-center px-6 py-4">
         <div className="flex-shrink-0">
           {/* Assume you have an avatar image. Replace 'path-to-avatar-image.png' with the actual path */}
-          <img src="https://placekitten.com/400/300" alt="User avatar" className="h-12 w-12 rounded-full"/>
+          <img
+            src="https://placekitten.com/400/300"
+            alt="User avatar"
+            className="h-12 w-12 rounded-full"
+          />
         </div>
         <div className="ml-4">
           <div className="text-lg  text-white font-semibold">VINEET KUMAR</div>
           <div className="text-sm text-gray-400">Student at IIT Guwahati</div>
         </div>
         <div className="ml-auto">
-        {/* <div className="bg-[rgba(0, 0, 0, 0.10)] rounded-full text-white border-white border-2 px-4 text-center uppercase text-xs py-[3px] flex justify-center items-center gap-1 font-bold cursor-pointer">
-                          <img src="/check.svg" className="h-6" />
-                          <div>Following</div>
-                        </div> */}
-                        <div className="bg-white rounded-full  border-white border-2 px-4 text-center uppercase text-xs py-[6px] flex justify-center items-center font-bold cursor-pointer">
-                       Follow
-                        </div>
+          <div className="bg-white rounded-full  border-white border-2 px-4 text-center uppercase text-xs py-[6px] flex justify-center items-center font-bold cursor-pointer">
+            Follow
+          </div>
         </div>
       </div>
 
       <div className="px-4 py-2 border-t border-[#565656]">
         <p className="text-gray-400 text-base">
-          In my experience collaborating on UI/UX projects, finding the right partner is key. I seek someone with a unique fusion of creativity and analytical acumen
+          {previewData && previewData.description}
         </p>
       </div>
-      <div className="px-4  py-2 border-t border-[#565656]">
+     { previewData && previewData.image&&<div className="px-4  py-2 border-t border-[#565656]">
         {/* Replace 'path-to-project-image.png' with the actual path to your image */}
-        <img src="https://placekitten.com/400/300" alt="Project" className="w-full h-48 object-cover rounded-md bg-gray-300"/>
-      </div>
-
-
-      <div className="px-4 py-2">
-        <span className="text-xs font-semibold text-[#565656]">Ratings: 4.5/5</span>
-        <div className="flex items-center mt-1">
-          {/* Insert SVG stars here */}
-        </div>
-        <div className="text-xs text-gray-500 mt-2">1 Review Here</div>
-      </div>
-
-      <div className="px-4 py-2  flex gap-3 ">
-        <input
-          className=" border bg-transparent border-black rounded-full w-full py-2 px-4 text-sm items-center text-gray-700 leading-tight focus:outline-none "
-          type="text"
-          placeholder="Type Your Comment Here"
+        <img
+          src={previewData && previewData.image}
+          alt="Project"
+          className="w-full h-48 object-cover rounded-md bg-gray-300"
         />
-         <button
-            className=" rounded-full bg-white flex items-start justify-center p-1 "
-          >
-            <img src="/send.svg" width="40px" />
-          </button>
+      </div>}
+      <div
+        style={{
+          transition: "max-height 0.9s ease", // Adjust the duration and timing function as needed
+          maxHeight: isOpen ? "420px" : "40px"// Adjust the duration and timing function as needed
+        }}
+        className={` px-6  my-2 py-2 bg-[#BFBFBF] ${
+          isOpen ? "  h-full  rounded-[18px]" : " rounded-[18px]"
+        } mx-4`}
+      >
+        <div className=" flex justify-between text-base font-semibold">
+          Comments
+          <img
+        onClick={toggleDropdown}
+            className={`transition-transform duration-500 cursor-pointer ${
+              isOpen ? "rotate180" : "rotate0"
+            }`}
+            width="15px"
+            src="/dropdown.svg"
+            alt="Dropdown"
+          />
+        </div>
+        {isOpen && (
+          <div>
+          <div className="flex flex-col">
+        <div
+          className="flex flex-col space-y-4 rounded-lg py-5 px-4 overflow-y-auto"
+          style={{ maxHeight: "300px" }}
+        >
+{loading ? (
+  <div className="flex justify-center font-semibold text-3xl text-gray-500">Loading...</div>
+) : reviews && reviews.length > 0 ? (
+    reviews.slice().reverse().map((review) => (
+    <div key={review._id} className="flex items-start space-x-2">
+      <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
+        <img
+          src={review.profileUrl}
+          alt={`${review.Name}'s profile`}
+          className="w-full h-full object-cover"
+        />
       </div>
+      <div className="flex flex-col gap-1">
+        <div className="bg-gray-800 p-2 rounded-lg">
+          <p className="text-white">{review.message}</p>
+        </div>
+        <div className="text-gray-500 text-xs">{`${review.Name} • ${getTimeDifference(review.time, endTime)} ago`}</div>
+      </div>
+    </div>
+  ))
+) : (
+  <div className="flex justify-center font-semibold text-3xl text-gray-500">No Reviews Yet!!!</div>
+)}
+
+        </div>
+        <div className="flex items-center mt-4 gap-2">
+          <input
+            type="text"
+            placeholder="Type your review..."
+            value={newReview}
+            onChange={(e) => setNewReview(e.target.value)}
+            className="flex-grow px-6 py-2 outline-none bg-transparent placeholder:text-[#565656] border border-[#565656]  rounded-full"
+          />
+          <button
+            onClick={loggedIn?newReview.length>0?submitReview:()=>{}:()=>{setShowLoginModal(true)}}
+            className=" rounded-full border border-[#565656] hover:bg-[#565656] flex items-start justify-center p-2 "
+          >
+            <img src="/send.svg" width="25px" />
+          </button>
+        </div>
+      </div>
+          </div>
+        )}
+      </div>
+      {showLoginModal && (
+              <LoginModal
+                SERVER_URL={SERVER_URL}
+                onClose={() => setShowLoginModal(false)}
+              />
+            )}
     </div>
   );
 };
 
 export default CommentDrawer;
-

@@ -66,10 +66,10 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
                 People
               </a>
               <a
-                href='/courses'
-                className={`${location.pathname==='/courses'&&'border-b-[2px] border-[#565656]  text-white opacity-100 '} opacity-80 px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out`}
+                href='/community'
+                className={`${location.pathname==='/community'&&'border-b-[2px] border-[#565656]  text-white opacity-100 '} opacity-80 px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out`}
               >
-                Courses
+                  Community
               </a>
             </div>
           </div>
@@ -163,10 +163,10 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
                 People
               </a>
               <a
-                href='/courses'
+                href='/community'
                 className="hover:underline px-3 py-1"
               >
-                Courses
+               Community
               </a>
           </div>
         )}

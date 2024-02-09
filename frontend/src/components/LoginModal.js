@@ -24,8 +24,9 @@ function LoginModal({onClose,SERVER_URL}) {
       localStorage.setItem('token',response.data.user.token);
       localStorage.setItem('profileUrl',response.data.user.profileUrl);
       localStorage.setItem('designation',response.data.user.designation);
-      
-       navigate(`/profile/${localStorage.getItem('id')}`);
+      if(location.pathname==='/profile')onClose();
+    else   navigate(`/profile/${localStorage.getItem('id')}`);
+       onClose();
     } catch (error) {
       console.error("Error in login:", error);
     }

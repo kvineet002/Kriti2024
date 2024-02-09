@@ -98,9 +98,9 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
           />
           <button
             onClick={loggedIn?newReview.length>0?submitReview:()=>{}:()=>{setShowLoginModal(true)}}
-            className=" rounded-full bg-white flex items-start justify-center p-1 "
+            className=" rounded-full bg-white flex items-start justify-center p-[10px] "
           >
-            <img src="/send.svg" width="40px" />
+            <img src="/send.svg" width="25px" />
           </button>
         </div>
       </div>

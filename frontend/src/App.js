@@ -7,7 +7,7 @@ import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Courses from "./pages/courses";
+import Community from "./pages/community";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
@@ -26,7 +26,7 @@ function App() {
     { <Route path="/" element={loggedIn?<Explore SERVER_URL={SERVER_URL}/>:<Home SERVER_URL={SERVER_URL}/>} />}
       <Route path="/explore" element={<Explore SERVER_URL={SERVER_URL}/>} />
       <Route path="/people" element={<People SERVER_URL={SERVER_URL} />} />
-      <Route path="/courses" element={<Courses SERVER_URL={SERVER_URL} />} />
+      <Route path="/community" element={<Community SERVER_URL={SERVER_URL} />} />
       <Route path="/project/:id" element={<Project SERVER_URL={SERVER_URL} />} />
       <Route path="/profile/:id" element={<Profile SERVER_URL={SERVER_URL}/>} />
       <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />

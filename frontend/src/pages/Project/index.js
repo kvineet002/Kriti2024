@@ -235,7 +235,7 @@ function Project({ SERVER_URL }) {
                       href={
                         project &&
                         project.projectLinks &&
-                        `https://${project.projectLinks.github}`
+                        `${project.projectLinks.github}`
                       }
                       className=" px-3 py-1 cursor-pointer  justify-center gap-1  text-black  font-bold text-xs flex items-center bg-[#FFF]  rounded-full"
                     >
@@ -246,7 +246,7 @@ function Project({ SERVER_URL }) {
                       href={
                         project &&
                         project.projectLinks &&
-                        `https://${project.projectLinks.demo}`
+                        `${project.projectLinks.demo}`
                       }
                       className=" px-3 py-1 cursor-pointer  text-black  font-bold text-xs flex gap-1 items-center bg-[#FFF]  rounded-full"
                     >
