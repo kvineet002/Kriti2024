@@ -1,12 +1,15 @@
 import React from 'react';
 
 const images = [
-  'https://source.unsplash.com/800x600/?mobile-ap',
-  'https://source.unsplash.com/800x600/?mobile-app',
-  'https://source.unsplash.com/random/1920x1080?sig=3',
-  'https://source.unsplash.com/random/1920x1080?sig=4',
-  'https://source.unsplash.com/random/1920x1080?sig=5',
-  'https://source.unsplash.com/random/1920x1080?sig=6',
+  '/11.png',
+  '/22.png',
+  '/33.png',
+  '/44.png',
+  '/55.png',
+  '/66.png',
+  '/11.png',
+  '/22.png',
+  '/33.png',
 ];
 
 const InfiniteScrollingGallery = () => {
