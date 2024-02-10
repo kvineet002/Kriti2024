@@ -49,29 +49,16 @@ function Home({SERVER_URL}) {
       {showLoginModal && (
         <LoginModal SERVER_URL={SERVER_URL} onClose={() => setShowLoginModal(false)} />
       )}
-<div className=" relative">
-<img src="/element2.svg" className=" absolute opacity-10"/>
-</div>
+
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
         <h1 className=" pl-6 text-6xl my-3">About Us</h1>
         <div className="flex text-[14px] px-auto mt-5  mx-auto text-xl">
           <p className="text-[14px] px-6 my-8 md:text-xl sm:text-base ">
           Step into our cutting-edge platform, where creativity knows no bounds. Discover a modern, stylish space to showcase your projects, collaborate seamlessly, and connect with fellow innovators. Join our vibrant community and unlock endless opportunities to elevate your work and make your mark in the ever-evolving world of digital expression.
           </p>
-          <div className="flex flex-wrap justify-center items-center">
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-          </div>
+          <p className="text-[14px] px-6 my-8 md:text-xl sm:text-base ">
+          Step into our cutting-edge platform, where creativity knows no bounds. Discover a modern, stylish space to showcase your projects, collaborate seamlessly, and connect with fellow innovators. Join our vibrant community and unlock endless opportunities to elevate your work and make your mark in the ever-evolving world of digital expression.
+          </p>
         </div>
       </div>
 
@@ -82,7 +69,7 @@ function Home({SERVER_URL}) {
 
 
       {/*Showcase Suite */}
-      <div className=" h-{511px} m-5 bg-[#272727] my_shadow flex-col rounded-[5px] z-30 ">
+      <div className=" m-5 bg-[#272727] my_shadow flex-col rounded-[5px] z-30 ">
         <div className="flex gap-3 pt-3 items-center pl-3">
           <div className="h-[45px] w-[45px] bg-[#262626] rounded-[50%] flex items-center justify-center">
             <img src="/flag.svg" height="30px" width="30px" />
@@ -142,6 +129,56 @@ function Home({SERVER_URL}) {
           </div>
         </div>
       </div>
+        {/* <div className="flex justify-end overflow-hidden absolute">
+          <img src="/buckminsterfullerene.png" className="w-64"/>
+        </div> */}
+      {/* Queries */}
+      <div className="m-5 bg-[#1e1d1d] my_shadow flex-col rounded-[5px] z-30">
+  <div className="text-white text-5xl font-semibold ml-6 my-6 pt-5">Got <span className="text-[#AAA]">Queries?</span></div>
+  <div className="w-full px-4 divide-slate-200 py-4">
+    <details className="p-4 group" open>
+      <summary className="relative cursor-pointer list-none pr-8 font-medium text-[#eeeeee] group-hover:text-[#767676] transition-colors duration-300 focus-visible:outline-none">
+        Is there any project size limit?
+        <svg xmlns="http://www.w3.org/2000/svg" className="absolute right-0 w-4 h-4 transition duration-300 top-1 shrink-0 stroke-white group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/>
+        </svg>
+      </summary>
+      <p className="mt-4 text-slate-500">Absolutely not! Small or big, we love them all.</p>
+    </details>
+    <hr className="border-white"/>
+    <details className="p-4 group">
+      <summary className="relative cursor-pointer list-none pr-8 font-medium text-[#eeeeee] group-hover:text-[#767676] transition-colors duration-300 focus-visible:outline-none">
+        Can I collaborate with multiple projects?
+        <svg xmlns="http://www.w3.org/2000/svg" className="absolute right-0 w-4 h-4 transition duration-300 top-1 shrink-0 stroke-white group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/>
+        </svg>
+      </summary>
+      <p className="mt-4 text-slate-500">Of course! There's no limit. Help bring as many ideas to life.</p>
+    </details>
+    <hr className="border-white"/>
+    <details className="p-4 group">
+      <summary className="relative cursor-pointer list-none pr-8 font-medium transition-colors duration-300 focus-visible:outline-none text-[#eeeeee] group-hover:text-[#767676]">
+        Is it easy to use?
+        <svg xmlns="http://www.w3.org/2000/svg" className="absolute right-0 w-4 h-4 transition duration-300 top-1 shrink-0 stroke-white group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/>
+        </svg>
+      </summary>
+      <p className="mt-4 text-slate-500">As easy as pie! We promise.</p>
+    </details>
+    <hr className="border-white"/>
+    <details className="p-4 group">
+      <summary className="relative cursor-pointer list-none pr-8 font-medium text-[#eeeeee] group-hover:text-[#767676] transition-colors duration-300 focus-visible:outline-none">
+        Are private projects allowed?
+        <svg xmlns="http://www.w3.org/2000/svg" className="absolute right-0 w-4 h-4 transition duration-300 top-1 shrink-0 stroke-white group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/>
+        </svg>
+      </summary>
+      <p className="mt-4 text-slate-500">Yes, we support both public and private projects!</p>
+    </details>
+    <hr className="border-white"/>
+  </div>
+</div>
+
       <Footer/>
     </div>
   );

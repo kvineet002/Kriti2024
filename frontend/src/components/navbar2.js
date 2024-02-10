@@ -40,7 +40,7 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
  }
 
   return (
-    <nav className="bg-[#0c0c0c97] text-white fixed top-0 left-0 right-0 z-50">
+    <nav className="bg-[#0c0c0c97] text-white fixed top-0 left-0 right-0 z-40">
       <div className=" px-8 mx-auto">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
@@ -115,7 +115,7 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
                   <img
                     src={localStorage.getItem('profileUrl')}
                     alt="Profile"
-                    className="w-8 h-8 rounded-full"
+                    className="w-8 h-8 rounded-full object-cover"
                   />
                 </button>
               )}

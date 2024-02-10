@@ -171,7 +171,7 @@ function Profile({ SERVER_URL }) {
                 </div> */}
                 <div className="flex flex-wrap gap-1">
                   <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE] to-[#79D0F6]]">{profile.Name}</div>
-                  {profile.joiningYear && profile.graduatingYear && <div className=" text-[12px] font-thin text-[#aeaeae] mt-auto">{`${
+                  {profile.joiningYear && profile.graduatingYear && <div className=" text-[12px] font-thin text-[#aeaeae] mt-auto sm:mt-7">{`${
                   profile.joiningYear
                 } - ${profile.graduatingYear}`}</div>}
                 </div>
@@ -404,6 +404,7 @@ function Profile({ SERVER_URL }) {
           Email={profile.Email}
           Name={profile.Name}
           SERVER_URL={SERVER_URL}
+          profile = {profile}
         />
       )}
       {addProject && (

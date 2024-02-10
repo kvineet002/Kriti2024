@@ -209,6 +209,12 @@ const Community = ({ SERVER_URL }) => {
   }, []);
   return (
     <div>
+      {showLoginModal && (
+            <LoginModal
+                SERVER_URL={SERVER_URL}
+                onClose={() => setShowLoginModal(false)}
+              />
+      )}
       <Navbar2 SERVER_URL={SERVER_URL} />
       <div className=" flex flex-col mt-[20%] md:mt-[9%]">
         <div className=" md:px-[18%] mb-10 flex items-center justify-center gap-2  w-full   ">
