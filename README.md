@@ -48,3 +48,12 @@ Welcome to Awesome Tech Community Website! This platform is designed to connect 
 
 
 
+# Anti-Spam Protection Readme
+
+## Project Submission Interval
+
+To prevent spam and maintain a high standard of contributions, users are allowed to add projects at a maximum interval of 10 minutes. This means you can submit a new project, but you'll need to wait for at least 10 minutes before submitting another.
+
+## Why the Limit?
+
+This interval helps us filter out repetitive or low-quality submissions, ensuring that each project gets the attention it deserves. It also enhances the overall experience for everyone in the community.
