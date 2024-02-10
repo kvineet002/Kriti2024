@@ -98,10 +98,7 @@ function Profile({ SERVER_URL }) {
     fetchData();
   }, []);
   
-  useEffect(() => {
-    filterProjects(selectedTab);
-  }, [AllProjects, selectedTab]); 
-  
+
   const filterProjects = (tab) => {
     const filtered = AllProjects.filter((project) => {
       if (tab === "Your Projects") {
@@ -109,11 +106,14 @@ function Profile({ SERVER_URL }) {
       } else if (tab === "Saved Projects") {
         return project.saved.some((saved) => saved.id === id);
       }
-      return true;
     });
   
     setFilteredProjects(filtered);
-  };
+  };  
+  useEffect(() => {
+    filterProjects(selectedTab);
+  }, [AllProjects, selectedTab]); 
+  console.log(selectedTab)
   const fetchFollowingUsers = async () => {
     try {
       const response = await axios.post(
@@ -148,6 +148,10 @@ function Profile({ SERVER_URL }) {
   useEffect(() => {
     fetchFollowingUsers();
   }, [handleFollow]);
+  const handleTabChange = (newTab) => {
+    setSelectedTab(newTab);
+    // The useEffect hook will automatically re-filter projects based on the new tab.
+  };
   return (
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
@@ -304,10 +308,7 @@ function Profile({ SERVER_URL }) {
         )}
         <div className="flex gap-3 justify-center items-center mt-6 mb-6">
           <button
-            onClick={() => {
-              setSelectedTab("Your Projects");
-              filterProjects({ tab: "Your Projects" });
-            }}
+  onClick={() => handleTabChange("Your Projects")}
             className={` text-sm  border border-[#565656] hover:opacity-80 rounded-full px-3 py-1 ${
               selectedTab === "Your Projects"
                 ? "font-bold text-black bg-white"
@@ -318,10 +319,7 @@ function Profile({ SERVER_URL }) {
          {userId===id?"Your Projects":"Projects"}
           </button>
           <button
-            onClick={() => {
-              setSelectedTab("Saved Projects");
-              filterProjects({ tab: "Saved Projects" });
-            }}
+      onClick={() => handleTabChange("Saved Projects")}
             className={` text-sm  border border-[#565656] hover:opacity-80 rounded-full px-3 py-1 ${
               selectedTab === "Saved Projects"
                 ? "font-bold text-black bg-white"
@@ -336,7 +334,7 @@ function Profile({ SERVER_URL }) {
       </div>
       {loading ? (
         <img
-          src="/loading.gif"
+          src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408"
           alt="Loading..."
           className="w-[50px] m-auto"
         ></img>
