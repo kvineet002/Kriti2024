@@ -26,6 +26,12 @@ body {
     background-size: cover;
     
 }
+.sendButton {
+  background-image: url(../public/send.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .about-us{
     background: linear-gradient(180deg, #242424 0%, #121212 100%);
 }

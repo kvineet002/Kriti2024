@@ -211,8 +211,8 @@ const Community = ({ SERVER_URL }) => {
     <div>
       <Navbar2 SERVER_URL={SERVER_URL} />
       <div className=" flex flex-col mt-[20%] md:mt-[9%]">
-        <div className="mx-4 mb-10 flex items-center  gap-4 md:mx-64  ">
-          <div className=" w-full flex bg-white items-center px-2  gap-2 rounded-full">
+        <div className=" md:px-[18%] mb-10 flex items-center justify-center gap-2  w-full   ">
+          <div className=" md:w-full w-[75%] flex bg-blue-50 items-center px-2  gap-2 rounded-full">
             <img src="/plus.png" className=" h-7 w-7" />
             <input
               value={newPost}
@@ -220,8 +220,8 @@ const Community = ({ SERVER_URL }) => {
                 setnewPost(e.target.value);
               }}
               placeholder={`Post ${placeholder}`}
-              className="  outline-none bg-transparent  py-2 "
-            />
+              className="  outline-none bg-transparent w-full  py-2 "
+            /> 
           </div>
           <button
             disabled={loading}
@@ -234,7 +234,7 @@ const Community = ({ SERVER_URL }) => {
                     setShowLoginModal(true);
                   }
             }
-            className=" bg-white py-2 rounded-full px-4 cursor-pointer"
+            className=" bg-blue-50 py-2 rounded-full px-4  font-normal text-base cursor-pointer"
           >
             {loading ? "Posting..." : "Post"}
           </button>
@@ -277,7 +277,7 @@ const Community = ({ SERVER_URL }) => {
                       <img
                         src={post.bannerUrl}
                         alt="Project"
-                        className="w-full  object-cover rounded-md bg-gray-300"
+                        className="w-full  object-cover rounded-md"
                       />
                     </div>
                   )}
@@ -288,11 +288,11 @@ const Community = ({ SERVER_URL }) => {
                         ? "420px"
                         : "40px", // Adjust the duration and timing function as needed
                     }}
-                    className={` px-6  my-2 py-2 bg-[#BFBFBF] ${
+                    className={` md:px-6 px-4  my-2 py-2  bg-green-50 ${
                       isOpen ? "  h-full  rounded-[18px]" : " rounded-[18px]"
                     } mx-4`}
                   >
-                    <div className=" flex justify-between text-base font-semibold">
+                    <div className=" flex w-full justify-between text-base font-semibold">
                       Comments
                       <img
                         onClick={() => {
@@ -311,8 +311,8 @@ const Community = ({ SERVER_URL }) => {
                       />
                     </div>
                     {dropdownOpenStates[post._id] && (
-                      <div>
-                        <div className="flex flex-col">
+                      <div className="">
+                        <div className="flex flex-col  ">
                           <div
                             className="flex flex-col space-y-4 rounded-lg py-5 px-4 overflow-y-auto"
                             style={{ maxHeight: "300px" }}
@@ -355,17 +355,17 @@ const Community = ({ SERVER_URL }) => {
                                 ))
                             ) : (
                               <div className="flex justify-center font-semibold text-3xl text-gray-500">
-                                No Reviews Yet!!!
+                                No Comments Yet!!!
                               </div>
                             )}
                           </div>
-                          <div className="flex items-center mt-4 gap-2">
+                          <div className="flex items-center  mt-4 gap-1 md:gap-2">
                             <input
                               type="text"
-                              placeholder="Type your review..."
+                              placeholder="Type your comment..."
                               value={newReview}
                               onChange={(e) => setNewReview(e.target.value)}
-                              className="flex-grow px-6 py-2 outline-none bg-transparent placeholder:text-[#565656] border border-[#565656]  rounded-full"
+                              className=" px-6 py-2 w-full outline-none bg-transparent placeholder:text-[#565656] border border-[#565656]  rounded-full"
                             />
                             <button
                               onClick={
@@ -377,9 +377,9 @@ const Community = ({ SERVER_URL }) => {
                                       setShowLoginModal(true);
                                     }
                               }
-                              className=" rounded-full border border-[#565656] hover:bg-[#565656] flex items-start justify-center p-2 "
+                              className=" rounded-full border border-[#565656] hover:bg-[#565656] flex items-start justify-center p-1 "
                             >
-                              <img src="/send.svg" width="25px" />
+                                 <img src="/send.png" className=" w-8 h-8"/>
                             </button>
                           </div>
                         </div>
