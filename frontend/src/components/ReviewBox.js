@@ -100,7 +100,7 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
             onClick={loggedIn?newReview.length>0?submitReview:()=>{}:()=>{setShowLoginModal(true)}}
             className=" rounded-full bg-white flex items-start justify-center p-[5px] "
           >
-           <img src="/send.png" className=" w-10 h-10"/>
+           <img src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2Fsend.png?alt=media&token=8acb7651-7f26-4428-bb6c-3641ed06fd22" className=" w-10 h-10"/>
 
           </button>
         </div>

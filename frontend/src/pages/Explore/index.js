@@ -73,7 +73,7 @@ function Explore({SERVER_URL}) {
       
         </div>
       {loading ? (
-        <img src='/loading.gif' alt='Loading...' className='w-[50px] m-auto'></img>
+        <img src='https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408' alt='Loading...' className='w-[50px] m-auto'></img>
       ) : (
         <div className='flex flex-wrap gap-1 w-screen  '>
           {filteredProjects.length>0&&filteredProjects.slice().reverse().map(project => (

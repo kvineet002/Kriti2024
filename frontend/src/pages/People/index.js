@@ -142,7 +142,7 @@ function People({SERVER_URL}) {
         {loading ? (
         <img src='/loading.gif' alt="Loading..." className='w-[50px] m-auto '></img>
       ) : (
-        filteredPeople().map(
+        filteredPeople().slice().reverse().map(
           (person) =>
             person._id !== currentUserId && (
               <div key={person.id}>

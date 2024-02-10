@@ -294,7 +294,7 @@ const Community = ({ SERVER_URL }) => {
                         ? "420px"
                         : "40px", // Adjust the duration and timing function as needed
                     }}
-                    className={` md:px-6 px-4  my-2 py-2  bg-green-50 ${
+                    className={` md:px-6 px-4  my-2 py-2  bg-blue-50 ${
                       isOpen ? "  h-full  rounded-[18px]" : " rounded-[18px]"
                     } mx-4`}
                   >
