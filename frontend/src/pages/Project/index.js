@@ -172,7 +172,7 @@ function Project({ SERVER_URL }) {
                 <div className="   bg-slate-400 rounded-full flex object-cover bg-cover items-center justify-center ">
                   <img
                     src={project && project.creator[0].profileUrl}
-                    className="w-10 h-10  bg-cover rounded-full"
+                    className="w-10 h-10  bg-cover rounded-full object-cover"
                     alt=""
                   />
                 </div>

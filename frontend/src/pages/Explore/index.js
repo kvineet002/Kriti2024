@@ -98,7 +98,7 @@ function Explore({SERVER_URL}) {
                   </div>
                 </div>
                 <div className='flex items-center mx-4 mb-8'>
-                  <img src={project.creator[0].profileUrl} className='oveflow-hidden contain rounded-[50%] bg-white  w-[40px] h-[40px] ' ></img>
+                  <img src={project.creator[0].profileUrl} className='oveflow-hidden  object-cover rounded-[50%] bg-white  w-[40px] h-[40px] ' ></img>
                   <div className="flex flex-col gap-[2px] w-[70%] mx-3 ">
                     <h1 className='text-[18px] uppercase  font-semibold leading-4'>{project.creator[0].Name}</h1>
                     <p className='text-sm font-thin  text-[#8B8B8B]'>{project.creator[0].designation}</p>
