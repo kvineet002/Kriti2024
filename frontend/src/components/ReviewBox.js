@@ -108,7 +108,7 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
                               }
                               className=" rounded-full  bg-white flex items-start justify-center p-2 "
                             >
-                                 <img src="/send.png" className=" w-8 h-8"/>
+                                 <img src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2Fsend.png?alt=media&token=8acb7651-7f26-4428-bb6c-3641ed06fd22" className=" w-8 h-8"/>
                             </button>
                           </div>
       </div>
