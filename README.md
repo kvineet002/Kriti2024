@@ -1,6 +1,6 @@
 # Collampus
 
-Welcome to My Awesome Tech Community Website! This platform is designed to connect tech enthusiasts, share knowledge, collaborate on projects, and stay updated with the latest trends in the tech industry.
+Welcome to Awesome Tech Community Website! This platform is designed to connect tech enthusiasts, share knowledge, collaborate on projects, and stay updated with the latest trends in the tech industry.
 
 ## Features
 
@@ -34,20 +34,17 @@ Welcome to My Awesome Tech Community Website! This platform is designed to conne
 
 4. **Profile:**
    - Edit your profile details.
-   - View and manage your posted projects.
+   - View and manage your posted projects and saved projects.
 
 5. **Adding Projects:**
    - Upload project details, including images, category, tech stacks, resources links and collaboration options.
 
 ## Tech Stack
 
-- Frontend: React and Tailwind
+- Frontend: React Js and Tailwind Css
 - Backend: Node.js, Express.js
-- Database: MongoDB and firebase
+- Database: MongoDB and firebase Storage
 - Authentication: Outlook with firebase
 
-## Contributing
-
-Contributions are welcome! If you have any suggestions or want to report a bug, feel free to open an issue or submit a pull request.
 
 
