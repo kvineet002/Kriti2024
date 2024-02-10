@@ -39,6 +39,76 @@ const createProject = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+const updateProject = async (req, res) => {
+  try {
+    const {
+      projectId,
+      title,
+      description,
+      category,
+      bannerUrl,
+      status,
+      bigdescription,
+      statusMessage,
+      technologies,
+      courseLinks,
+      projectLinks,
+    } = req.body;
+
+    // Find the project by ID
+    const existingProject = await Project.findById(projectId);
+
+    if (!existingProject) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    // Update the project fields
+    existingProject.title = title;
+    existingProject.description = description;
+    existingProject.category = category;
+    existingProject.bannerUrl = bannerUrl;
+    existingProject.status = status;
+    existingProject.bigdescription = bigdescription;
+    existingProject.statusMessage = statusMessage;
+    existingProject.technologies = technologies;
+    existingProject.courseLinks = courseLinks;
+    existingProject.projectLinks = projectLinks;
+
+    // Save the updated project
+    const updatedProject = await existingProject.save();
+
+    res.status(200).json(updatedProject);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+const deleteProject=async (req, res) => {
+  const { projectId } = req.body;
+
+  try {
+    const project = await Project.findById(projectId);
+
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    // Remove the project ID from the creator's projects array
+    await User.updateOne({ _id: project.creator.id }, { $pull: { projects: projectId } });
+
+    // Remove the project ID from each user in the likes array
+    await User.updateMany({ _id: { $in: project.likes.map(like => like.id) } }, { $pull: { projects: projectId } });
+
+    // Remove the project ID from each user in the saved array
+    await User.updateMany({ _id: { $in: project.saved.map(saved => saved.id) } }, { $pull: { projects: projectId } });
+
+    // Delete the project document
+    await Project.findByIdAndRemove(projectId);
+    res.status(200).json({ message: 'Project deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 const likeorunlikeProject = async (req, res) => {
     try {
       const { projectId, userId } = req.body;
@@ -124,5 +194,5 @@ const likeorunlikeProject = async (req, res) => {
   };
   
 module.exports = {
-  createProject,likeorunlikeProject,getProject,getAllProjects,saveorunsaveProject
+  createProject,likeorunlikeProject,getProject,getAllProjects,saveorunsaveProject,deleteProject,updateProject
 };

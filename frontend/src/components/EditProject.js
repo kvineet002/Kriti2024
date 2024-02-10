@@ -8,6 +8,7 @@ import {
   getDownloadURL,
 } from "@firebase/storage";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
@@ -107,9 +108,11 @@ const statuses = ["Completed", "Ongoing"];
 const categories = ["Web Dev", "Android Dev", "AI/ML"];
 
 function EditProject({ onCancel, project, setProject, SERVER_URL }) {
+  const {id}=useParams();
+  const userId=localStorage.getItem('id')//TODO: get from local storage
   const [banner, setBanner] = useState({
-    file: null,
-    preview: project.BannerUrl,
+    file: true,
+    preview: project.bannerUrl,
   });
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -191,8 +194,51 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async() => {
+    setLoading(true);
 
+    try {
+      let downloadUrl="";
+      if (selectedFile) {
+        const storageRef = ref(storage, `Profiles/${selectedFile.name}`);
+        const uploadResult = await uploadBytes(storageRef, selectedFile);
+        downloadUrl = await getDownloadURL(uploadResult.ref);
+      }
+      const response = await axios.post(`${SERVER_URL}/project/updateproject`, 
+      {projectId:id,
+        title:project.title,
+        description:project.description,
+        category:project.category,
+        bannerUrl:downloadUrl.length>0?downloadUrl:project.BannerUrl,
+        bigdescription:project.bigdescription,
+        status:project.status,
+        statusMessage:project.statusMessage,
+        technologies:project.technologies,
+        creator:{
+          id:userId,
+          Name:localStorage.getItem('Name'),
+          email:localStorage.getItem('email'),
+          designation:localStorage.getItem('designation'),
+          profileUrl:localStorage.getItem('profileUrl'),
+
+        },
+        courseLinks:project.courseLink,
+        projectLinks:{
+          github:project.GitURL,
+          demo:project.DemoLink,
+        }
+      });
+      console.log('Project updated:', response.data);
+    } catch (error) {
+      console.error('Error updating project:', error);
+    }
+    finally{
+      setLoading(false); 
+
+      onCancel()
+    }
+  };
+console.log(banner)
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
@@ -228,7 +274,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
                       }));
                     }}
                     value={project.title}
-                    required
+                    
                   />
                 </div>
 
@@ -249,7 +295,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
                       }));
                     }}
                     value={project && project.description}
-                    required
+                  
                   />
                 </div>
 
@@ -270,7 +316,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
                       }));
                     }}
                     value={project.bigdescription}
-                    required
+                  
                   ></input>
                 </div>
 
@@ -317,7 +363,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
                   Choose Banner
                 </div>
                 <div className="flex flex-wrap px-5 w-full mb-4">
-                  {banner && (
+                  {banner.file && (
                     <div className="relative w-70 h-40 m-2 overflow-hidden shadow-lg border-[#565656] border-2 rounded-lg">
                       <img
                         src={banner.preview}
@@ -562,7 +608,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
                   className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor text-black"
                  
                 >
-             {loading ? 'Updating...' : 'Update'} 
+             {loading ? 'Editing...' : 'Edit'} 
                   
                 </button>
               </div>
