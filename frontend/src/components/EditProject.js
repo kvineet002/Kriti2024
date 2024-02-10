@@ -123,9 +123,9 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
         if (newUrl.trim() !== "") {
           setProject({
             ...project,
-            courseLink: [...project.courseLink, newUrl.trim()],
+            courseLinks: [...project.courseLinks, newUrl.trim()],
           });
-          setNewUrl(""); // Clear the input field
+          setNewUrl(""); 
         }
       };
 
@@ -133,6 +133,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
     if (project && project.statusMessage.length > 0) {
       setOpenCollab(true);
     }
+
   }, []);
   let menuRef = useRef();
   useEffect(() => {
@@ -506,7 +507,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
                   </div>
                   <div className="border-2 border-[#565656] rounded-lg">
                     <div className="flex gap-2 w-full px-4 items-center flex-wrap mt-4">
-                      {project.courseLink && project.courseLink.map((url, index) => (
+                      {project.courseLinks && project.courseLinks.map((url, index) => (
                         <div
                           key={index}
                           className="flex bg-white text-black items-center px-2 rounded-lg font-semibold"
@@ -521,7 +522,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
                               setProject((prevData) => ({
                                 ...prevData,
                                 courseLink: 
-                                  prevData.courseLink.filter(
+                                  prevData.courseLinks.filter(
                                     (u, i) => i !== index
                                   ),
                                 
