@@ -36,6 +36,7 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
   localStorage.removeItem('profileUrl');
   localStorage.removeItem('designation');
   navigate('/')
+  window.location.reload();
  }
 
   return (

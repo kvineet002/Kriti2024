@@ -239,7 +239,7 @@ function Project({ SERVER_URL }) {
                       }
                       className=" px-3 py-1 cursor-pointer  justify-center gap-1  text-black  font-bold text-xs flex items-center bg-[#FFF]  rounded-full"
                     >
-                      <img src="/github.svg" /> GITHUB
+                      <img src="/github2.svg" /> GITHUB
                     </a>
                     <a
                       target="blank"

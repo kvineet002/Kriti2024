@@ -15,10 +15,15 @@ const Community = ({ SERVER_URL }) => {
     false || localStorage.getItem("token")
   );
 
-const placeH = ["Type something here...", "Keep typing...", "Let's see what you've got!"];
-    const [index, setIndex] = useState(0);
-    const [placeholder, setPlaceholder] = useState(placeH[index].slice(0, 0));
-    const [placeholderIndex, setPlaceholderIndex] = useState(0);  const [previewData, setPreviewData] = useState(null);
+  const placeH = [
+    "about new project ideas...",
+    "the courses with links...",
+    "to colloborate",
+  ];
+  const [index, setIndex] = useState(0);
+  const [placeholder, setPlaceholder] = useState(placeH[index].slice(0, 0));
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [previewData, setPreviewData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [newReview, setNewReview] = useState("");
   const [newPost, setnewPost] = useState("");
@@ -29,24 +34,26 @@ const placeH = ["Type something here...", "Keep typing...", "Let's see what you'
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [dropdownOpenStates, setDropdownOpenStates] = useState({});
   const [postReviews, setPostReviews] = useState({});
-useEffect(() => {
-        const intr = setInterval(() => {
-            if (placeholderIndex + 1 > placeH[index].length) {
-                if (placeholder.length > 0) {
-                    setPlaceholder(prevPlaceholder => prevPlaceholder.slice(0, -1));
-                } else {
-                    setPlaceholderIndex(0);
-                    setIndex(prev => (prev + 1) % placeH.length);
-                }
-            } else {
-                setPlaceholder(prevPlaceholder => prevPlaceholder + placeH[index][placeholderIndex]);
-                setPlaceholderIndex(placeholderIndex + 1);
-            }
-        }, 120);
-        return () => {
-            clearInterval(intr);
+  useEffect(() => {
+    const intr = setInterval(() => {
+      if (placeholderIndex + 1 > placeH[index].length) {
+        if (placeholder.length > 0) {
+          setPlaceholder((prevPlaceholder) => prevPlaceholder.slice(0, -1));
+        } else {
+          setPlaceholderIndex(0);
+          setIndex((prev) => (prev + 1) % placeH.length);
         }
-    }, [index, placeholder, placeholderIndex]);
+      } else {
+        setPlaceholder(
+          (prevPlaceholder) => prevPlaceholder + placeH[index][placeholderIndex]
+        );
+        setPlaceholderIndex(placeholderIndex + 1);
+      }
+    }, 120);
+    return () => {
+      clearInterval(intr);
+    };
+  }, [index, placeholder, placeholderIndex]);
   const getTimeDifference = (startTime, endTime) => {
     const msDifference = differenceInMilliseconds(endTime, startTime);
 
@@ -73,13 +80,13 @@ useEffect(() => {
     return firstLink;
   }
   const toggleDropdown = (postId) => {
-    setDropdownOpenStates(prevState => ({
+    setDropdownOpenStates((prevState) => ({
       ...prevState,
-      [postId]: !prevState[postId]
+      [postId]: !prevState[postId],
     }));
-};
+  };
   const createPost = async () => {
-    setloading(true)
+    setloading(true);
     try {
       const apiKey = "64826c44d88ac1727f774f7a1e913076";
       const url = extractFirstLink(newPost);
@@ -101,17 +108,14 @@ useEffect(() => {
           profileUrl: localStorage.getItem("profileUrl"),
         },
       });
-      setnewPost("")
-
+      setnewPost("");
     } catch (error) {
       console.error(
         "Error creating post:",
         error.response ? error.response.data : error.message
       );
-    }
-    finally{
+    } finally {
       setloading(false);
-      
     }
   };
 
@@ -126,14 +130,23 @@ useEffect(() => {
 
       const titleWithLink = (
         <div>
-        <p className="text-gray-400 text-base">{title.substring(0, linkIndex)}</p>
-        <p className="text-gray-400 text-base">
-          <a href={link} className="text-blue-500" target="_blank" rel="noopener noreferrer">
-            {link}
-          </a>
-        </p>
-        <p className="text-gray-400 text-base">{title.substring(linkIndex + link.length)}</p>
-      </div>
+          <p className="text-gray-400 text-base">
+            {title.substring(0, linkIndex)}
+          </p>
+          <p className="text-gray-400 text-base">
+            <a
+              href={link}
+              className="text-blue-500"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link}
+            </a>
+          </p>
+          <p className="text-gray-400 text-base">
+            {title.substring(linkIndex + link.length)}
+          </p>
+        </div>
       );
 
       return <p className="text-gray-400 text-base">{titleWithLink}</p>;
@@ -144,21 +157,23 @@ useEffect(() => {
   const fetchReviews = async (postId) => {
     if (!postId) return;
     try {
-        const response = await axios.get(`${SERVER_URL}/reviews/get-reviews/${postId}`);
-        setPostReviews(prevReviews => ({
-            ...prevReviews,
-            [postId]: response.data
-        }));
+      const response = await axios.get(
+        `${SERVER_URL}/reviews/get-reviews/${postId}`
+      );
+      setPostReviews((prevReviews) => ({
+        ...prevReviews,
+        [postId]: response.data,
+      }));
     } catch (error) {
-        console.error("Error fetching reviews:", error);
+      console.error("Error fetching reviews:", error);
     }
-};
+  };
   const submitReview = async () => {
     if (!selectedPostId) return; // Do not proceed if selectedPostId is not set
     try {
       await axios.post(`${SERVER_URL}/reviews/create-review`, {
-        Name: localStorage.getItem('Name'), 
-        profileUrl: localStorage.getItem('profileUrl'),
+        Name: localStorage.getItem("Name"),
+        profileUrl: localStorage.getItem("profileUrl"),
         message: newReview,
         projectId: selectedPostId, // Use the selected post ID here
       });
@@ -171,7 +186,7 @@ useEffect(() => {
 
   useEffect(() => {
     fetchReviews();
-  }, [ submitReview]);
+  }, [submitReview]);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -184,7 +199,10 @@ useEffect(() => {
         }, {});
         setDropdownOpenStates(initialDropdownStates);
       } catch (error) {
-        console.error("Error fetching posts:", error.response ? error.response.data : error.message);
+        console.error(
+          "Error fetching posts:",
+          error.response ? error.response.data : error.message
+        );
       }
     };
     fetchPosts();
@@ -193,15 +211,18 @@ useEffect(() => {
     <div>
       <Navbar2 SERVER_URL={SERVER_URL} />
       <div className=" flex flex-col mt-[20%] md:mt-[9%]">
-        <div className="mx-4 mb-10 flex items-center gap-4 md:mx-64  ">
-          <input
-            value={newPost}
-            onChange={(e) => {
-              setnewPost(e.target.value);
-            }}
-            placeholder={placeholder}
-            className=" rounded-full w-full px-4 py-2 "
-          />
+        <div className="mx-4 mb-10 flex items-center  gap-4 md:mx-64  ">
+          <div className=" w-full flex bg-white items-center px-2  gap-2 rounded-full">
+            <img src="/plus.png" className=" h-7 w-7" />
+            <input
+              value={newPost}
+              onChange={(e) => {
+                setnewPost(e.target.value);
+              }}
+              placeholder={`Post ${placeholder}`}
+              className="  outline-none bg-transparent  py-2 "
+            />
+          </div>
           <button
             disabled={loading}
             onClick={
@@ -210,152 +231,169 @@ useEffect(() => {
                   ? createPost
                   : () => {}
                 : () => {
-                    setShowLoginModal(true); 
+                    setShowLoginModal(true);
                   }
             }
             className=" bg-white py-2 rounded-full px-4 cursor-pointer"
           >
-         {loading?"Posting...":"Post"}
+            {loading ? "Posting..." : "Post"}
           </button>
         </div>
         <div className=" flex gap-6 flex-col">
           {posts &&
-            posts.slice()
-            .reverse().map((post) => (
-              <div className="mx-4  md:mx-64 border border-[#565656] rounded-lg shadow-md overflow-hidden">
-                <div className="flex items-center px-6 py-4">
-                  <div className="flex-shrink-0">
-                    {/* Assume you have an avatar image. Replace 'path-to-avatar-image.png' with the actual path */}
-                    <img
-                      src={post.creator[0].profileUrl}
-                      alt="User avatar"
-                      className="h-12 w-12 rounded-full"
-                    />
-                  </div>
-                  <Link to={`/profile/${post.creator[0].id}`} className="ml-4">
-                    <div className="text-lg  text-white font-semibold">
-                      {post.creator[0].Name}
+            posts
+              .slice()
+              .reverse()
+              .map((post) => (
+                <div className="mx-4  md:mx-64 border border-[#565656] rounded-lg shadow-md overflow-hidden">
+                  <div className="flex items-center px-6 py-4">
+                    <div className="flex-shrink-0">
+                      {/* Assume you have an avatar image. Replace 'path-to-avatar-image.png' with the actual path */}
+                      <img
+                        src={post.creator[0].profileUrl}
+                        alt="User avatar"
+                        className="h-12 w-12 rounded-full object-cover"
+                      />
                     </div>
-                    <div className="text-sm text-gray-400">
-                      {post.creator[0].designation}
-                    </div>
-                  </Link>
-                 
-                </div>
-
-                <div className="px-4 py-2 border-t border-[#565656]">
-                {renderTitleWithLink(post.title)}
-                </div>
-                {post.bannerUrl && post.bannerUrl.length > 0 && (
-                  <div className="px-4  py-2 border-t border-[#565656]">
-                    {/* Replace 'path-to-project-image.png' with the actual path to your image */}
-                    <img
-                      src={post.bannerUrl}
-                      alt="Project"
-                      className="w-full  object-cover rounded-md bg-gray-300"
-                    />
-                  </div>
-                )}
-                <div
-                  style={{
-                    transition: "max-height 0.9s ease", // Adjust the duration and timing function as needed
-                    maxHeight: dropdownOpenStates[post._id] ? "420px" : "40px", // Adjust the duration and timing function as needed
-                  }}
-                  className={` px-6  my-2 py-2 bg-[#BFBFBF] ${
-                    isOpen ? "  h-full  rounded-[18px]" : " rounded-[18px]"
-                  } mx-4`}
-                >
-                  <div className=" flex justify-between text-base font-semibold">
-                    Comments
-                    <img
-      onClick={() => { toggleDropdown(post._id); setSelectedPostId(post._id); fetchReviews(post._id); }}
-      className={`transition-transform duration-500 cursor-pointer ${dropdownOpenStates[post._id] ? "rotate-180" : "rotate-0"}`}
-      width="15px"
-      src="/dropdown.svg"
-      alt="Dropdown"
-    />
-                  </div>
-                  {dropdownOpenStates[post._id] && (
-                    <div>
-                      <div className="flex flex-col">
-                        <div
-                          className="flex flex-col space-y-4 rounded-lg py-5 px-4 overflow-y-auto"
-                          style={{ maxHeight: "300px" }}
-                        >
-                          {loading ? (
-                            <div className="flex justify-center font-semibold text-3xl text-gray-500">
-                              Loading...
-                            </div>
-                          ) : postReviews[post._id] && postReviews[post._id].length > 0 ? (
-    postReviews[post._id].slice().reverse().map((review) => (
-                                <div
-                                  key={review._id}
-                                  className="flex items-start space-x-2"
-                                >
-                                  <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
-                                    <img
-                                      src={review.profileUrl}
-                                      alt={`${review.Name}'s profile`}
-                                      className="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div className="flex flex-col gap-1">
-                                    <div className="bg-gray-800 p-2 rounded-lg">
-                                      <p className="text-white">
-                                        {review.message}
-                                      </p>
-                                    </div>
-                                    <div className="text-gray-500 text-xs">{`${
-                                      review.Name
-                                    } • ${getTimeDifference(
-                                      review.time,
-                                      endTime
-                                    )} ago`}</div>
-                                  </div>
-                                </div>
-                              ))
-                          ) : (
-                            <div className="flex justify-center font-semibold text-3xl text-gray-500">
-                              No Reviews Yet!!!
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex items-center mt-4 gap-2">
-                          <input
-                            type="text"
-                            placeholder="Type your review..."
-                            value={newReview}
-                            onChange={(e) => setNewReview(e.target.value)}
-                            className="flex-grow px-6 py-2 outline-none bg-transparent placeholder:text-[#565656] border border-[#565656]  rounded-full"
-                          />
-                          <button
-                            onClick={
-                              loggedIn
-                                ? newReview.length > 0
-                                  ? submitReview
-                                  : () => {}
-                                : () => {
-                                    setShowLoginModal(true);
-                                  }
-                            }
-                            className=" rounded-full border border-[#565656] hover:bg-[#565656] flex items-start justify-center p-2 "
-                          >
-                            <img src="/send.svg" width="25px" />
-                          </button>
-                        </div>
+                    <Link
+                      to={`/profile/${post.creator[0].id}`}
+                      className="ml-4"
+                    >
+                      <div className="text-lg  text-white font-semibold">
+                        {post.creator[0].Name}
                       </div>
+                      <div className="text-sm text-gray-400">
+                        {post.creator[0].designation}
+                      </div>
+                    </Link>
+                  </div>
+
+                  <div className="px-4 py-2 border-t border-[#565656]">
+                    {renderTitleWithLink(post.title)}
+                  </div>
+                  {post.bannerUrl && post.bannerUrl.length > 0 && (
+                    <div className="px-4  py-2 border-t border-[#565656]">
+                      {/* Replace 'path-to-project-image.png' with the actual path to your image */}
+                      <img
+                        src={post.bannerUrl}
+                        alt="Project"
+                        className="w-full  object-cover rounded-md bg-gray-300"
+                      />
                     </div>
                   )}
+                  <div
+                    style={{
+                      transition: "max-height 0.9s ease", // Adjust the duration and timing function as needed
+                      maxHeight: dropdownOpenStates[post._id]
+                        ? "420px"
+                        : "40px", // Adjust the duration and timing function as needed
+                    }}
+                    className={` px-6  my-2 py-2 bg-[#BFBFBF] ${
+                      isOpen ? "  h-full  rounded-[18px]" : " rounded-[18px]"
+                    } mx-4`}
+                  >
+                    <div className=" flex justify-between text-base font-semibold">
+                      Comments
+                      <img
+                        onClick={() => {
+                          toggleDropdown(post._id);
+                          setSelectedPostId(post._id);
+                          fetchReviews(post._id);
+                        }}
+                        className={`transition-transform duration-500 cursor-pointer ${
+                          dropdownOpenStates[post._id]
+                            ? "rotate-180"
+                            : "rotate-0"
+                        }`}
+                        width="15px"
+                        src="/dropdown.svg"
+                        alt="Dropdown"
+                      />
+                    </div>
+                    {dropdownOpenStates[post._id] && (
+                      <div>
+                        <div className="flex flex-col">
+                          <div
+                            className="flex flex-col space-y-4 rounded-lg py-5 px-4 overflow-y-auto"
+                            style={{ maxHeight: "300px" }}
+                          >
+                            {loading ? (
+                              <div className="flex justify-center font-semibold text-3xl text-gray-500">
+                                Loading...
+                              </div>
+                            ) : postReviews[post._id] &&
+                              postReviews[post._id].length > 0 ? (
+                              postReviews[post._id]
+                                .slice()
+                                .reverse()
+                                .map((review) => (
+                                  <div
+                                    key={review._id}
+                                    className="flex items-start space-x-2"
+                                  >
+                                    <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
+                                      <img
+                                        src={review.profileUrl}
+                                        alt={`${review.Name}'s profile`}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                    <div className="flex flex-col gap-1">
+                                      <div className="bg-gray-800 p-2 rounded-lg">
+                                        <p className="text-white">
+                                          {review.message}
+                                        </p>
+                                      </div>
+                                      <div className="text-gray-500 text-xs">{`${
+                                        review.Name
+                                      } • ${getTimeDifference(
+                                        review.time,
+                                        endTime
+                                      )} ago`}</div>
+                                    </div>
+                                  </div>
+                                ))
+                            ) : (
+                              <div className="flex justify-center font-semibold text-3xl text-gray-500">
+                                No Reviews Yet!!!
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center mt-4 gap-2">
+                            <input
+                              type="text"
+                              placeholder="Type your review..."
+                              value={newReview}
+                              onChange={(e) => setNewReview(e.target.value)}
+                              className="flex-grow px-6 py-2 outline-none bg-transparent placeholder:text-[#565656] border border-[#565656]  rounded-full"
+                            />
+                            <button
+                              onClick={
+                                loggedIn
+                                  ? newReview.length > 0
+                                    ? submitReview
+                                    : () => {}
+                                  : () => {
+                                      setShowLoginModal(true);
+                                    }
+                              }
+                              className=" rounded-full border border-[#565656] hover:bg-[#565656] flex items-start justify-center p-2 "
+                            >
+                              <img src="/send.svg" width="25px" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-  
-              </div>
-            ))}
-                          {showLoginModal && (
-                  <LoginModal
-                    SERVER_URL={SERVER_URL}
-                    onClose={() => setShowLoginModal(false)}
-                  />
-                )}
+              ))}
+          {showLoginModal && (
+            <LoginModal
+              SERVER_URL={SERVER_URL}
+              onClose={() => setShowLoginModal(false)}
+            />
+          )}
         </div>
       </div>
       <Footer />
