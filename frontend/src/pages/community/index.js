@@ -217,7 +217,7 @@ const Community = ({ SERVER_URL }) => {
       )}
       <Navbar2 SERVER_URL={SERVER_URL} />
       <div className=" flex flex-col mt-[20%] md:mt-[9%]">
-        <div className=" md:px-[18%] mb-10 flex items-center justify-center gap-2  w-full   ">
+    {   loggedIn&& <div className=" md:px-[18%] mb-10 flex items-center justify-center gap-2  w-full   ">
           <div className=" md:w-full w-[75%] flex bg-blue-50 items-center px-2  gap-2 rounded-full">
             <img src="/plus.png" className=" h-7 w-7" />
             <input
@@ -244,7 +244,7 @@ const Community = ({ SERVER_URL }) => {
           >
             {loading ? "Posting..." : "Post"}
           </button>
-        </div>
+        </div>}
         <div className=" flex gap-6 flex-col">
           {posts &&
             posts
