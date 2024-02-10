@@ -330,7 +330,7 @@ function Profile({ SERVER_URL }) {
       {deleteproj && (
         <DeleteProject
           SERVER_URL={SERVER_URL}
-          remainingtime={calculateHoursDifference(profile.lastposttime)}
+          remainingtime={10-calculateHoursDifference(profile.lastposttime)}
           onCancel={() => {
             setDeleteproj(!deleteproj);
           }}
@@ -341,9 +341,9 @@ function Profile({ SERVER_URL }) {
           <div
             className="text-white bg-[#1c1b1b] flex  w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer"
             onClick={() => {
-              calculateHoursDifference(profile.lastposttime) >= 50
+              profile.lastposttime?(calculateHoursDifference(profile.lastposttime) >=10
                 ?setAddProject(true) 
-                : setDeleteproj(true)
+                : setDeleteproj(true)):(setAddProject(true))
             }}
           >
             <span className="text-[150px] font-thin my-[-50px]">+</span>
