@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   token: { type: String },
   designation: { type: String },
   joiningYear: {type:String},
+  lastposttime: { type: Date },
   graduatingYear:{type:String},
   profileUrl: { type: String,default:"/profile-icon.jpg" },
   socials: {

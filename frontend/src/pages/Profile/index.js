@@ -8,6 +8,7 @@ import AddProject from "../../components/AddProject";
 import Navbar2 from "../../components/navbar2";
 import axios from "axios";
 import LoginModal from "../../components/LoginModal";
+import DeleteProject from "../../components/DeleteProject";
 
 function Profile({ SERVER_URL }) {
   const [loggedIn, setLoggedIn] = useState(
@@ -24,6 +25,7 @@ function Profile({ SERVER_URL }) {
   const [profileEdit, setProfileEdit] = useState(false);
   const [selectedTab, setSelectedTab] = useState("Your Projects");
   const [loading, setLoading] = useState(false);
+  const [deleteproj, setDeleteproj] = useState(false);
 
   const [profileEditData, setProfileEditData] = useState({
     profileUrl: "",
@@ -94,10 +96,9 @@ function Profile({ SERVER_URL }) {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
-  
 
   const filterProjects = (tab) => {
     const filtered = AllProjects.filter((project) => {
@@ -107,13 +108,12 @@ function Profile({ SERVER_URL }) {
         return project.saved.some((saved) => saved.id === id);
       }
     });
-  
+
     setFilteredProjects(filtered);
-  };  
+  };
   useEffect(() => {
     filterProjects(selectedTab);
-  }, [AllProjects, selectedTab]); 
-  console.log(selectedTab)
+  }, [AllProjects, selectedTab]);
   const fetchFollowingUsers = async () => {
     try {
       const response = await axios.post(
@@ -122,15 +122,12 @@ function Profile({ SERVER_URL }) {
           userId: userId,
         }
       );
-      loggedIn &&
-        setIsFollowing(
-          response.data.some((user) => user._id === id)
-        );
+      loggedIn && setIsFollowing(response.data.some((user) => user._id === id));
     } catch (error) {
       console.error("Error fetching following users:", error);
     }
   };
-  
+
   const handleFollow = async () => {
     try {
       const response = await axios.post(
@@ -152,8 +149,22 @@ function Profile({ SERVER_URL }) {
     setSelectedTab(newTab);
     // The useEffect hook will automatically re-filter projects based on the new tab.
   };
+  function calculateHoursDifference(specificDateString) {
+    // Convert the date string to a Date object
+    const specificDate = new Date(specificDateString);
 
-  console.log(profile);
+    // Get the current date
+    const currentDate = new Date();
+
+    // Calculate the time difference in milliseconds
+    const timeDifference = currentDate - specificDate;
+
+    // Convert the time difference to hours
+    const minutesDifference = timeDifference / (1000 * 60);
+
+    return Math.floor(minutesDifference);
+  }
+
   return (
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
@@ -176,10 +187,12 @@ function Profile({ SERVER_URL }) {
                 } - ${profile.graduatingYear}`}</div>}
                 </div> */}
                 <div className="flex flex-wrap gap-1">
-                  <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE] to-[#79D0F6]]">{profile.Name}</div>
-                  {profile.joiningYear && profile.graduatingYear && <div className=" text-[12px] font-thin text-[#aeaeae] mt-auto sm:mt-7">{`${
-                  profile.joiningYear
-                } - ${profile.graduatingYear}`}</div>}
+                  <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#868686] via-[#ffffff] to-[#969696] text-[linear-gradient-to-r from-[#DEDEDE] to-[#79D0F6]]">
+                    {profile.Name}
+                  </div>
+                  {profile.joiningYear && profile.graduatingYear && (
+                    <div className=" text-[12px] font-thin text-[#aeaeae] mt-auto sm:mt-7">{`${profile.joiningYear} - ${profile.graduatingYear}`}</div>
+                  )}
                 </div>
               </div>
               <div className=" text-white text-xs sm:text-base mt-[-4px]">
@@ -192,11 +205,18 @@ function Profile({ SERVER_URL }) {
               <div className="flex gap-2 py-4">
                 {profile.socials && profile.socials.github && (
                   <Link to={`https://${profile.socials.github}`} target="blank">
-                    <img src="/github.svg" alt="github" className="w-5  md:w-6" />
+                    <img
+                      src="/github.svg"
+                      alt="github"
+                      className="w-5  md:w-6"
+                    />
                   </Link>
                 )}
                 {profile.socials && profile.socials.facebook && (
-                  <Link to={`https://${profile.socials.facebook}`} target="blank">
+                  <Link
+                    to={`https://${profile.socials.facebook}`}
+                    target="blank"
+                  >
                     {" "}
                     <img
                       src="/facebook.svg"
@@ -206,7 +226,10 @@ function Profile({ SERVER_URL }) {
                   </Link>
                 )}
                 {profile.socials && profile.socials.linkedin && (
-                  <Link to={`https://${profile.socials.linkedin}`} target="blank">
+                  <Link
+                    to={`https://${profile.socials.linkedin}`}
+                    target="blank"
+                  >
                     {" "}
                     <img
                       src="/linkedin.svg"
@@ -216,7 +239,10 @@ function Profile({ SERVER_URL }) {
                   </Link>
                 )}
                 {profile.socials && profile.socials.twitter && (
-                  <Link to={`https://${profile.socials.twitter}`} target="blank">
+                  <Link
+                    to={`https://${profile.socials.twitter}`}
+                    target="blank"
+                  >
                     <img
                       src="/twitter.svg"
                       alt="twitter"
@@ -225,7 +251,10 @@ function Profile({ SERVER_URL }) {
                   </Link>
                 )}
                 {profile.socials && profile.socials.youtube && (
-                  <Link to={`https://${profile.socials.youtube}`} target="blank">
+                  <Link
+                    to={`https://${profile.socials.youtube}`}
+                    target="blank"
+                  >
                     <img
                       src="/youtube.svg"
                       alt="youtube"
@@ -234,7 +263,10 @@ function Profile({ SERVER_URL }) {
                   </Link>
                 )}
                 {profile.socials && profile.socials.instagram && (
-                  <a href={`https://${profile.socials.instagram}`} target="blank">
+                  <a
+                    href={`https://${profile.socials.instagram}`}
+                    target="blank"
+                  >
                     <img
                       src="/instagram.svg"
                       alt="instagram"
@@ -243,8 +275,10 @@ function Profile({ SERVER_URL }) {
                   </a>
                 )}
               </div>
-                {id !== userId &&
-                  ( <div className="mt-8 mb-10"> <button>
+              {id !== userId && (
+                <div className="mt-8 mb-10">
+                  {" "}
+                  <button>
                     {isFollowing ? (
                       <div
                         onClick={() => handleFollow()}
@@ -268,40 +302,48 @@ function Profile({ SERVER_URL }) {
                       </div>
                     )}
                   </button>
-                    </div>
-                  )}
-              
-            </div>
-            
-            {id === userId && (
-                <div className=" py-4">
-                  <img
-                    src="/edit.svg"
-                    alt=""
-                    className="w-[95px] cursor-pointer hover:invert"
-                    onClick={() => {
-                      setProfileEdit(true);
-                    }}
-                  />
                 </div>
               )}
-            
+            </div>
+
+            {id === userId && (
+              <div className=" py-4">
+                <img
+                  src="/edit.svg"
+                  alt=""
+                  className="w-[95px] cursor-pointer hover:invert"
+                  onClick={() => {
+                    setProfileEdit(true);
+                  }}
+                />
+              </div>
+            )}
           </div>
-          
         </div>
       </div>
       {showLoginModal && (
-              <LoginModal
-                SERVER_URL={SERVER_URL}
-                onClose={() => setShowLoginModal(false)}
-              />
-            )}
+        <LoginModal
+          SERVER_URL={SERVER_URL}
+          onClose={() => setShowLoginModal(false)}
+        />
+      )}
+      {deleteproj && (
+        <DeleteProject
+          SERVER_URL={SERVER_URL}
+          remainingtime={calculateHoursDifference(profile.lastposttime)}
+          onCancel={() => {
+            setDeleteproj(!deleteproj);
+          }}
+        />
+      )}
       <div className="flex-col bg-black justify-center items-center">
         {id === userId && (
           <div
             className="text-white bg-[#1c1b1b] flex  w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer"
             onClick={() => {
-              setAddProject(true);
+              calculateHoursDifference(profile.lastposttime) >= 50
+                ?setAddProject(true) 
+                : setDeleteproj(true)
             }}
           >
             <span className="text-[150px] font-thin my-[-50px]">+</span>
@@ -310,18 +352,17 @@ function Profile({ SERVER_URL }) {
         )}
         <div className="flex gap-3 justify-center items-center mt-6 mb-6">
           <button
-  onClick={() => handleTabChange("Your Projects")}
+            onClick={() => handleTabChange("Your Projects")}
             className={` text-sm  border border-[#565656] hover:opacity-80 rounded-full px-3 py-1 ${
               selectedTab === "Your Projects"
                 ? "font-bold text-black bg-white"
                 : " text-white"
             }`}
           >
-
-         {userId===id?"Your Projects":"Projects"}
+            {userId === id ? "Your Projects" : "Projects"}
           </button>
           <button
-      onClick={() => handleTabChange("Saved Projects")}
+            onClick={() => handleTabChange("Saved Projects")}
             className={` text-sm  border border-[#565656] hover:opacity-80 rounded-full px-3 py-1 ${
               selectedTab === "Saved Projects"
                 ? "font-bold text-black bg-white"
@@ -404,8 +445,8 @@ function Profile({ SERVER_URL }) {
           Email={profile.Email}
           Name={profile.Name}
           SERVER_URL={SERVER_URL}
-          profile = {profile}
-          setprofile = {setprofile}
+          profile={profile}
+          setprofile={setprofile}
         />
       )}
       {addProject && (

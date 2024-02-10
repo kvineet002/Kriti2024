@@ -1,4 +1,5 @@
 const { Project } = require("../models/project");
+const { User } = require("../models/user");
 
 
 const createProject = async (req, res) => {
@@ -30,7 +31,9 @@ const createProject = async (req, res) => {
       courseLinks,
       projectLinks
     });
-
+    const user=await User.findOne({_id:creator.id});
+    user.lastposttime=Date.now();
+    await user.save();
     const savedProject = await newProject.save();
     
     res.status(201).json(savedProject);

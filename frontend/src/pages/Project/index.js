@@ -26,7 +26,6 @@ function Project({ SERVER_URL }) {
   const [editProject, setEditProject] = useState(false);
   const [deleteproj, setDeleteproj] = useState(false);
 
-  console.log(project);
   const handleLike = async () => {
     try {
       const response = await axios.post(
