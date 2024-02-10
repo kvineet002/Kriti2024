@@ -168,12 +168,12 @@ function Home({SERVER_URL}) {
     <hr className="border-white"/>
     <details className="p-4 group">
       <summary className="relative cursor-pointer list-none pr-8 font-medium text-[#eeeeee] group-hover:text-[#767676] transition-colors duration-300 focus-visible:outline-none">
-        Are private projects allowed?
+        Is there any time limit for adding subsequent projects?
         <svg xmlns="http://www.w3.org/2000/svg" className="absolute right-0 w-4 h-4 transition duration-300 top-1 shrink-0 stroke-white group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/>
         </svg>
       </summary>
-      <p className="mt-4 text-slate-500">Yes, we support both public and private projects!</p>
+      <p className="mt-4 text-slate-500">Yes, to protect our website from spamming we have made time limit of 1 hour in adding subsequent project.</p>
     </details>
     <hr className="border-white"/>
   </div>
