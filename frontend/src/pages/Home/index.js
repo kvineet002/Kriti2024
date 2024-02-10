@@ -53,9 +53,7 @@ function Home({SERVER_URL}) {
       <div className="flex flex-col text-[#d9d9d9] about-us pt-8">
         <h1 className=" pl-6 text-6xl my-3">About Us</h1>
         <div className="flex text-[14px] px-auto mt-5  mx-auto text-xl">
-          <p className="text-[14px] px-6 my-8 md:text-xl sm:text-base ">
-          Step into our cutting-edge platform, where creativity knows no bounds. Discover a modern, stylish space to showcase your projects, collaborate seamlessly, and connect with fellow innovators. Join our vibrant community and unlock endless opportunities to elevate your work and make your mark in the ever-evolving world of digital expression.
-          </p>
+          <p className="text-[14px] px-6 my-8 md:text-xl sm:text-base ">Collampus is an innovative online platform designed to foster collaboration and creativity within the tech community. At its core, Collampus serves as a dynamic hub where individuals can seamlessly add and showcase their projects, review others' work, connect with like-minded individuals through following, and stay informed with the latest updates from community discussions.  </p>
           <p className="text-[14px] px-6 my-8 md:text-xl sm:text-base ">
           Step into our cutting-edge platform, where creativity knows no bounds. Discover a modern, stylish space to showcase your projects, collaborate seamlessly, and connect with fellow innovators. Join our vibrant community and unlock endless opportunities to elevate your work and make your mark in the ever-evolving world of digital expression.
           </p>
