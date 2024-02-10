@@ -152,6 +152,8 @@ function Profile({ SERVER_URL }) {
     setSelectedTab(newTab);
     // The useEffect hook will automatically re-filter projects based on the new tab.
   };
+
+  console.log(profile);
   return (
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
@@ -403,6 +405,7 @@ function Profile({ SERVER_URL }) {
           Name={profile.Name}
           SERVER_URL={SERVER_URL}
           profile = {profile}
+          setprofile = {setprofile}
         />
       )}
       {addProject && (

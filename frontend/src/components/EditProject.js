@@ -106,62 +106,67 @@ const techStack = [
 const statuses = ["Completed", "Ongoing"];
 const categories = ["Web Dev", "Android Dev", "AI/ML"];
 
-function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
+function EditProject({ onCancel, project, setProject, SERVER_URL }) {
+  const [banner, setBanner] = useState({
+    file: null,
+    preview: project.BannerUrl,
+  });
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState([]);
-  const [banner, setbanner] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [openCollab, setOpenCollab] = useState(false);
   const [techStackInput, setTechStackInput] = useState("");
   const [techStackSuggestions, setTechStackSuggestions] = useState([]);
   const [newUrl, setNewUrl] = useState("");
-  const userId=localStorage.getItem('id')//TODO: get from local storage
 
+    //Handling Urls
+    const handleAddUrl = () => {
+        if (newUrl.trim() !== "") {
+          setProject({
+            ...project,
+            courseLink: [...project.courseLink, newUrl.trim()],
+          });
+          setNewUrl(""); // Clear the input field
+        }
+      };
+
+  useEffect(() => {
+    if (project && project.statusMessage.length > 0) {
+      setOpenCollab(true);
+    }
+  }, []);
   let menuRef = useRef();
-  useEffect(()=>{
+  useEffect(() => {
     let handler = (e) => {
-      if(!menuRef.current.contains(e.target)){
+      if (!menuRef.current.contains(e.target)) {
         onCancel();
       }
     };
 
-    document.addEventListener("mousedown",handler);
+    document.addEventListener("mousedown", handler);
 
-    return() => {
-      document.removeEventListener("mousedown",handler);
-    }
-  })
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
   //Handling Banner Image
   const handleBannerImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setbanner({
+      setBanner({
         file,
-        preview: URL.createObjectURL(file)
-      })
-
-      setSelectedFile(file);
-
-    }
-  };
-  const removeBannerImage = () => {
-  setbanner(null)
-  };
-
-
-  //Handling Urls
-  const handleAddUrl = () => {
-    if (newUrl.trim() !== "") {
-      setProjectData({
-        ...projectData,
-        courseLink: [...projectData.courseLink, newUrl.trim()],
+        preview: URL.createObjectURL(file),
       });
-      setNewUrl(""); // Clear the input field
+      setSelectedFile(file);
+    } else {
+      setBanner({
+        file: null,
+        preview: project.BannerUrl,
+      });
+      setSelectedFile(null);
     }
   };
 
-
-  //Handling techstacks
   const handleTechStackInputChange = (e) => {
     const input = e.target.value;
     setTechStackInput(input);
@@ -174,7 +179,7 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
     );
   };
   const toggleTechStacks = (item) => {
-    setProjectData((prevData) => {
+    setProject((prevData) => {
       const updatedTechStacks = prevData.technologies.includes(item)
         ? prevData.technologies.filter((it) => it !== item)
         : [...prevData.technologies, item];
@@ -186,89 +191,49 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
     });
   };
 
-
-  const handleSubmit=async()=>{
-    setLoading(true);
-    try {
-      if (selectedFile) {
-        const storageRef = ref(storage, `Profiles/${selectedFile.name}`);
-        const uploadResult = await uploadBytes(storageRef, selectedFile);
-        const downloadUrl = await getDownloadURL(uploadResult.ref);
-    
-        const response = await axios.post(`${SERVER_URL}/project/create`, {
-          title:projectData.title,
-          description:projectData.description,
-          category:projectData.category,
-          bannerUrl:downloadUrl,
-          bigdescription:projectData.bigdescription,
-          status:projectData.status,
-          statusMessage:projectData.statusMessage,
-          technologies:projectData.technologies,
-          creator:{
-            id:userId,
-            Name:localStorage.getItem('Name'),
-            email:localStorage.getItem('email'),
-            designation:localStorage.getItem('designation'),
-            profileUrl:localStorage.getItem('profileUrl'),
-
-          },
-          courseLinks:projectData.courseLink,
-          projectLinks:{
-            github:projectData.GitURL,
-            demo:projectData.DemoLink,
-          }
-        });
-        console.log('Project added :', response.data);
-      } else {
-        console.log("No file selected");
-      }
-    } catch (error) {
-      console.error('Error adding details:', error);
-    }finally {
-      setLoading(false); 
-      onCancel(); 
-    }
-  }
+  const handleSubmit = () => {};
 
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
-        <div className="relative w-[95%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 my-10 h-[90vh] overflow-y-scroll md:no-scrollbar" ref={menuRef}>
+        <div
+          className="relative w-[95%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 my-10 h-[90vh] overflow-y-scroll md:no-scrollbar"
+          ref={menuRef}
+        >
           <div className="flex flex-col justify-center items-center ">
             <div className=" self-start text-[36px] font-semibold mx-5">
-              Add New Project
+              Edit Project
             </div>
-            <form className="flex flex-wrap justify-between w-full mt-5 gap-2" onSubmit={(e)=>{
-              e.preventDefault();
-             handleSubmit()
-            }}>
-              {/* Left Side */}
+            <form
+              className="flex flex-wrap justify-between w-full mt-5 gap-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
+            >
               <div className="w-full overflow-hidden md:w-[65%]">
+                {/* Title */}
                 <div className="flex flex-col self-start px-5 mb-4 gap-1 w-full">
-
-                  {/* Title */}
                   <label htmlFor="text" className="text-sm font-medium">
                     Title
                   </label>
                   <input
                     type="text"
                     className=" outline-none bg-transparent border-white border-b-2 w-full"
-                    onChange={(e)=>{
+                    onChange={(e) => {
                       const inp = e.target.value;
-                          setProjectData((prev)=>({
-                            ...prev,
-                            title: inp
-                          }))
+                      setProject((prev) => ({
+                        ...prev,
+                        title: inp,
+                      }));
                     }}
+                    value={project.title}
                     required
                   />
                 </div>
 
-
+                {/* Description */}
                 <div className="flex flex-col self-start px-5 mt-2 mb-4 gap-1 w-full">
-
-
-                  {/* Description */}
                   <label htmlFor="text" className="text-sm font-medium">
                     Description
                   </label>
@@ -276,20 +241,19 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                     name="description"
                     type="text"
                     className="outline-none bg-transparent border-white border-b-2 w-full h-10"
-                    onChange={(e)=>{
+                    onChange={(e) => {
                       const inp = e.target.value;
-                      setProjectData((prev)=>({
+                      setProject((prev) => ({
                         ...prev,
-                        description: inp
-                      }))
+                        description: inp,
+                      }));
                     }}
+                    value={project && project.description}
                     required
-                  ></input>
-
-
-                  {/* About */}
+                  />
                 </div>
 
+                {/* About */}
                 <div className="flex flex-col self-start px-5 mt-2 mb-4 gap-1 w-full">
                   <label htmlFor="text" className="text-sm font-medium">
                     About
@@ -298,19 +262,19 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                     name="about"
                     type="text"
                     className="outline-none bg-transparent border-white border-b-2 w-full h-10"
-                    onChange={(e)=>{
+                    onChange={(e) => {
                       const inp = e.target.value;
-                      setProjectData((prev)=>({
+                      setProject((prev) => ({
                         ...prev,
-                        bigdescription: inp
-                      }))
+                        bigdescription: inp,
+                      }));
                     }}
+                    value={project.bigdescription}
                     required
                   ></input>
                 </div>
 
-
-                    {/* Github */}
+                {/* Github */}
                 <div className="flex flex-col self-start px-5 mb-4 gap-1 w-full">
                   <label htmlFor="text" className="text-sm font-medium">
                     Github Repo URL
@@ -318,16 +282,18 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                   <input
                     type="text"
                     className=" outline-none bg-transparent border-white border-b-2 w-full"
-                    onChange={(e)=>{
+                    onChange={(e) => {
                       const inp = e.target.value;
-                      setProjectData((prev)=>({
+                      setProject((prev) => ({
                         ...prev,
-                        GitURL: inp
-                      }))
+                        projectLinks: { ...prev.projectLinks, github: inp },
+                      }));
                     }}
+                    value={project.projectLinks && project.projectLinks.github}
                   />
                 </div>
 
+                {/* Website Link */}
                 <div className="flex flex-col self-start px-5 mb-4 gap-1 w-full">
                   <label htmlFor="text" className="text-sm font-medium">
                     Website Link(Optional)
@@ -335,31 +301,14 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                   <input
                     type="text"
                     className=" outline-none bg-transparent border-white border-b-2 w-full"
-                    onChange={(e)=>{
+                    onChange={(e) => {
                       const inp = e.target.value;
-                      setProjectData((prev)=>({
+                      setProject((prev) => ({
                         ...prev,
-                        DemoLink: inp
-                      }))
+                        projectLinks: { ...prev.projectLinks, demo: inp },
+                      }));
                     }}
-                  />
-                </div>
-
-                {/* Readme */}
-                <div className="flex flex-col self-start px-5 mb-4 gap-1 w-full">
-                  <label htmlFor="text" className="text-sm font-medium">
-                    README URL <span>(optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    className=" outline-none bg-transparent border-white border-b-2 w-full"
-                    onChange={(e)=>{
-                      const inp = e.target.value;
-                      setProjectData((prev)=>({
-                        ...prev,
-                        readme: inp
-                      }))
-                    }}
+                    value={project.projectLinks && project.projectLinks.demo}
                   />
                 </div>
 
@@ -378,7 +327,9 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                       <img
                         src="/closeicon.svg"
                         alt="x"
-                        onClick={removeBannerImage}
+                        onClick={() => {
+                          setBanner(null);
+                        }}
                         className="absolute top-0 right-0 text-white border-none cursor-pointer mt-1 mr-1 z-60"
                       />
                     </div>
@@ -402,55 +353,48 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                     </label>
                   )}
                 </div>
-
               </div>
-
-              
-
-              
               <div className="w-full md:w-[30%] px-6">
                 <div className="flex flex-col gap-4">
-                  {/* Categories */}
+                  {/* Categories  */}
                   <div className="self-start text-sm font-bold">Category</div>
                   <div className="flex gap-3 font-semibold">
                     {categories.map((category, index) => (
                       <button
                         key={index}
                         className={`text-black rounded-lg text-xs w-24 h-6 ${
-                          projectData.category === category
+                          project.category === category
                             ? " bg-[#66ec8b] "
                             : " bg-white "
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          setProjectData((prev)=>({
+                          setProject((prev) => ({
                             ...prev,
-                            category
-                          }))
+                            category,
+                          }));
                         }}
                       >
                         {category}
                       </button>
                     ))}
                   </div>
-
-
-                  {/* Status */}
+                  {/* Status  */}
                   <div className="self-start text-sm font-bold">Status</div>
                   <div className="flex gap-3 font-semibold">
                     {statuses.map((status, index) => (
                       <button
                         key={index}
                         className={`text-black rounded-lg text-xs w-24 h-6 ${
-                          projectData.status === status
+                          project.status === status
                             ? " bg-[#66ec8b] "
                             : " bg-white "
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          setProjectData((prevData) => ({
+                          setProject((prevData) => ({
                             ...prevData,
-                            status
+                            status,
                           }));
                         }}
                       >
@@ -458,8 +402,6 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                       </button>
                     ))}
                   </div>
-
-
                   {/* Toggle Switch & OpenCollab Section*/}
                   <div className="flex gap-3 pt-2 justify-between">
                     <label htmlFor="collaboration" className="font-bold">
@@ -467,39 +409,40 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                     </label>
                     <div
                       className={`w-12 h-6 rounded-full flex items-center cursor-pointer ${
-                        projectData.openCollab
+                        openCollab
                           ? "bg-[#66ec8b] justify-end"
                           : "bg-white justify-start"
                       }`}
                       onClick={() => {
-                        setProjectData((prevData) => ({
-                          ...prevData,
-                          openCollab: !prevData.openCollab,
-                        }));
+                        setOpenCollab(!openCollab);
                       }}
                     >
                       <div className="w-4 h-4 bg-[#1e1d1d] rounded-[50%] mx-1" />
                     </div>
                   </div>
                   {/* OpenCollab Message */}
-                  {projectData.openCollab && (
+                  {openCollab && (
                     <div className="bg-white rounded-lg h-44 overflow-hidden text-black my-2 py-2">
                       <textarea
                         name="collaboration"
                         id="collaboration"
                         className="outline-none bg-transparent border-black border-b-2 w-[90%] mx-6 h-full font-medium"
                         placeholder="Enter Message"
-                        onChange={(e)=>{
+                        value={
+                          project && project.statusMessage.length > 0
+                            ? project.statusMessage
+                            : ""
+                        }
+                        onChange={(e) => {
                           const inp = e.target.value;
-                          setProjectData((prev)=>({
+                          setProject((prev) => ({
                             ...prev,
-                            statusMessage: inp
-                          }))
+                            statusMessage: inp,
+                          }));
                         }}
                       ></textarea>
                     </div>
                   )}
-
 
                   {/* TechStackInput */}
                   <div className="uppercase font-bold text-sm pt-4">
@@ -507,14 +450,14 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                   </div>
                   <div className="border-2 flex flex-col items-center justify-between border-[#565656] w-full rounded-lg">
                     <div className="flex justify-start w-full gap-2 px-4 py-4 flex-wrap">
-                    {projectData.technologies.map((stack, index) => (
+                    {project.technologies.map((stack, index) => (
                       <div className="flex bg-white text-black items-center px-2 rounded-lg font-semibold my-1">
                         <div className="text-sm">{stack}</div>
                         <img
                           src="/closeicon.svg"
                           alt="x"
                           onClick={() =>
-                            setProjectData((prevData) => ({
+                            setProject((prevData) => ({
                               ...prevData,
                               technologies:  prevData.technologies.filter(
                                 (it) => it !== stack
@@ -526,10 +469,8 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                       </div>
                     ))}
                     </div>
-                    
-
                     <div className="flex-col w-full px-4 mx-6 my-2">
-                      <div className="flex justify-between">
+                    <div className="flex justify-between">
                         <input
                           type="text"
                           className="bg-transparent outline-none w-[80%] border-b-2 border-white pb-2"
@@ -543,7 +484,6 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                           className="h-6"
                         />
                       </div>
-
                       <div className="bg-white mt-2 flex flex-col overflow-scroll text-black overflow-x-hidden rounded-lg no-scrollbar">
                         {techStackSuggestions.map((item, index) => (
                           <div
@@ -560,14 +500,13 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                       </div>
                     </div>
                   </div>
-
-                  {/* Courses Links */}
+                    {/* Courses Links */}
                   <div className="uppercase font-bold text-sm pt-4">
                     Courses / Materials
                   </div>
                   <div className="border-2 border-[#565656] rounded-lg">
                     <div className="flex gap-2 w-full px-4 items-center flex-wrap mt-4">
-                      {projectData.courseLink.map((url, index) => (
+                      {project.courseLink && project.courseLink.map((url, index) => (
                         <div
                           key={index}
                           className="flex bg-white text-black items-center px-2 rounded-lg font-semibold"
@@ -579,7 +518,7 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                             src="/closeicon.svg"
                             alt="x"
                             onClick={(e) => {
-                              setProjectData((prevData) => ({
+                              setProject((prevData) => ({
                                 ...prevData,
                                 courseLink: 
                                   prevData.courseLink.filter(
@@ -611,7 +550,6 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                   </div>
                 </div>
               </div>
-
               <div className="flex md:justify-end justify-center md:mr-10 items-center gap-4 mt-5 w-full">
                 <div
                   onClick={onCancel}
@@ -624,7 +562,7 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
                   className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-xs h-8 flex justify-center items-center font-bold cursor text-black"
                  
                 >
-             {loading ? 'Adding Project...' : 'Add Project'} 
+             {loading ? 'Updating...' : 'Update'} 
                   
                 </button>
               </div>
@@ -632,9 +570,8 @@ function AddProject({ onCancel, projectData, setProjectData,SERVER_URL }) {
           </div>
         </div>
       </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </>
   );
 }
 
-export default AddProject;
+export default EditProject;

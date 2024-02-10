@@ -13,12 +13,11 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
 
-function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditData, Name, Email,profile}) {
+function ProfileEditModal({SERVER_URL, onClose, Name, Email, profile, setprofile}) {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(localStorage.getItem('profileUrl'));
   const currentYear = new Date().getFullYear();
-  const formref = useRef(null);
   const years = Array.from({ length: 10 }, (_, index) => currentYear - 5 + index);
   let menuRef = useRef();
 
@@ -42,7 +41,7 @@ function ProfileEditModal({SERVER_URL, onClose, profileEditData, setProfileEditD
     setPreviewImage(URL.createObjectURL(file))
   };
 
-  const userId=localStorage.getItem('id')//TODO: get from local storage
+  const userId=localStorage.getItem('id')
 
 const handleSubmit=async()=>{
   setLoading(true);
@@ -54,16 +53,17 @@ const handleSubmit=async()=>{
   
       const response = await axios.post(`${SERVER_URL}/api/users/updateuser`, {
         userId:userId,
-        About:profileEditData.about,
-        designation:profileEditData.designation,
-        joiningYear:profileEditData.joiningYear,
-        graduatingYear:profileEditData.graduatingYear,
+        About:profile.about,
+        designation:profile.designation,
+        joiningYear:profile.joiningYear,
+        graduatingYear:profile.graduatingYear,
         profileUrl:downloadUrl,
-        socials: profileEditData.socials,
+        socials: profile.socials,
       });
       localStorage.setItem('profileUrl',response.data.profileUrl);
       localStorage.setItem('designation',response.data.designation);
-      // console.log('User details updated:', response.data);
+
+      console.log('User details updated:', response.data);
     } else {
       console.log("No file selected");
     }
@@ -74,7 +74,7 @@ const handleSubmit=async()=>{
     onClose(); 
   }
 }
-console.log(profileEditData.joiningYear)
+
   return (
     <div className="justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none fixed no-scrollbar">
       <div className="relative w-[95%] sm:w-[80%] md:w-[70%] mx-auto text-white bg-[#1e1d1d] rounded-lg pt-10 pb-7 border-[#565656] border-2 mb-10 h-[75vh] overflow-y-scroll md:no-scrollbar mt-14" ref={menuRef}>
@@ -130,7 +130,7 @@ console.log(profileEditData.joiningYear)
                       placeholder="URL Here"
                       onChange={(e) => {
                         const inp = e.target.value;
-                        setProfileEditData((prev) => ({
+                        setprofile((prev) => ({
                           ...prev,
                           socials: {
                             ...prev.socials,
@@ -138,7 +138,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
-                      ref={formref} defaultValue={profile.socials&&profile.socials.github}
+                      value ={profile.socials && profile.socials.github}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -150,7 +150,7 @@ console.log(profileEditData.joiningYear)
                       placeholder="URL Here"
                       onChange={(e) => {
                         const inp = e.target.value;
-                        setProfileEditData((prev) => ({
+                        setprofile((prev) => ({
                           ...prev,
                           socials: {
                             ...prev.socials,
@@ -158,7 +158,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
-                      ref={formref} defaultValue={profile.socials.instagram}
+                      value={profile.socials && profile.socials.instagram}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -170,7 +170,7 @@ console.log(profileEditData.joiningYear)
                       placeholder="URL Here"
                       onChange={(e) => {
                         const inp = e.target.value;
-                        setProfileEditData((prev) => ({
+                        setprofile((prev) => ({
                           ...prev,
                           socials: {
                             ...prev.socials,
@@ -178,7 +178,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
-                      ref={formref} defaultValue={profile.socials.linkedin}
+                      value={profile.socials && profile.socials.linkedin}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -190,7 +190,7 @@ console.log(profileEditData.joiningYear)
                       placeholder="URL Here"
                       onChange={(e) => {
                         const inp = e.target.value;
-                        setProfileEditData((prev) => ({
+                        setprofile((prev) => ({
                           ...prev,
                           socials: {
                             ...prev.socials,
@@ -198,7 +198,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
-                      ref={formref} defaultValue={profile.socials.twitter}
+                      value={profile.socials && profile.socials.twitter}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -210,7 +210,7 @@ console.log(profileEditData.joiningYear)
                       placeholder="URL Here"
                       onChange={(e) => {
                         const inp = e.target.value;
-                        setProfileEditData((prev) => ({
+                        setprofile((prev) => ({
                           ...prev,
                           socials: {
                             ...prev.socials,
@@ -218,7 +218,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
-                      ref={formref} defaultValue={profile.socials.facebook}
+                      value={profile.socials && profile.socials.facebook}
                     />
                   </div>
                   <div className="display flex mx-4 gap-4 my-2">
@@ -230,7 +230,7 @@ console.log(profileEditData.joiningYear)
                       placeholder="URL Here"
                       onChange={(e) => {
                         const inp = e.target.value;
-                        setProfileEditData((prev) => ({
+                        setprofile((prev) => ({
                           ...prev,
                           socials: {
                             ...prev.socials,
@@ -238,7 +238,7 @@ console.log(profileEditData.joiningYear)
                           },
                         }));
                       }}
-                      ref={formref} defaultValue={profile.socials.youtube}
+                      value={profile.socials && profile.socials.youtube}
                     />
                   </div>
                 </div>
@@ -260,12 +260,12 @@ console.log(profileEditData.joiningYear)
               placeholder="Enter Designation"
               onChange={(e) => {
                 const inp = e.target.value;
-                setProfileEditData((prev) => ({
+                setprofile((prev) => ({
                   ...prev,
                   designation: inp,
                 }));
               }}
-              ref={formref} defaultValue={profile.designation}
+              value={profile.designation}
               required
             />
             <div className="text-sm font-medium px-10">Email</div>
@@ -277,12 +277,11 @@ console.log(profileEditData.joiningYear)
               readOnly
               onChange={(e) => {
                 const inp = e.target.value;
-                setProfileEditData((prev) => ({
+                profile((prev) => ({
                   ...prev,
                   Email: inp,
                 }));
               }}
-              ref={formref} defaultValue={profile.Email}
             />
             <div className="text-sm font-medium px-10">About</div>
             <input
@@ -291,13 +290,13 @@ console.log(profileEditData.joiningYear)
               placeholder="Enter About"
               onChange={(e) => {
                 const inp = e.target.value;
-                setProfileEditData((prev) => ({
+                setprofile((prev) => ({
                   ...prev,
                   about: inp,
                 }));
               }}
               required
-              ref={formref} defaultValue={profile.About}
+              value={profile.About}
             />
             <div className="flex mt-4 flex-wrap mx-10 gap-4 justify-between">
               <div className="flex justify-between gap-4">
@@ -306,7 +305,7 @@ console.log(profileEditData.joiningYear)
                   id="Joiningyear"
                   onChange={(e)=>{
                     const inp = e.target.value;
-                    setProfileEditData((prev)=>({
+                    setprofile((prev)=>({
                       ...prev,
                       joiningYear: inp
                     }))
@@ -327,7 +326,7 @@ console.log(profileEditData.joiningYear)
                   id="endingyear"
                   onChange={(e)=>{
                     const inp = e.target.value;
-                    setProfileEditData((prev)=>({
+                    setprofile((prev)=>({
                       ...prev,
                       graduatingYear: inp
                     }))

@@ -50,10 +50,10 @@ function LoginModal({ onClose, SERVER_URL }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm h-screen flex justify-center items-center z-50">
       <div
-        className="relative w-[80vw] sm:w-[50vw] lg:w-[40vw] rounded-lg py-3 my-auto h-[90vh] overflow-y-scroll md:no-scrollbar hero__page z-50"
+        className="relative w-[80vw] sm:w-[50vw] lg:w-[40vw] rounded-lg py-3 my-auto overflow-y-scroll md:no-scrollbar hero__page z-50"
         ref={menuRef}
       >
-        <div className="pb-2 w-full px-3 py-3 flex justify-end">
+        <div className="pb-2 w-full px-3 flex justify-end">
           <img
             src="/closeicon.svg"
             alt="close"
@@ -75,11 +75,10 @@ function LoginModal({ onClose, SERVER_URL }) {
           <div className="text-sm">Start your journey with us.</div>
         </div>
 
-        <div className="flex bg-[rgba(83,83,83,0.78)] w-[75%] justify-center items-center gap-3 h-8 rounded-[10px] md:w-[50%] mb-2 cursor-pointer sm:h-10 mx-auto">
+        <div className="flex bg-[rgba(83,83,83,0.78)] w-[75%] justify-center items-center gap-3 h-8 rounded-[10px] md:w-[50%] mb-2 cursor-pointer sm:h-10 mx-auto" onClick={handleLogin}>
           <img src="/outlook.svg" alt="Outlook" className=" w-5" />
           <div
             className="text-white text-sm sm:text-base"
-            onClick={handleLogin}
           >
             Sign in with Outlook
           </div>

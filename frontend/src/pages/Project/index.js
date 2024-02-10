@@ -6,6 +6,8 @@ import LoginModal from "../../components/LoginModal";
 import { Link } from "react-router-dom";
 import ReviewBox from "../../components/ReviewBox";
 import Footer from "../../components/Footer";
+import EditProject from "../../components/EditProject";
+import DeleteProject from "../../components/DeleteProject";
 
 function Project({ SERVER_URL }) {
   const [loggedIn, setLoggedIn] = useState(
@@ -21,7 +23,10 @@ function Project({ SERVER_URL }) {
   const [isSaved, setIsSaved] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [editProject, setEditProject] = useState(false);
+  const [deleteproj, setDeleteproj] = useState(false);
 
+  console.log(project);
   const handleLike = async () => {
     try {
       const response = await axios.post(
@@ -314,11 +319,50 @@ function Project({ SERVER_URL }) {
                     loggedIn={loggedIn}
                     setShowLoginModal={setShowLoginModal}
                   />
+                  
                 </div>
+                {editProject && <EditProject
+                  onCancel={() => {
+                    setEditProject(false);
+                  }}
+                  project={project}
+                  setProject={setProject}
+                  SERVER_URL={SERVER_URL}
+                />}
+
+                {
+                  deleteproj &&
+                   <DeleteProject
+                      onCancel={() => {
+                        setDeleteproj(!deleteproj);
+                      }}
+                   />
+                }
               </div>
             </div>
+            
           </div>
+          {project.creator[0].id === userId && (
+                    <div className="flex md:justify-end justify-center md:mr-10 items-center gap-4 mt-5 w-full">
+                      <div className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-sm h-8 flex justify-center items-center font-bold cursor-pointer text-black hover:bg-[#e64d4d] hover:border-black"
+                      onClick={()=>{
+                        setDeleteproj(!deleteproj);
+                      }}
+                      >
+                        Delete
+                      </div>
+                      <button
+                        className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-sm h-8 flex justify-center items-center font-bold cursor text-black hover:opacity-60"
+                        onClick={() => {
+                          setEditProject(!editProject);
+                        }}
+                      >
+                        Edit Project
+                      </button>
+                    </div>
+                  )}
         </div>
+        
       )}
       <Footer />
     </div>
