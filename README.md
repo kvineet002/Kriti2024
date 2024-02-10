@@ -37,19 +37,17 @@ Welcome to My Awesome Tech Community Website! This platform is designed to conne
    - View and manage your posted projects.
 
 5. **Adding Projects:**
-   - Upload project details, including images, tech stacks, and collaboration options.
+   - Upload project details, including images, category, tech stacks, resources links and collaboration options.
 
 ## Tech Stack
 
-- Frontend: HTML, CSS, JavaScript
+- Frontend: React and Tailwind
 - Backend: Node.js, Express.js
-- Database: MongoDB
-- Authentication: Outlook OAuth
+- Database: MongoDB and firebase
+- Authentication: Outlook with firebase
 
 ## Contributing
 
 Contributions are welcome! If you have any suggestions or want to report a bug, feel free to open an issue or submit a pull request.
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
