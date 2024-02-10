@@ -60,6 +60,16 @@ export default function ReviewBox({
     fetchReviews();
   }, [projectId, submitReview]);
   const endTime = new Date();
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.post(`${SERVER_URL}/reviews/delete-review/${id}`);
+      console.log(response.data); // Log the response from the server
+
+      fetchReviews();
+    } catch (error) {
+      console.error('Error deleting review:', error);
+    }
+  };
   return (
     <div>
       <div className="flex flex-col">
@@ -95,9 +105,9 @@ export default function ReviewBox({
                       } • ${getTimeDifference(review.time, endTime)} ago`}</div>
                     </div>
                   </div>
-                  <div className="border-2 border-white h-6 w-6 rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-red-500 mt-2 ">
+                  <button onClick={()=>{handleDelete(review._id)} } className="border-2 border-white h-6 w-6 rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-red-500 mt-2 ">
                     <img src="/bin.svg" alt="" className="w-4" />
-                  </div>
+                  </button>
                 </div>
               ))
           ) : (

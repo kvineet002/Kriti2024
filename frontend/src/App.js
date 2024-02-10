@@ -11,8 +11,8 @@ import Community from "./pages/community";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
-  const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
-  // const SERVER_URL="http://localhost:3002"
+  // const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
+  const SERVER_URL="http://localhost:3002"
   return (
     <BrowserRouter>
     <Routes>

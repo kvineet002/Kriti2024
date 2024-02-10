@@ -36,7 +36,7 @@ const Community = ({ SERVER_URL }) => {
   const [postReviews, setPostReviews] = useState({});
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  const [comments, setcomments] = useState(69);
+  const [comments, setcomments] = useState(0);
 
   useEffect(() => {
     const intr = setInterval(() => {
@@ -190,7 +190,7 @@ const Community = ({ SERVER_URL }) => {
 
   useEffect(() => {
     fetchReviews();
-  }, [submitReview]);
+  }, [submitReview,[]]);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -298,28 +298,15 @@ const Community = ({ SERVER_URL }) => {
                       />
                     </div>
                   )}
+
                   <div className="flex gap-3 mx-4 my-2">
-                    <div
-                      onClick={
-                        loggedIn
-                          ? handleLike
-                          : () => {
-                              setShowLoginModal(true);
-                            }
-                      }
-                      className=" rounded-full md:px-6 pr-6 pl-3 py-1 flex items-center bg-white cursor-pointer gap-2"
-                    >
-                      <img
-                        className=" w-5"
-                        src={isLiked ? "/likestate.svg" : "/unlikestate.svg"}
-                      />
-                      <span className="   font-semibold">{likeCount}</span>
-                    </div>
                     <div className=" rounded-full md:px-6 pr-6 pl-3 py-1 flex items-center bg-white cursor-pointer gap-2">
                       <img className=" w-5" src="/comment.svg" />
-                      <span className="   font-semibold">{comments}</span>
+                      <span className="   font-semibold">{postReviews[post._id]&&postReviews[post._id].length}</span>
                     </div>
                   </div>
+
+
                   <div
                     style={{
                       transition: "max-height 0.9s ease", // Adjust the duration and timing function as needed

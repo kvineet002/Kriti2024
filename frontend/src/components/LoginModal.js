@@ -38,7 +38,7 @@ function LoginModal({ onClose, SERVER_URL }) {
       localStorage.setItem("email", response.data.user.Email);
       localStorage.setItem("token", response.data.user.token);
       localStorage.setItem("profileUrl", response.data.user.profileUrl);
-      localStorage.setItem("designation", response.data.user.designation);
+      response.data.user.designation&&localStorage.setItem("designation", response.data.user.designation);
       if (location.pathname === "/profile") onClose();
       else navigate(`/profile/${localStorage.getItem("id")}`);
       onClose();

@@ -31,4 +31,21 @@ const createReview= async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-  module.exports={createReview,getReviews};
+
+  const deleteReview = async (req, res) => {
+    try {
+      const { reviewId } = req.params;
+  
+      const deletedReview = await Review.findByIdAndDelete(reviewId);
+  
+      if (!deletedReview) {
+        return res.status(404).json({ error: 'Review not found' });
+      }
+  
+      res.status(200).json({ message: 'Review deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting review:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+  module.exports={createReview,getReviews,deleteReview};
