@@ -88,22 +88,29 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
 )}
 
         </div>
-        <div className="flex items-center mt-4 gap-2">
-          <input
+        <div className="flex items-center  mt-4 gap-1 md:gap-2">
+        <input
             type="text"
             placeholder="Type your review..."
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
             className="flex-grow px-6 py-3 outline-none  rounded-full"
           />
-          <button
-            onClick={loggedIn?newReview.length>0?submitReview:()=>{}:()=>{setShowLoginModal(true)}}
-            className=" rounded-full bg-white flex items-start justify-center p-[5px] "
-          >
-           <img src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2Fsend.png?alt=media&token=8acb7651-7f26-4428-bb6c-3641ed06fd22" className=" w-10 h-10"/>
-
-          </button>
-        </div>
+                            <button
+                              onClick={
+                                loggedIn
+                                  ? newReview.length > 0
+                                    ? submitReview
+                                    : () => {}
+                                  : () => {
+                                      setShowLoginModal(true);
+                                    }
+                              }
+                              className=" rounded-full  bg-white flex items-start justify-center p-2 "
+                            >
+                                 <img src="/send.png" className=" w-8 h-8"/>
+                            </button>
+                          </div>
       </div>
     </div>
   );

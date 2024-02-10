@@ -115,7 +115,7 @@ function Project({ SERVER_URL }) {
       <Navbar2 SERVER_URL={SERVER_URL} />
       {loading ? (
         <img
-          src="/loading.gif"
+          src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408"
           className="w-[50px] md:mt-[8%] mt-[25%] m-auto "
         ></img>
       ) : (
