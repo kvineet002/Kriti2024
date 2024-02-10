@@ -11,10 +11,12 @@ export default function ReviewBox({
   projectId,
   loggedIn,
   setShowLoginModal,
+  creatorId
 }) {
   const [loading, setloading] = useState(false);
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
+  const userId = localStorage.getItem("id");
   const getTimeDifference = (startTime, endTime) => {
     const msDifference = differenceInMilliseconds(endTime, startTime);
 
@@ -105,9 +107,9 @@ export default function ReviewBox({
                       } • ${getTimeDifference(review.time, endTime)} ago`}</div>
                     </div>
                   </div>
-                  <button onClick={()=>{handleDelete(review._id)} } className="border-2 border-white h-6 w-6 rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-red-500 mt-2 ">
+               {loggedIn&&creatorId===userId &&  <button onClick={()=>{handleDelete(review._id)} } className="border-2 border-white h-6 w-6 rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-red-500 mt-2 ">
                     <img src="/bin.svg" alt="" className="w-4" />
-                  </button>
+                  </button>}
                 </div>
               ))
           ) : (

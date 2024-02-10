@@ -334,6 +334,7 @@ function Project({ SERVER_URL }) {
                     projectId={id}
                     loggedIn={loggedIn}
                     setShowLoginModal={setShowLoginModal}
+                    creatorId= {project.creator[0].id}
                   />
                   
                 </div>

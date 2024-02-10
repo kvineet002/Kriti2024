@@ -299,12 +299,7 @@ const Community = ({ SERVER_URL }) => {
                     </div>
                   )}
 
-                  <div className="flex gap-3 mx-4 my-2">
-                    <div className=" rounded-full md:px-6 pr-6 pl-3 py-1 flex items-center bg-white cursor-pointer gap-2">
-                      <img className=" w-5" src="/comment.svg" />
-                      <span className="   font-semibold">{postReviews[post._id]&&postReviews[post._id].length}</span>
-                    </div>
-                  </div>
+
 
 
                   <div
