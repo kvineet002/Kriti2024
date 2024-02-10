@@ -111,7 +111,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
   const {id}=useParams();
   const userId=localStorage.getItem('id')//TODO: get from local storage
   const [banner, setBanner] = useState({
-    file: true,
+    file: null,
     preview: project.bannerUrl,
   });
   const [loading, setLoading] = useState(false);
@@ -165,7 +165,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
     } else {
       setBanner({
         file: null,
-        preview: project.BannerUrl,
+        preview: project.bannerUrl,
       });
       setSelectedFile(null);
     }
@@ -210,7 +210,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
         title:project.title,
         description:project.description,
         category:project.category,
-        bannerUrl:downloadUrl.length>0?downloadUrl:project.BannerUrl,
+        bannerUrl:downloadUrl.length>0?downloadUrl:project.bannerUrl,
         bigdescription:project.bigdescription,
         status:project.status,
         statusMessage:project.statusMessage,
@@ -223,7 +223,7 @@ function EditProject({ onCancel, project, setProject, SERVER_URL }) {
           profileUrl:localStorage.getItem('profileUrl'),
 
         },
-        courseLinks:project.courseLink,
+        courseLinks:project.courseLinks,
         projectLinks:{
           github:project.GitURL,
           demo:project.DemoLink,
@@ -364,7 +364,7 @@ console.log(banner)
                   Choose Banner
                 </div>
                 <div className="flex flex-wrap px-5 w-full mb-4">
-                  {banner.file && (
+                  {banner&& (
                     <div className="relative w-70 h-40 m-2 overflow-hidden shadow-lg border-[#565656] border-2 rounded-lg">
                       <img
                         src={banner.preview}
@@ -567,7 +567,7 @@ console.log(banner)
                             onClick={(e) => {
                               setProject((prevData) => ({
                                 ...prevData,
-                                courseLink: 
+                                courseLinks: 
                                   prevData.courseLinks.filter(
                                     (u, i) => i !== index
                                   ),
