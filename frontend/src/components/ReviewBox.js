@@ -6,8 +6,13 @@ import {
   differenceInMinutes,
   differenceInHours,
 } from "date-fns";
-export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginModal}) {
-    const [loading,setloading]=useState(false)
+export default function ReviewBox({
+  SERVER_URL,
+  projectId,
+  loggedIn,
+  setShowLoginModal,
+}) {
+  const [loading, setloading] = useState(false);
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
   const getTimeDifference = (startTime, endTime) => {
@@ -39,8 +44,8 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
   const submitReview = async () => {
     try {
       await axios.post(`${SERVER_URL}/reviews/create-review`, {
-        Name: localStorage.getItem('Name'), 
-        profileUrl:localStorage.getItem('profileUrl'),
+        Name: localStorage.getItem("Name"),
+        profileUrl: localStorage.getItem("profileUrl"),
         message: newReview,
         projectId: projectId,
       });
@@ -63,54 +68,66 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
           className="flex flex-col space-y-4 border border-[#565656] rounded-lg py-5 px-4 overflow-y-auto"
           style={{ maxHeight: "300px" }}
         >
-{loading ? (
-  <div className="flex justify-center font-semibold text-3xl text-gray-500">Loading...</div>
-) : reviews && reviews.length > 0 ? (
-    reviews.slice().reverse().map((review) => (
-    <div key={review._id} className="flex items-start space-x-2">
-      <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
-        <img
-          src={review.profileUrl}
-          alt={`${review.Name}'s profile`}
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="flex flex-col gap-1">
-        <div className="bg-gray-800 p-2 rounded-lg">
-          <p className="text-white">{review.message}</p>
-        </div>
-        <div className="text-gray-500 text-xs">{`${review.Name} • ${getTimeDifference(review.time, endTime)} ago`}</div>
-      </div>
-    </div>
-  ))
-) : (
-  <div className="flex justify-center font-semibold text-3xl text-gray-500">No Reviews Yet!!!</div>
-)}
-
+          {loading ? (
+            <div className="flex justify-center font-semibold text-3xl text-gray-500">
+              Loading...
+            </div>
+          ) : reviews && reviews.length > 0 ? (
+            reviews
+              .slice()
+              .reverse()
+              .map((review) => (
+                <div className="flex justify-between">
+                  <div key={review._id} className="flex items-start space-x-2">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
+                      <img
+                        src={review.profileUrl}
+                        alt={`${review.Name}'s profile`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <div className="bg-gray-800 p-2 rounded-lg">
+                        <p className="text-white">{review.message}</p>
+                      </div>
+                      <div className="text-gray-500 text-xs">{`${
+                        review.Name
+                      } • ${getTimeDifference(review.time, endTime)} ago`}</div>
+                    </div>
+                  </div>
+                  <div className="border-2 border-white h-6 w-6 rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-red-500 mt-2 ">
+                    <img src="/bin.svg" alt="" className="w-4" />
+                  </div>
+                </div>
+              ))
+          ) : (
+            <div className="flex justify-center font-semibold text-3xl text-gray-500">
+              No Reviews Yet!!!
+            </div>
+          )}
         </div>
         <div className="flex items-center  w-full bg-white rounded-full mt-4  px-2">
-        <input
+          <input
             type="text"
             placeholder="Type your review..."
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
             className="flex-grow px-4 py-3 outline-none bg-transparent w-[90%]  rounded-full"
           />
-                            <img
-                              onClick={
-                                loggedIn
-                                  ? newReview.length > 0
-                                    ? submitReview
-                                    : () => {}
-                                  : () => {
-                                      setShowLoginModal(true);
-                                    }
-                              }
-                              src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2Fsend.png?alt=media&token=8acb7651-7f26-4428-bb6c-3641ed06fd22" 
-                              className=" rounded-full w-10 cursor-pointer "
-                            />
-                          
-                          </div>
+          <img
+            onClick={
+              loggedIn
+                ? newReview.length > 0
+                  ? submitReview
+                  : () => {}
+                : () => {
+                    setShowLoginModal(true);
+                  }
+            }
+            src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2Fsend.png?alt=media&token=8acb7651-7f26-4428-bb6c-3641ed06fd22"
+            className=" rounded-full w-10 cursor-pointer "
+          />
+        </div>
       </div>
     </div>
   );

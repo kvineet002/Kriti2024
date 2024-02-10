@@ -34,6 +34,10 @@ const Community = ({ SERVER_URL }) => {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [dropdownOpenStates, setDropdownOpenStates] = useState({});
   const [postReviews, setPostReviews] = useState({});
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [comments, setcomments] = useState(69);
+
   useEffect(() => {
     const intr = setInterval(() => {
       if (placeholderIndex + 1 > placeH[index].length) {
@@ -207,44 +211,51 @@ const Community = ({ SERVER_URL }) => {
     };
     fetchPosts();
   }, []);
+
+  const handleLike = async () => {
+    setIsLiked(!isLiked);
+    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+  };
   return (
     <div>
       {showLoginModal && (
-            <LoginModal
-                SERVER_URL={SERVER_URL}
-                onClose={() => setShowLoginModal(false)}
-              />
+        <LoginModal
+          SERVER_URL={SERVER_URL}
+          onClose={() => setShowLoginModal(false)}
+        />
       )}
       <Navbar2 SERVER_URL={SERVER_URL} />
       <div className=" flex flex-col mt-[20%] md:mt-[9%]">
-    {   loggedIn&& <div className=" md:px-[18%] mb-10 flex items-center justify-center gap-2  w-full   ">
-          <div className=" md:w-full w-[75%] flex bg-blue-50 items-center px-2  gap-2 rounded-full">
-            <img src="/plus.png" className=" h-7 w-7" />
-            <input
-              value={newPost}
-              onChange={(e) => {
-                setnewPost(e.target.value);
-              }}
-              placeholder={`Post ${placeholder}`}
-              className="  outline-none bg-transparent w-full  py-2 "
-            /> 
+        {loggedIn && (
+          <div className=" md:px-[18%] mb-10 flex items-center justify-center gap-2  w-full   ">
+            <div className=" md:w-full w-[75%] flex bg-blue-50 items-center px-2  gap-2 rounded-full">
+              <img src="/plus.png" className=" h-7 w-7" />
+              <input
+                value={newPost}
+                onChange={(e) => {
+                  setnewPost(e.target.value);
+                }}
+                placeholder={`Post ${placeholder}`}
+                className="  outline-none bg-transparent w-full  py-2 "
+              />
+            </div>
+            <button
+              disabled={loading}
+              onClick={
+                loggedIn
+                  ? newPost.length > 0
+                    ? createPost
+                    : () => {}
+                  : () => {
+                      setShowLoginModal(true);
+                    }
+              }
+              className=" bg-blue-50 py-2 rounded-full px-4  font-normal text-base cursor-pointer"
+            >
+              {loading ? "Posting..." : "Post"}
+            </button>
           </div>
-          <button
-            disabled={loading}
-            onClick={
-              loggedIn
-                ? newPost.length > 0
-                  ? createPost
-                  : () => {}
-                : () => {
-                    setShowLoginModal(true);
-                  }
-            }
-            className=" bg-blue-50 py-2 rounded-full px-4  font-normal text-base cursor-pointer"
-          >
-            {loading ? "Posting..." : "Post"}
-          </button>
-        </div>}
+        )}
         <div className=" flex gap-6 flex-col">
           {posts &&
             posts
@@ -287,6 +298,28 @@ const Community = ({ SERVER_URL }) => {
                       />
                     </div>
                   )}
+                  <div className="flex gap-3 mx-4 my-2">
+                    <div
+                      onClick={
+                        loggedIn
+                          ? handleLike
+                          : () => {
+                              setShowLoginModal(true);
+                            }
+                      }
+                      className=" rounded-full md:px-6 pr-6 pl-3 py-1 flex items-center bg-white cursor-pointer gap-2"
+                    >
+                      <img
+                        className=" w-5"
+                        src={isLiked ? "/likestate.svg" : "/unlikestate.svg"}
+                      />
+                      <span className="   font-semibold">{likeCount}</span>
+                    </div>
+                    <div className=" rounded-full md:px-6 pr-6 pl-3 py-1 flex items-center bg-white cursor-pointer gap-2">
+                      <img className=" w-5" src="/comment.svg" />
+                      <span className="   font-semibold">{comments}</span>
+                    </div>
+                  </div>
                   <div
                     style={{
                       transition: "max-height 0.9s ease", // Adjust the duration and timing function as needed
@@ -385,7 +418,7 @@ const Community = ({ SERVER_URL }) => {
                               }
                               className=" rounded-full border border-[#565656] hover:bg-[#565656] flex items-start justify-center p-1 "
                             >
-                                 <img src="/send.png" className=" w-8 h-8"/>
+                              <img src="/send.png" className=" w-8 h-8" />
                             </button>
                           </div>
                         </div>
