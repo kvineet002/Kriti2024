@@ -127,21 +127,13 @@ function Project({ SERVER_URL }) {
         <div className=" md:mt-[8%] mt-[25%] rounded-lg border-[#565656] border p-5 md:mx-20 mx-2">
           {project.creator[0].id === userId && (
                     <div className="flex md:justify-end justify-center md:mr-10 items-center gap-4 mb-6 w-full">
-                      <div className= "rounded-[33.5px] w-[80px] text-center uppercase text-xs h-7 flex justify-center items-center font-bold cursor-pointer text-black bg-[#e64d4d]  hover:opacity-70"
+                      {/* <div className= "rounded-[33.5px] w-[80px] text-center uppercase text-xs h-7 flex justify-center items-center font-bold cursor-pointer text-black bg-[#e64d4d]  hover:opacity-70"
                       onClick={()=>{
                         setDeleteproj(!deleteproj);
                       }}
                       >
                         Delete
-                      </div>
-                      {/* <button
-                        className="bg-white rounded-[33.5px]  border-white border-2 w-[120px] text-center uppercase text-sm h-8 flex justify-center items-center font-bold cursor text-black hover:opacity-60"
-                        onClick={() => {
-                          setEditProject(!editProject);
-                        }}
-                      >
-                        Edit Project
-                      </button> */}
+                      </div> */}
                       <div className="w-[100px] hover:opacity-80 cursor-pointer" onClick={() => {
                           setEditProject(!editProject);
                         }}>
@@ -357,6 +349,7 @@ function Project({ SERVER_URL }) {
                 {
                   deleteproj &&
                    <DeleteProject
+                  SERVER_URL={SERVER_URL}
                       onCancel={() => {
                         setDeleteproj(!deleteproj);
                       }}

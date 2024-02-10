@@ -12,7 +12,6 @@ const projectSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    required: true,
   },
   bannerUrl: {
     type: String,
