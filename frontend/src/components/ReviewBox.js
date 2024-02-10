@@ -94,7 +94,7 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
             placeholder="Type your review..."
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
-            className="flex-grow px-4 py-3 outline-none bg-transparent  rounded-full"
+            className="flex-grow px-4 py-3 outline-none bg-transparent w-[90%]  rounded-full"
           />
                             <img
                               onClick={
@@ -107,7 +107,7 @@ export default function ReviewBox({ SERVER_URL, projectId,loggedIn,setShowLoginM
                                     }
                               }
                               src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2Fsend.png?alt=media&token=8acb7651-7f26-4428-bb6c-3641ed06fd22" 
-                              className=" rounded-full w-12 cursor-pointer flex items-start justify-center p-2 "
+                              className=" rounded-full w-10 cursor-pointer "
                             />
                           
                           </div>
