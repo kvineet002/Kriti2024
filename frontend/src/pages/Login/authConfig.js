@@ -1,13 +1,12 @@
 import { initializeApp } from "firebase/app";
 import {getAuth, OAuthProvider} from "firebase/auth"
 const firebaseConfig = {
-  apiKey: "AIzaSyAhXVzyqs0a8tpEZe4CjxFAc7SSvu3VF-4",
-  authDomain: "campus-collabrate.firebaseapp.com",
-  projectId: "campus-collabrate",
-  storageBucket: "campus-collabrate.appspot.com",
-  messagingSenderId: "52318348243",
-  appId: "1:52318348243:web:224b50bbec6edd3f954526",
-  measurementId: "G-BQEN5ED3F2"
+  apiKey: "AIzaSyDECq8D3Va4P0rmBVJJYwmJDyz1UdcVQq8",
+  authDomain: "auth0-17635.firebaseapp.com",
+  projectId: "auth0-17635",
+  storageBucket: "auth0-17635.appspot.com",
+  messagingSenderId: "449133453534",
+  appId: "1:449133453534:web:89c1fccc7a32a69c3d224f"
 };
 
 // Initialize Firebase
