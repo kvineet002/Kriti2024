@@ -54,7 +54,7 @@ const styles = {
     // Duplicate images for a seamless transition
   },
   image: {
-    minWidth: '160px', // Adjust based on your image sizes
+    // minWidth: '160px', // Adjust based on your image sizes
     height: '150px', // Adjust based on your needs
     objectFit: 'cover',
     marginRight: '0px', // Space between images
