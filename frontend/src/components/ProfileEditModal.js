@@ -292,7 +292,7 @@ const handleSubmit=async()=>{
                 const inp = e.target.value;
                 setprofile((prev) => ({
                   ...prev,
-                  about: inp,
+                  About: inp,
                 }));
               }}
               required
