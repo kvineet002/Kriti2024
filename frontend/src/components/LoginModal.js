@@ -50,7 +50,7 @@ function LoginModal({ onClose, SERVER_URL }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm h-screen flex justify-center items-center z-50">
       <div
-        className="relative w-[80vw] sm:w-[50vw] lg:w-[40vw] rounded-lg py-3 my-auto overflow-y-scroll md:no-scrollbar hero__page z-50"
+        className="relative w-[91vw] sm:w-[50vw] lg:w-[40vw] rounded-lg py-3 my-auto overflow-y-scroll md:no-scrollbar hero__page z-50"
         ref={menuRef}
       >
         <div className="pb-2 w-full px-3 flex justify-end">
