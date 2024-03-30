@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar";
 import LoginModal from "../../components/LoginModal";
 import Footer from "../../components/Footer";
 import Navbar2 from "../../components/navbar2";
+import PeopleSkeleton from "../../components/PeopleSkeleton";
 
 function People({SERVER_URL}) {
   const [people, setPeople] = useState([]);
@@ -140,7 +141,8 @@ function People({SERVER_URL}) {
         </div>
         
         {loading ? (
-        <img src='https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408' alt="Loading..." className='w-[50px] m-auto '></img>
+        <PeopleSkeleton/>
+        // <img src='https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408' alt="Loading..." className='w-[50px] m-auto '></img>
       ) : (
         filteredPeople().slice().reverse().map(
           (person) =>
