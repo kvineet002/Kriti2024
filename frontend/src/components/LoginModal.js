@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../pages/Login/authConfig";
+import { auth, googleProvider,microsoftProvider,githubProvider } from "../pages/Login/authConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -24,9 +24,10 @@ function LoginModal({ onClose, SERVER_URL }) {
     };
   });
 
-  const handleLogin = async () => {
+  const handleOutlookLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, microsoftProvider);
+      console.log(result)
       const { email, displayName, accessToken } = result.user;
       const response = await axios.post(`${SERVER_URL}/api/users`, {
         Email: email,
@@ -44,6 +45,65 @@ function LoginModal({ onClose, SERVER_URL }) {
       onClose();
     } catch (error) {
       console.error("Error in login:", error);
+    }
+  };
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const { email, displayName, accessToken } = result.user;
+      const response = await axios.post(`${SERVER_URL}/api/users`, {
+        Email: email,
+        Name: displayName,
+        token: accessToken,
+      });
+      const userId=response.data.user._id;
+      const downloadUrl=response.data.user.profileUrl==='/profile-icon.jpg'?result.user.photoURL:response.data.user.profileUrl;
+    const response2=  await axios.post(`${SERVER_URL}/api/users/updateuser`, {
+        userId:userId,
+        profileUrl:downloadUrl,
+      });
+      localStorage.setItem("id", response.data.user._id);
+      localStorage.setItem("Name", response.data.user.Name);
+      localStorage.setItem("email", response.data.user.Email);
+      localStorage.setItem("token", response.data.user.token);
+      localStorage.setItem("profileUrl", response2.data.profileUrl);
+      response.data.user.designation&&localStorage.setItem("designation", response.data.user.designation);
+      if (location.pathname === "/profile") onClose();
+      else navigate(`/profile/${localStorage.getItem("id")}`);
+      onClose();
+    } catch (error) {
+      console.error("Error in login:", error);
+    }
+  };
+  const handleGithubLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const email=result._tokenResponse.email;
+      const downloadUrl=result.user.photoURL;
+      const displayName=result._tokenResponse.screenName;
+      const {  accessToken } = result.user;
+      const response = await axios.post(`${SERVER_URL}/api/users`, {
+        Email: email,
+        Name: displayName,
+        token: accessToken,
+      });
+      const userId=response.data.user._id;
+      const response2 = await axios.post(`${SERVER_URL}/api/users/updateuser`, {
+        userId:userId,
+        profileUrl:downloadUrl,
+      });
+      localStorage.setItem("id", response.data.user._id);
+      localStorage.setItem("Name", response.data.user.Name);
+      localStorage.setItem("email", response.data.user.Email);
+      localStorage.setItem("token", response.data.user.token);
+      localStorage.setItem("profileUrl", downloadUrl);
+      response.data.user.designation&&localStorage.setItem("designation", response.data.user.designation);
+      if (location.pathname === "/profile") onClose();
+      else navigate(`/profile/${localStorage.getItem("id")}`);
+      onClose();
+    } catch (error) {
+        console.error("Error in login:", error);
+      
     }
   };
 
@@ -74,14 +134,31 @@ function LoginModal({ onClose, SERVER_URL }) {
           </div>
           <div className="text-sm">Start your journey with us.</div>
         </div>
-
-        <div className="flex bg-[rgba(83,83,83,0.78)] w-[75%] justify-center items-center gap-3 h-8 rounded-[10px] md:w-[50%] mb-2 cursor-pointer sm:h-10 mx-auto" onClick={handleLogin}>
+<div className=" flex flex-col gap-1">
+        <div className="flex bg-[rgba(83,83,83,0.78)] w-[75%] justify-center items-center gap-3 h-8 rounded-[10px] md:w-[50%] mb-2 cursor-pointer sm:h-10 mx-auto" onClick={handleGoogleLogin}>
+          <img src="/google-icon.png" alt="Outlook" className=" w-5" />
+          <div
+            className="text-white text-sm sm:text-base"
+          >
+            Sign in with Google
+          </div>
+        </div>
+        <div className="flex bg-[rgba(83,83,83,0.78)] w-[75%] justify-center items-center gap-3 h-8 rounded-[10px] md:w-[50%] mb-2 cursor-pointer sm:h-10 mx-auto" onClick={handleOutlookLogin}>
           <img src="/outlook.svg" alt="Outlook" className=" w-5" />
           <div
             className="text-white text-sm sm:text-base"
           >
             Sign in with Outlook
           </div>
+        </div>
+        {/* <div className="flex bg-[rgba(83,83,83,0.78)] w-[75%] justify-center items-center gap-3 h-8 rounded-[10px] md:w-[50%] mb-2 cursor-pointer sm:h-10 mx-auto" onClick={handleGithubLogin}>
+          <img src="/outlook.svg" alt="Outlook" className=" w-5" />
+          <div
+            className="text-white text-sm sm:text-base"
+          >
+            Sign in with Github
+          </div>
+        </div> */}
         </div>
 
         <div className="w-[75%] md:w-[50%] flex justify-between text-xs md:text-xs mb-20 mx-auto">
