@@ -2,7 +2,6 @@ import React from "react";
 
 const distance = [1, 3, 5];
 
-
 const cssUnit = {
   cm: true,
   mm: true,
@@ -21,17 +20,17 @@ const cssUnit = {
   "%": true,
 };
 
- function parseLengthAndUnit(size) {
+function parseLengthAndUnit(size) {
   if (typeof size === "number") {
     return {
       value: size,
       unit: "px",
     };
   }
-  
+
   let value;
   const valueString = (size.match(/^[0-9.]*/) || "")[0];
-  
+
   if (valueString.includes(".")) {
     value = parseFloat(valueString);
   } else {
@@ -47,7 +46,9 @@ const cssUnit = {
     };
   }
 
-  console.warn(`React Spinners: ${size} is not a valid css value. Defaulting to ${value}px.`);
+  console.warn(
+    `React Spinners: ${size} is not a valid css value. Defaulting to ${value}px.`
+  );
 
   return {
     value: value,
@@ -168,11 +169,12 @@ function PropagateLoader({
   );
 }
 
-
-function PageLoader(){
+function PageLoader() {return(
   <div className=" h-screen w-screen text-3xl bg-black gap-1 text-white flex flex-col justify-center items-center">
-    <PropagateLoader/>  <span className=" translate-y-4 translate-x-2 tracking-tight uppercase font-semibold text-2xl  text-white cursor-pointer">Collampus</span>
-
-     </div>
-};
+    <PropagateLoader />
+    <span className=" translate-y-4 translate-x-2 tracking-tight uppercase font-semibold text-2xl  text-white cursor-pointer">
+      Collampus
+    </span>
+  </div>)
+}
 export default PageLoader;
