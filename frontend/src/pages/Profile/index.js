@@ -26,7 +26,7 @@ function Profile({ SERVER_URL }) {
   const [selectedTab, setSelectedTab] = useState("Your Projects");
   const [loading, setLoading] = useState(false);
   const [deleteproj, setDeleteproj] = useState(false);
-  const [pageloading, setPageloading] = useState(false);
+  const [pageloading, setPageloading] = useState(true);
 
   const [profileEditData, setProfileEditData] = useState({
     profileUrl: "",
