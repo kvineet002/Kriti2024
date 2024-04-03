@@ -176,7 +176,7 @@ function Profile({ SERVER_URL }) {
      {pageloading?<div className=" h-screen w-screen text-3xl bg-black gap-1 text-white flex flex-col justify-center items-center">
     <PropagateLoader/>  <span className=" translate-y-4 translate-x-2 tracking-tight uppercase font-semibold text-2xl  text-white cursor-pointer">Collampus</span>
 
-     </div>: <div className="">
+     </div>: <div className=" w-full h-full">
       <div className="hero__page w-full">
         <div className="flex md:gap-3 pt-[120px] pb-4 md:justify-start">
           <div className="w-[35%] md:w-[20%] flex items-center overflow-hidden mx-2 my-auto">
