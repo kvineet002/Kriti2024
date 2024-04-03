@@ -1,6 +1,6 @@
 // frontend/src/components/App.js
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Project from "./pages/Project";
 import People from "./pages/People";
 import Explore from "./pages/Explore";
@@ -13,8 +13,16 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
   const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
   // const SERVER_URL="http://localhost:3002"
+  const Wrapper = ({children}) => {
+    const location = useLocation();
+    useLayoutEffect(() => {
+      document.documentElement.scrollTo(0, 0);
+    }, [location.pathname]);
+    return children
+  } 
   return (
     <BrowserRouter>
+    <Wrapper>
     <Routes>
       {/* Student Side Routes*/}
     { <Route path="/" element={loggedIn?<Explore SERVER_URL={SERVER_URL}/>:<Home SERVER_URL={SERVER_URL}/>} />}
@@ -26,6 +34,7 @@ function App() {
       <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
      
     </Routes>
+    </Wrapper>
   </BrowserRouter>
   );
 }
