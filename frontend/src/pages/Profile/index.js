@@ -8,7 +8,7 @@ import Navbar2 from "../../components/navbar2";
 import axios from "axios";
 import LoginModal from "../../components/LoginModal";
 import DeleteProject from "../../components/DeleteProject";
-import PropagateLoader from "../../components/pageLoader";
+import PageLoader from "../../components/pageLoader";
 
 function Profile({ SERVER_URL }) {
   const [loggedIn, setLoggedIn] = useState(
@@ -173,10 +173,7 @@ function Profile({ SERVER_URL }) {
   return (
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
-     {pageloading?<div className=" h-screen w-screen text-3xl bg-black gap-1 text-white flex flex-col justify-center items-center">
-    <PropagateLoader/>  <span className=" translate-y-4 translate-x-2 tracking-tight uppercase font-semibold text-2xl  text-white cursor-pointer">Collampus</span>
-
-     </div>: <div className=" w-full h-full">
+     {pageloading?<PageLoader/>: <div className=" w-full h-full">
       <div className="hero__page w-full">
         <div className="flex md:gap-3 pt-[120px] pb-4 md:justify-start">
           <div className="w-[35%] md:w-[20%] flex items-center overflow-hidden mx-2 my-auto">

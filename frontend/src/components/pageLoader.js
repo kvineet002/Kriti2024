@@ -168,4 +168,11 @@ function PropagateLoader({
   );
 }
 
-export default PropagateLoader;
+
+function PageLoader(){
+  <div className=" h-screen w-screen text-3xl bg-black gap-1 text-white flex flex-col justify-center items-center">
+    <PropagateLoader/>  <span className=" translate-y-4 translate-x-2 tracking-tight uppercase font-semibold text-2xl  text-white cursor-pointer">Collampus</span>
+
+     </div>
+};
+export default PageLoader;

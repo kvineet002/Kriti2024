@@ -9,6 +9,7 @@ import Footer from "../../components/Footer";
 import EditProject from "../../components/EditProject";
 import DeleteProject from "../../components/DeleteProject";
 import DeleteProj from "../../components/DeleteProj";
+import PageLoader from "../../components/pageLoader";
 
 function Project({ SERVER_URL }) {
   const [loggedIn, setLoggedIn] = useState(
@@ -119,10 +120,11 @@ function Project({ SERVER_URL }) {
     <div>
       <Navbar2 SERVER_URL={SERVER_URL} />
       {loading ? (
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408"
-          className="w-[50px] md:mt-[8%] mt-[25%] m-auto "
-        ></img>
+        <PageLoader />
+        // <img
+        //   src="https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408"
+        //   className="w-[50px] md:mt-[8%] mt-[25%] m-auto "
+        // ></img>
       ) : (
         <div className=" md:mt-[8%] mt-[25%] rounded-lg border-[#565656] border p-5 md:mx-20 mx-2">
           {project.creator[0].id === userId && (
