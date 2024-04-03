@@ -1,6 +1,5 @@
 import React, { useEffect, useId, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
 import Footer from "../../components/Footer";
 import ProfileEditModal from "../../components/ProfileEditModal";
 import AddProject from "../../components/AddProject";
@@ -9,6 +8,7 @@ import Navbar2 from "../../components/navbar2";
 import axios from "axios";
 import LoginModal from "../../components/LoginModal";
 import DeleteProject from "../../components/DeleteProject";
+import PropagateLoader from "../../components/pageLoader";
 
 function Profile({ SERVER_URL }) {
   const [loggedIn, setLoggedIn] = useState(
@@ -26,6 +26,7 @@ function Profile({ SERVER_URL }) {
   const [selectedTab, setSelectedTab] = useState("Your Projects");
   const [loading, setLoading] = useState(false);
   const [deleteproj, setDeleteproj] = useState(false);
+  const [pageloading, setPageloading] = useState(false);
 
   const [profileEditData, setProfileEditData] = useState({
     profileUrl: "",
@@ -71,6 +72,7 @@ function Profile({ SERVER_URL }) {
   ];
   useEffect(() => {
     const fetchUserById = async () => {
+      setPageloading(true);
       try {
         // Make a POST request to your backend endpoint
         const response = await axios.post(`${SERVER_URL}/api/users/getuser`, {
@@ -80,10 +82,13 @@ function Profile({ SERVER_URL }) {
       } catch (error) {
         console.error("Error fetching user:", error);
       }
+      finally {
+        setPageloading(false);
+      }
     };
-
     fetchUserById();
   }, [userId, id, profileEdit]);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -168,6 +173,10 @@ function Profile({ SERVER_URL }) {
   return (
     <div className="flex flex-col">
       <Navbar2 SERVER_URL={SERVER_URL} />
+     {pageloading?<div className=" h-screen w-screen text-3xl bg-black gap-1 text-white flex flex-col justify-center items-center">
+    <PropagateLoader/>  <span className=" translate-y-4 translate-x-2 tracking-tight uppercase font-semibold text-2xl  text-white cursor-pointer">Collampus</span>
+
+     </div>: <div className="">
       <div className="hero__page w-full">
         <div className="flex md:gap-3 pt-[120px] pb-4 md:justify-start">
           <div className="w-[35%] md:w-[20%] flex items-center overflow-hidden mx-2 my-auto">
@@ -330,7 +339,7 @@ function Profile({ SERVER_URL }) {
       {deleteproj && (
         <DeleteProject
           SERVER_URL={SERVER_URL}
-          remainingtime={10-calculateHoursDifference(profile.lastposttime)}
+          remainingtime={10 - calculateHoursDifference(profile.lastposttime)}
           onCancel={() => {
             setDeleteproj(!deleteproj);
           }}
@@ -341,9 +350,11 @@ function Profile({ SERVER_URL }) {
           <div
             className="text-white bg-[#1c1b1b] flex  w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer"
             onClick={() => {
-              profile.lastposttime?(calculateHoursDifference(profile.lastposttime) >=10
-                ?setAddProject(true) 
-                : setDeleteproj(true)):(setAddProject(true))
+              profile.lastposttime
+                ? calculateHoursDifference(profile.lastposttime) >= 10
+                  ? setAddProject(true)
+                  : setDeleteproj(true)
+                : setAddProject(true);
             }}
           >
             <span className="text-[150px] font-thin my-[-50px]">+</span>
@@ -459,6 +470,7 @@ function Profile({ SERVER_URL }) {
           SERVER_URL={SERVER_URL}
         />
       )}
+      </div>}
     </div>
   );
 }
