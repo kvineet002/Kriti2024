@@ -77,7 +77,7 @@ function Explore({SERVER_URL}) {
        <ProjectsSkeleton/>
         // <img src='https://firebasestorage.googleapis.com/v0/b/campus-collabrate.appspot.com/o/others%2FLoading.gif?alt=media&token=66254778-8e7a-4582-b752-250852618408' alt='Loading...' className='w-[50px] m-auto'></img>
       ) : (
-        <div className='flex flex-wrap gap-1 w-screen  '>
+        <div className='flex flex-wrap justify-center sm:justify-start gap-1 w-screen  '>
           {filteredProjects&&filteredProjects.length>0&&filteredProjects.slice().reverse().map(project => (
               <Link to={`/project/${project._id}`}>
                 <div key={project.title} className='relative w-[90vw]   hover:opacity-80  h-[290px] sm:w-[400px] flex flex-col m-2 rounded-2xl border-[1px] border-[#565656] mx-4 overflow-hidden ' >
