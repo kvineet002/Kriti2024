@@ -1,5 +1,6 @@
 const { Project } = require("../models/project");
 const { User } = require("../models/user");
+const { emailService } = require("../services/emailService");
 
 
 const createProject = async (req, res) => {
@@ -105,8 +106,9 @@ const deleteProject=async (req, res) => {
 const likeorunlikeProject = async (req, res) => {
     try {
       const { projectId, userId } = req.body;
-  
+      let sendMail=false;
       const project = await Project.findById(projectId);
+      const user=await User.findById(userId); 
   
       if (!project) {
         return res.status(404).json({ error: 'Project not found' });
@@ -121,11 +123,15 @@ const likeorunlikeProject = async (req, res) => {
       } else {
         // Add the user to the likes array
         project.likes.push({ id: userId });
+        if(project.creator[0].id!==userId){
+          sendMail=true;
+        }
       }
-  
+      
       await project.save();
-  
+      
       res.status(200).json(project);
+      if(sendMail)await emailService.sendLikeNotification(project.creator[0].email,user);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });

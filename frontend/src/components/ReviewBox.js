@@ -46,8 +46,7 @@ export default function ReviewBox({
   const submitReview = async () => {
     try {
       await axios.post(`${SERVER_URL}/reviews/create-review`, {
-        Name: localStorage.getItem("Name"),
-        profileUrl: localStorage.getItem("profileUrl"),
+        userId:localStorage.getItem("id"),
         message: newReview,
         projectId: projectId,
       });

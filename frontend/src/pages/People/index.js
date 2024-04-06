@@ -6,6 +6,7 @@ import LoginModal from "../../components/LoginModal";
 import Footer from "../../components/Footer";
 import Navbar2 from "../../components/navbar2";
 import PeopleSkeleton from "../../components/PeopleSkeleton";
+import Notifications from "../../components/notification";
 
 function People({SERVER_URL}) {
   const [people, setPeople] = useState([]);
@@ -87,6 +88,8 @@ function People({SERVER_URL}) {
     } catch (error) {
       console.error("Error updating following status:", error);
     }
+
+    return;
   };
   const filteredPeople = () => {
     let filteredList = [];
@@ -178,6 +181,9 @@ function People({SERVER_URL}) {
             )
 
         ))}
+      <div>
+<Notifications SERVER_URL={SERVER_URL} handleFollow={handleFollow} userId={localStorage.getItem('id')}/>
+      </div>
          {showLoginModal && (
             <LoginModal onClose={() => setShowLoginModal(false)} />
           )}
@@ -188,4 +194,4 @@ function People({SERVER_URL}) {
   );
 }
 
-export default People;
+export default People

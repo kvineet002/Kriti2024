@@ -1,5 +1,7 @@
 const { Project } = require("../models/project");
 const { User } = require("../models/user");
+const { emailService } = require("../services/emailService");
+const {websiteNotification} = require("./notificationcontroller");
 
 async function createUser(req, res) {
   const { Email,Name,token } = req.body;
@@ -66,8 +68,10 @@ const toggleFollowandfollowing = async (req, res) => {
         { $push: { followers: newFollower } },
         { new: true }
       );
-
       res.status(200).json({ message: 'Followed',isFollowing: true });
+      // await websiteNotification.sendFollowNotification(userId,targetUserId);
+      await emailService.sendFollowNotification(targetUser.Email,user)
+
     }
   } catch (error) {
     console.error(error);

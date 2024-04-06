@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const { Notification } = require("../models/notification");
 const userSchema = new mongoose.Schema({
   Name: { type: String, required: true },
   Email: { type: String, required: true, unique: true },
@@ -23,17 +23,20 @@ const userSchema = new mongoose.Schema({
       _id:{type:String},
       Name: { type: String },
       profileUrl: { type: String, },
-  designation: { type: String },
-      
+      designation: { type: String },
     }
   ],
   following: [
-    {_id:{type:String},
+    {
+      _id:{type:String},
       Name: { type: String },
       profileUrl: { type: String },
-  designation: { type: String },
-
+      designation: { type: String },
     }
+  ],
+  notifications: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Notification"}
   ],
   yourProjects: [
     {
