@@ -342,7 +342,8 @@ function Profile({ SERVER_URL }) {
           }}
         />
       )}
-      <div className="flex-col bg-black pt-8 justify-center items-center">
+
+      <div className="flex-col pt-8 bg-black justify-center items-center">
         {id === userId && (
           <div
             className="text-white bg-[#1c1b1b] flex  w-[240px]  flex-col justify-center items-center mx-auto  pb-8 cursor-pointer"
