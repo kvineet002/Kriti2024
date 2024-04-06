@@ -175,12 +175,12 @@ function Profile({ SERVER_URL }) {
       <Navbar2 SERVER_URL={SERVER_URL} />
      {pageloading?<PageLoader/>: <div className=" w-full h-full">
       <div className="hero__page w-full">
-        <div className="flex md:gap-3 pt-[120px] pb-4 md:justify-start">
+        <div className="flex md:gap-3 gap-5 pt-[140px] pb-6 md:justify-start">
           <div className="w-[35%] md:w-[20%] flex items-center overflow-hidden mx-2 my-auto">
             <img
               src={profile.profileUrl}
               alt="profileImg"
-              className="border-slate-300 object-cover border-2 rounded-full h-40 w-40 md:h-48 md:w-48 m-auto"
+              className="border-[#565656] object-cover border-2 rounded-full h-32 w-32 md:h-48 md:w-48 m-auto"
             />
           </div>
           <div className="flex flex-wrap w-[60%] justify-between">
@@ -342,10 +342,10 @@ function Profile({ SERVER_URL }) {
           }}
         />
       )}
-      <div className="flex-col bg-black justify-center items-center">
+      <div className="flex-col bg-black pt-8 justify-center items-center">
         {id === userId && (
           <div
-            className="text-white bg-[#1c1b1b] flex  w-[240px]  flex-col justify-center items-center mx-auto my-8 pb-8 cursor-pointer"
+            className="text-white bg-[#1c1b1b] flex  w-[240px]  flex-col justify-center items-center mx-auto  pb-8 cursor-pointer"
             onClick={() => {
               profile.lastposttime
                 ? calculateHoursDifference(profile.lastposttime) >= 10

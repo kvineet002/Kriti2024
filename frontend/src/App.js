@@ -8,11 +8,12 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Community from "./pages/community";
+import Notification from "./pages/notification";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false||localStorage.getItem('token'));
-  const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
-  // const SERVER_URL="http://localhost:3002"
+  // const SERVER_URL="https://dihingkriti2024-backend.vercel.app"
+  const SERVER_URL="http://localhost:3002"
   const Wrapper = ({children}) => {
     const location = useLocation();
     useLayoutEffect(() => {
@@ -32,6 +33,7 @@ function App() {
       <Route path="/project/:id" element={<Project SERVER_URL={SERVER_URL} />} />
       <Route path="/profile/:id" element={<Profile SERVER_URL={SERVER_URL}/>} />
       <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
+      {/* <Route path="/notifications/:id" element={<Notification SERVER_URL={SERVER_URL} />} /> */}
      
     </Routes>
     </Wrapper>
