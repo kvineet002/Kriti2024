@@ -16,13 +16,13 @@ const createReview = async (req, res) => {
       projectId,
     });
     const project = await Project.findById(projectId);
-    const projectCreatorEmail = project.creator[0].email;
+    const projectCreator = project.creator[0];
     const savedReview = await newReview.save();
 
     res.status(201).json(savedReview);
     if (userId != project.creator[0].id) {
 
-      await emailService.sendCommentNotification(projectCreatorEmail, user);
+      // await emailService.sendCommentNotification(projectCreator, user);
       
     }
   } catch (error) {

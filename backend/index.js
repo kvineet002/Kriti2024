@@ -5,7 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const postsRoutes = require("./routes/postsRoutes");
-const notificationRoutes = require("./routes/notificationRoutes");
+// const notificationRoutes = require("./routes/notificationRoutes");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -25,7 +25,7 @@ app.use("/api/users", userRoutes);
 app.use("/project", projectRoutes);
 app.use("/reviews", reviewRoutes);
 app.use("/post", postsRoutes);
-app.use("/notification", notificationRoutes);
+// app.use("/notification", notificationRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
