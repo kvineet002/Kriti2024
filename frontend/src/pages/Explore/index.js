@@ -46,7 +46,7 @@ function Explore({SERVER_URL}) {
 
       <Navbar2 SERVER_URL={SERVER_URL}/>
   
-      <div className=" mt-20 md:ml-[2%] justify-center md:justify-start flex gap-4 mb-4">
+      <div className=" select-none mt-20 md:ml-[2%] justify-center md:justify-start flex gap-4 mb-4">
           <button
             onClick={() => {setSelectedTab('All');filterProjects({ category: "" })}}
             className={` text-sm  border border-[#565656] hover:opacity-80 rounded-full px-3 py-1 ${selectedTab === 'All' ? 'font-bold text-black bg-white' : ' text-white'}`}

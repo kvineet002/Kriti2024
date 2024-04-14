@@ -95,3 +95,6 @@ body {
   .max-h-96 {
     max-height: 24rem; /* Adjust this value based on your content size */
   }
+  *{
+    -webkit-tap-highlight-color: transparent;
+}
