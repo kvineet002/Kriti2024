@@ -5,6 +5,10 @@ import {
   differenceInSeconds,
   differenceInMinutes,
   differenceInHours,
+  differenceInDays,
+  differenceInMonths,
+  differenceInYears
+
 } from "date-fns";
 export default function ReviewBox({
   SERVER_URL,
@@ -19,7 +23,7 @@ export default function ReviewBox({
   const userId = localStorage.getItem("id");
   const getTimeDifference = (startTime, endTime) => {
     const msDifference = differenceInMilliseconds(endTime, startTime);
-
+  
     if (msDifference < 1000) {
       return `${msDifference} milliseconds`;
     } else if (msDifference < 60000) {
@@ -28,11 +32,22 @@ export default function ReviewBox({
     } else if (msDifference < 3600000) {
       const minutes = differenceInMinutes(endTime, startTime);
       return `${minutes} minute${minutes !== 1 ? "s" : ""}`;
-    } else {
+    } else if (msDifference < 86400000) {
       const hours = differenceInHours(endTime, startTime);
       return `${hours} hour${hours !== 1 ? "s" : ""}`;
+    } else if (msDifference < 2592000000) { // Approximate number of milliseconds in a month
+      const days = differenceInDays(endTime, startTime);
+      return `${days} day${days !== 1 ? "s" : ""}`;
+    } else if (msDifference < 31536000000) { // Approximate number of milliseconds in a year
+      const months = differenceInMonths(endTime, startTime);
+      return `${months} month${months !== 1 ? "s" : ""}`;
+    } else {
+      const years = differenceInYears(endTime, startTime);
+      return `${years} year${years !== 1 ? "s" : ""}`;
     }
   };
+  
+  
   const fetchReviews = async () => {
     try {
       const response = await axios.get(

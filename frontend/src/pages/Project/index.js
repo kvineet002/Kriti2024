@@ -300,7 +300,7 @@ function Project({ SERVER_URL }) {
                     </div>
                   </div>
                 )}
-                <div className=" flex flex-col gap-1">
+           {   project&&project.courseLinks.length>0&&  <div className=" flex flex-col gap-1">
                   <label className=" text-white">Courses / material</label>
                   <div className=" border border-[#565656]  flex flex-col gap-3 p-2 py-4  rounded-xl">
                     {project &&
@@ -321,16 +321,16 @@ function Project({ SERVER_URL }) {
                         </a>
                       ))}
                   </div>
-                </div>
+                </div>}
               </div>
               <div className=" flex  flex-col md:w-[60%] w-full">
                 <div className=" flex flex-col gap-4">
-                  <div className=" flex flex-col gap-1">
+                 {project&&project.bigdescription.length>0&& <div className=" flex flex-col gap-1">
                     <label className=" text-white">About</label>
                     <div className=" border px-8 border-[#565656]  flex gap-3 p-2 rounded-xl text-white">
                       {project && project.bigdescription}{" "}
                     </div>
-                  </div>
+                  </div>}
                   <ReviewBox
                     SERVER_URL={SERVER_URL}
                     projectId={id}

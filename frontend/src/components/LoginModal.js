@@ -164,8 +164,11 @@ function LoginModal({ onClose, SERVER_URL }) {
         <div className="w-[75%] md:w-[50%] flex justify-between text-xs md:text-xs mb-20 mx-auto">
           <div className="text-white">Having problem signing up?</div>
           <div className=" text-red-600 cursor-pointer hover:underline">
+          <a href="mailto:collampus@outlook.com?subject=Reporting an Issue - Urgent Attention Required on COLLAMPUS website" target="_blank" rel="noopener noreferrer">
             Report Problem
+          </a>
           </div>
+
         </div>
         <div className="h-[1px]  bg-black w-[90%] mb-[20px] mx-auto" />
         <div className="text-white text-center font-semibold text-xs px-3 mb-5">
