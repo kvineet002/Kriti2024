@@ -29,7 +29,7 @@ function App() {
     { <Route path="/" element={loggedIn?<Explore SERVER_URL={SERVER_URL}/>:<Home SERVER_URL={SERVER_URL}/>} />}
       <Route path="/explore" element={<Explore SERVER_URL={SERVER_URL}/>} />
       <Route path="/people" element={<People SERVER_URL={SERVER_URL} />} />
-      <Route path="/community" element={<Community SERVER_URL={SERVER_URL} />} />
+      {/* <Route path="/community" element={<Community SERVER_URL={SERVER_URL} />} /> */}
       <Route path="/project/:id" element={<Project SERVER_URL={SERVER_URL} />} />
       <Route path="/profile/:id" element={<Profile SERVER_URL={SERVER_URL}/>} />
       <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />

@@ -21,12 +21,14 @@ export default function ReviewBox({
   const [newReview, setNewReview] = useState("");
   const [reviews, setReviews] = useState([]);
   const userId = localStorage.getItem("id");
+  const isAdmin = localStorage.getItem("email") === "vineet.mech22@iitg.ac.in";
   const getTimeDifference = (startTime, endTime) => {
     const msDifference = differenceInMilliseconds(endTime, startTime);
   
     if (msDifference < 1000) {
       return `${msDifference} milliseconds`;
-    } else if (msDifference < 60000) {
+    } else
+     if (msDifference < 60000) {
       const seconds = differenceInSeconds(endTime, startTime);
       return `${seconds} second${seconds !== 1 ? "s" : ""}`;
     } else if (msDifference < 3600000) {
@@ -121,7 +123,7 @@ export default function ReviewBox({
                       } • ${getTimeDifference(review.time, endTime)} ago`}</div>
                     </div>
                   </div>
-               {loggedIn&&creatorId===userId &&  <button onClick={()=>{handleDelete(review._id)} } className="border-2 border-white h-6 w-6 rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-red-500 mt-2 ">
+               {(loggedIn&&creatorId===userId||isAdmin) &&  <button onClick={()=>{handleDelete(review._id)} } className="border-2 border-white h-6 w-6 rounded-[50%] flex items-center justify-center cursor-pointer hover:bg-red-500 mt-2 ">
                     <img src="/bin.svg" alt="" className="w-4" />
                   </button>}
                 </div>

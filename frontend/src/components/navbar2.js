@@ -66,12 +66,12 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
               >
                 People
               </a>
-              <a
+              {/* <a
                 href='/community'
                 className={`${location.pathname==='/community'&&'border-b-[2px] border-[#565656]  text-white opacity-100 '} opacity-80 px-3 py-1 hover:border-b-[2px] hover:border-[#565656] transition duration-300 ease-in-out`}
               >
                   Community
-              </a>
+              </a> */}
             </div>
           </div>
           <div className="flex items-center">
@@ -163,12 +163,12 @@ const Navbar2 = ({SERVER_URL,openEdit}) => {
               >
                 People
               </a>
-              <a
+              {/* <a
                 href='/community'
                 className="hover:underline px-3 py-1"
               >
                Community
-              </a>
+              </a> */}
           </div>
         )}
       </div>

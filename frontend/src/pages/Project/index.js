@@ -15,6 +15,7 @@ function Project({ SERVER_URL }) {
   const [loggedIn, setLoggedIn] = useState(
     false || localStorage.getItem("token")
   );
+  const isAdmin=localStorage.getItem('email')==="vineet.mech22@iitg.ac.in";
   const { id } = useParams();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const userId = localStorage.getItem("id");
@@ -127,7 +128,7 @@ function Project({ SERVER_URL }) {
         // ></img>
       ) : (
         <div className=" md:mt-[8%] mt-[25%] rounded-lg border-[#565656] border p-5 md:mx-20 mx-2">
-          {project.creator[0].id === userId && (
+          {(project.creator[0].id === userId||isAdmin) && (
                     <div className="flex md:justify-end justify-center md:mr-10 items-center gap-4 mb-6 w-full">
                       <div className= "rounded-[33.5px] w-[80px] text-center uppercase text-xs h-7 flex justify-center items-center font-bold cursor-pointer text-black bg-[#e64d4d]  hover:opacity-70"
                       onClick={()=>{
