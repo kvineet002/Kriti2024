@@ -43,7 +43,7 @@ function DeleteProj({ onCancel,SERVER_URL }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm h-screen flex justify-center items-center z-50">
       <div
-        className="relative rounded-lg py-3 my-auto  z-50 about-us my_shadow w-[60%] md:w-[45%]"
+        className="relative rounded-lg py-3 my-auto  z-50 about-us my_shadow w-[90%] md:w-[45%]"
         ref={menuRef}
       >
         <div className="pb-2 w-full px-3 flex justify-between">
