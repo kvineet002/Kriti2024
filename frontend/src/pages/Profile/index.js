@@ -20,6 +20,7 @@ function Profile({ SERVER_URL }) {
   const userId = localStorage.getItem("id");
   const [profile, setprofile] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
+const isAdmin=localStorage.getItem('email')==='vineet.mech22@iitg.ac.in';
   const [AllProjects, setAllProjects] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [profileEdit, setProfileEdit] = useState(false);
@@ -312,7 +313,7 @@ function Profile({ SERVER_URL }) {
               )}
             </div>
 
-            {id === userId && (
+            {(id === userId||isAdmin)&& (
               <div className=" py-4">
                 <img
                   src="/edit.svg"
