@@ -12,9 +12,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 3002;
 
-// connect(
-//   "mongodb+srv://auth-admin:t2YuYPDKGPIztKib@cluster0.s875rof.mongodb.net/Kriti2024(Dihing)Test"
-// );
+
 connect(
   process.env.MONGODB_URI
 ).then(()=>{
