@@ -10,9 +10,6 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 3002;
 
-connect(
-  "mongodb+srv://auth-admin:t2YuYPDKGPIztKib@cluster0.s875rof.mongodb.net/Kriti2024(Dihing)"
-);
 
 app.use(cors({origin:['https://dihingatkriti2024.vercel.app','https://collampus.vercel.app','http://localhost:3000']}));
 app.use(bodyParser.json());
