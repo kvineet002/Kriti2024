@@ -7,9 +7,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 3002;
 
-connect(
-  "mongodb+srv://auth-admin:AdHDOvAtNy8He2l3@cluster0.s875rof.mongodb.net/Kriti2024(Dihing)"
-);
+
 
 const allowedOrigins = [, 'http://localhost:3000'];
 app.use(cors({origin:'https://kriti2024.vercel.app'}));
