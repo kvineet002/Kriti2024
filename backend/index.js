@@ -1,6 +1,7 @@
 const express = require("express");
 const { connect } = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
@@ -15,8 +16,10 @@ const port = 3002;
 //   "mongodb+srv://auth-admin:t2YuYPDKGPIztKib@cluster0.s875rof.mongodb.net/Kriti2024(Dihing)Test"
 // );
 connect(
-  "mongodb+srv://auth-admin:t2YuYPDKGPIztKib@cluster0.s875rof.mongodb.net/Kriti2024(Dihing)"
-);
+  process.env.MONGODB_URI
+).then(()=>{
+  console.log("Connected to the database");
+});
 
 app.use(cors({origin:['https://dihingatkriti2024.vercel.app','https://collampus.vercel.app','http://localhost:3000']}));
 app.use(bodyParser.json());
