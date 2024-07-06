@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Navbar2 from '../../components/navbar2';
 import Footer from '../../components/Footer';
 import ProjectsSkeleton from '../../components/ProjectsSkeleton';
+import GeminiChat from '../../components/geminiChat';
 
 function Explore({SERVER_URL}) {
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -114,6 +115,7 @@ function Explore({SERVER_URL}) {
         </div>
       )
       }
+      <GeminiChat SERVER_URL={SERVER_URL}/>
       <Footer/>
     </div>
   )
