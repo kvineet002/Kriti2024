@@ -20,7 +20,7 @@ connect(
   console.log("Connected to the database");
 });
 
-app.use(cors({origin:['https://dihingatkriti2024.vercel.app','https://collampus.vercel.app','http://localhost:3000']}));
+app.use(cors({origin:['https://dihingatkriti2024.vercel.app','https://collampus.vercel.app','http://localhost:3000','https://www.devbranch.in']}));
 app.use(bodyParser.json());
 
 app.use("/api/users", userRoutes);
