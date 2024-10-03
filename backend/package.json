@@ -13,6 +13,7 @@
     "@azure/msal-node": "^2.6.2",
     "@azure/msal-react": "^2.0.10",
     "@google/generative-ai": "^0.14.1",
+    "backend": "file:",
     "cloudinary": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

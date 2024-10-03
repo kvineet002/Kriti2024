@@ -7,6 +7,7 @@ const projectRoutes = require("./routes/projectRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const postsRoutes = require("./routes/postsRoutes");
 const geminiRoutes = require("./routes/geminiRoutes")
+const devRoutes = require("./routes/devRoutes");
 // const notificationRoutes = require("./routes/notificationRoutes");
 const bodyParser = require("body-parser");
 
@@ -28,6 +29,7 @@ app.use("/project", projectRoutes);
 app.use("/reviews", reviewRoutes);
 app.use("/post", postsRoutes);
 app.use("/ai", geminiRoutes);
+app.use("/devbranch",devRoutes);
 // app.use("/notification", notificationRoutes);
 
 app.listen(port, () => {

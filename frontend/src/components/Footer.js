@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Analytics } from "@vercel/analytics/react"
 function Footer() {
   return (
     <div className="flex flex-col bg-[#0000004c] my_shadow m-5 rounded-lg">
@@ -16,6 +16,7 @@ function Footer() {
             <img src="/copyright.svg" alt="c" />
             <div className="text-white uppercase text-sm font-thin">
                 2024 Collampus IIT Guwahati
+        <Analytics/>
             </div>
         </div>
     </div>
