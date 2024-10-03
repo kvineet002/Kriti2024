@@ -31,12 +31,12 @@ const sendEmail = async (req, res) => {
     let mailOptions = {
       from: EMAIL, // Sender email
       to: [
-          'devbranch24@gmail.com'
-      ], // Recipient email(s)
+          'hello@devbranch.in'
+      ], 
       cc:[
-        'vineetalp002@gmail.com',
-        'vineet.mech22@iitg.ac.in',
+      'vineet.mech22@iitg.ac.in',
       'venkatesh.m@iitg.ac.in',
+      'devbranch24@gmail.com',
       ],
       subject: 'DevBranch Query from website',
       html: `
