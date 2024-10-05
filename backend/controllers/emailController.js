@@ -21,7 +21,7 @@ let transporter2 = nodemailer.createTransport({
 // Define the function to send the email
 const sendEmail = async (req, res) => {
   try {
-    const { email, name, message } = req.body;
+    const { email, name, message,budget } = req.body;
 
     // Log the environment variables to debug (make sure to remove this in production)
     console.log('Email:', EMAIL);
@@ -114,6 +114,7 @@ const sendEmail = async (req, res) => {
             </p>
             <p><b>Message:</b> ${message}</p>
             <p><b>Email:</b> ${email}</p>
+            <p><b>Budget:</b> ${budget}</p>
           </div>
           <div class="profile-link">
             <a href="mailto:${email}">Reply</a>
