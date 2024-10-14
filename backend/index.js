@@ -8,6 +8,7 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const postsRoutes = require("./routes/postsRoutes");
 const geminiRoutes = require("./routes/geminiRoutes")
 const devRoutes = require("./routes/devRoutes");
+const sparkRoutes = require("./routes/sparkRoutes");
 // const notificationRoutes = require("./routes/notificationRoutes");
 const bodyParser = require("body-parser");
 
@@ -21,7 +22,7 @@ connect(
   console.log("Connected to the database");
 });
 
-app.use(cors({origin:['https://dihingatkriti2024.vercel.app','https://collampus.vercel.app','http://localhost:3000','https://www.devbranch.in']}));
+app.use(cors({origin:['https://dihingatkriti2024.vercel.app','https://collampus.vercel.app','http://localhost:3000','https://www.devbranch.in','https://sparkwall.vercel.app']}));
 app.use(bodyParser.json());
 
 app.use("/api/users", userRoutes);
@@ -30,6 +31,7 @@ app.use("/reviews", reviewRoutes);
 app.use("/post", postsRoutes);
 app.use("/ai", geminiRoutes);
 app.use("/devbranch",devRoutes);
+app.use("/spark",sparkRoutes);
 // app.use("/notification", notificationRoutes);
 
 app.listen(port, () => {
